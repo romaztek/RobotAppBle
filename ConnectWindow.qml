@@ -38,9 +38,8 @@ Rectangle {
     Component {
         id: deviceDelegate
         Rectangle {
-            width: parent.width - 10
+            width: parent.width
             height: 50
-            x: 5
             border.color: "black"
             border.width: 2
             radius: 5
@@ -85,6 +84,7 @@ Rectangle {
                 connectButton.color = "lightsteelblue"
             }
             onClicked: {
+                createLoadingWindow()
                 btController.connectTo(deviceListView.currentIndex)
             }
         }

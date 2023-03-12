@@ -17,7 +17,7 @@
 <context>
     <name>ConnectWindow</name>
     <message>
-        <location filename="ConnectWindow.qml" line="75"/>
+        <location filename="ConnectWindow.qml" line="74"/>
         <source>Connect</source>
         <translation type="unfinished"></translation>
     </message>

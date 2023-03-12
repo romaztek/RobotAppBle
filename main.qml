@@ -12,6 +12,7 @@ Window {
 
     property var connectWindow
     property var controlWindow
+    property var loadingWindow
 
     function createConnectWindow() {
         connectWindow = myConnectWindow.createObject(appwindow, {"id": "connectWindow"});
@@ -29,6 +30,14 @@ Window {
         controlWindow.destroy()
     }
 
+    function createLoadingWindow() {
+        loadingWindow = myLoadingWindow.createObject(appwindow, {"id": "loadingWindow"});
+    }
+
+    function destroyLoadingWindow() {
+        loadingWindow.destroy()
+    }
+
     Component.onCompleted: {
         createConnectWindow()
     }
@@ -36,6 +45,7 @@ Window {
     Connections {
         target: btController
         onFullyConnected: {
+            destroyLoadingWindow()
             destroyConnectWindow()
             createControlWindow()
         }
@@ -52,6 +62,39 @@ Window {
         id: myControlWindow
         ControlWindow {
             anchors.fill: parent
+        }
+    }
+
+    Component {
+        id: myLoadingWindow
+        Item {
+            anchors.fill: parent
+
+            Rectangle {
+                anchors.fill: parent
+                color: "grey"
+                opacity: 0.5
+            }
+
+            MouseArea {
+                anchors.fill: parent
+            }
+
+            Rectangle {
+                anchors.centerIn: parent
+                width: 110
+                height: 110
+                radius: 55
+                border.width: 2
+                border.color: "black"
+            }
+
+            BusyIndicator {
+                anchors.centerIn: parent
+                running: true
+                width: 100
+                height: 100
+            }
         }
     }
 
