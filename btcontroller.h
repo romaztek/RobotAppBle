@@ -2,11 +2,13 @@
 #define BTCONTROLLER_H
 
 #include <QObject>
+#include <QStringList>
 #include <QDebug>
 #include <QBluetoothDeviceInfo>
 #include <QBluetoothDeviceDiscoveryAgent>
 #include <QLowEnergyController>
 #include <QLowEnergyService>
+
 
 class Device
 {
@@ -34,7 +36,7 @@ private:
     QLowEnergyController *m_control;
     QLowEnergyService *m_service;
     bool foundSpp = false;
-    bool m_foundHeartRateService = false;
+    QStringList oui_prefixes{"C8:FD:19"};
 
     QLowEnergyService::WriteMode m_writeMode;
     QLowEnergyCharacteristic m_readCharacteristic;

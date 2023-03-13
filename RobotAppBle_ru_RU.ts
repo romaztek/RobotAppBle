@@ -4,12 +4,12 @@
 <context>
     <name>BtController</name>
     <message>
-        <location filename="btcontroller.cpp" line="195"/>
+        <location filename="btcontroller.cpp" line="160"/>
         <source>Discovering services...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="btcontroller.cpp" line="199"/>
+        <location filename="btcontroller.cpp" line="164"/>
         <source>Service discovered.</source>
         <translation type="unfinished"></translation>
     </message>

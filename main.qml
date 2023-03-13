@@ -82,9 +82,9 @@ Window {
 
             Rectangle {
                 anchors.centerIn: parent
-                width: 110
-                height: 110
-                radius: 55
+                width: 90
+                height: width
+                radius: width/2
                 border.width: 2
                 border.color: "black"
             }
@@ -92,8 +92,8 @@ Window {
             BusyIndicator {
                 anchors.centerIn: parent
                 running: true
-                width: 100
-                height: 100
+                width: 80
+                height: width
             }
         }
     }

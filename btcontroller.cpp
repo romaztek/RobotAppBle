@@ -20,8 +20,8 @@ void BtController::init()
 QVariant BtController::getDevices()
 {
     QList<QString> deviceList;
-    foreach(Device d, devices) {
-        deviceList.append(d.address + "#" + d.name);
+    foreach(QBluetoothDeviceInfo d, deviceInfos) {
+        deviceList.append(d.address().toString() + "#" + d.name());
     }
     return (QVariant)deviceList;
 }
@@ -45,50 +45,23 @@ void BtController::searchCharacteristic()
     {
         QList<QLowEnergyCharacteristic> list = m_service->characteristics();
 
-        qDebug()<<"list.count()=" << list.count();
-        //characteristics for detailed characteristics
-        //SendMaxMode=list.count(); //Set the upper limit of mode selection
-        for(int i=0;i<list.count();i++)
+        foreach(QLowEnergyCharacteristic c, list)
         {
-            QLowEnergyCharacteristic c = list.at(i);
-            /* If the QLowEnergyCharacteristic object is valid, return true, otherwise return false*/
             if(c.isValid())
             {
-                // Return the attribute of the feature.
-                // These attributes define the access rights of the feature.
                 if(c.properties() & QLowEnergyCharacteristic::WriteNoResponse || c.properties() & QLowEnergyCharacteristic::Write)
-                    // if(c.properties() & QLowEnergyCharacteristic::Write)
                 {
                     qDebug().noquote() << "have write permission!\n";
-                    //m_writeCharacteristic[i] = c; //Save write permission feature
                     m_writeCharacteristic.append(c);
                     if(c.properties() & QLowEnergyCharacteristic::WriteNoResponse)
-                        // If using this mode write feature, the remote peripheral should not send a write confirmation.
-                        // The success of the operation cannot be determined, and the payload must not exceed 20 bytes.
-                        // A feature must set the QLowEnergyCharacteristic :: WriteNoResponse property to support this write mode.
-                        // Its advantage is a faster write operation, because it may occur between other device interactions.
                         m_writeMode = QLowEnergyService::WriteWithoutResponse;
                     else
                         m_writeMode = QLowEnergyService::WriteWithResponse;
-                    //If you use this mode to write features, the peripheral should send a write confirmation.
-                    //If the operation is successful, a confirmation is sent through the characteristicWritten() signal.
-                    // Otherwise, CharacteristicWriteError is issued.
-                    //A feature must set the QLowEnergyCharacteristic :: Write property to support this write mode.
                 }
                 if(c.properties() & QLowEnergyCharacteristic::Read)
                 {
-                    m_readCharacteristic = c; //Save read permission feature
+                    m_readCharacteristic = c;
                 }
-                //Descriptor defines how the feature is configured by a specific client.
-                //m_notificationDesc = c.descriptor(QBluetoothUuid::ClientCharacteristicConfiguration);
-                //The value is true
-//                if(m_notificationDesc.isValid())
-//                {
-//                    //Write descriptor
-//                    m_service->writeDescriptor(m_notificationDesc, QByteArray::fromHex("0100"));
-//                    //   m_service->writeDescriptor(m_notificationDesc, QByteArray::fromHex("FEE1"));
-//                    qDebug().noquote() << "write descriptor!\n";
-//                }
             }
         }
     }
@@ -98,26 +71,20 @@ void BtController::searchCharacteristic()
 void BtController::addDevice(const QBluetoothDeviceInfo &info)
 {
     if (info.coreConfigurations() & QBluetoothDeviceInfo::LowEnergyCoreConfiguration)
-    {//Determine whether it is a BLE device
-        if(devices.isEmpty()) {
-            Device newDevice(info.address().toString(), info.name());
-            devices.append(newDevice);
-            deviceInfos.append(info);
-            emit newDeviceFound((QVariant)(QString(newDevice.address + "#" + newDevice.name)));
-        } else {
-            bool exist = false;
-            foreach(Device d, devices) {
-                if(d.address == info.address().toString() && d.name == info.name()) {
-                    exist = true;
-                }
-            }
-            if(!exist) {
-                Device newDevice(info.address().toString(), info.name());
-                devices.append(newDevice);
-                deviceInfos.append(info);
-                emit newDeviceFound((QVariant)(QString(newDevice.address + "#" + newDevice.name)));
-            }
+    {
+        const QString addr = info.address().toString();
+        const QString name = info.name();
+
+        foreach(QString s, oui_prefixes) {
+            if(!addr.startsWith(s))
+                return;
         }
+
+        if(!deviceInfos.isEmpty() && deviceInfos.contains(info))
+            return;
+
+        deviceInfos.append(info);
+        emit newDeviceFound((QVariant)(QString(addr + "#" + name)));
     }
 }
 
@@ -161,8 +128,6 @@ void BtController::scanFinished()
 void BtController::serviceDiscovered(const QBluetoothUuid &gatt)
 {
     if (gatt == QBluetoothUuid(QString("0000ffe0-0000-1000-8000-00805f9b34fb"))) {
-        //setInfo("Heart Rate service discovered. Waiting for service scan to be done...");
-        //m_foundHeartRateService = true;
         qDebug().noquote() << "found serial port:" << gatt.toString();
         foundSpp = true;
     }
