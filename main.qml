@@ -8,18 +8,20 @@ Window {
     visible: true
     width: 640
     height: 480
-    title: qsTr("Hello World")
+    title: qsTr("Puppet Controller")
 
     property var connectWindow
     property var controlWindow
     property var loadingWindow
+
 
     function createConnectWindow() {
         connectWindow = myConnectWindow.createObject(appwindow, {"id": "connectWindow"});
     }
 
     function destroyConnectWindow() {
-        connectWindow.destroy()
+        if(connectWindow)
+            connectWindow.destroy()
     }
 
     function createControlWindow() {
@@ -35,10 +37,12 @@ Window {
     }
 
     function destroyLoadingWindow() {
-        loadingWindow.destroy()
+        if(loadingWindow)
+            loadingWindow.destroy()
     }
 
     Component.onCompleted: {
+        createControlWindow()
         createConnectWindow()
     }
 
@@ -47,7 +51,6 @@ Window {
         onFullyConnected: {
             destroyLoadingWindow()
             destroyConnectWindow()
-            createControlWindow()
         }
     }
 
@@ -82,7 +85,7 @@ Window {
 
             Rectangle {
                 anchors.centerIn: parent
-                width: 90
+                width: 60
                 height: width
                 radius: width/2
                 border.width: 2
@@ -90,10 +93,21 @@ Window {
             }
 
             BusyIndicator {
+                id: myLoadingIndicator
                 anchors.centerIn: parent
                 running: true
-                width: 80
+                width: 50
                 height: width
+                contentItem: Image {
+                    visible: myLoadingIndicator.running
+                    source: "spinner.png"
+                    RotationAnimator on rotation {
+                        running: myLoadingIndicator.running
+                        loops: Animation.Infinite
+                        duration: 2000
+                        from: 360 ; to: 0
+                    }
+                }
             }
         }
     }

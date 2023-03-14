@@ -14,4 +14,5 @@ RESOURCES += qml.qrc
 
 DISTFILES += main.qml \
              ConnectWindow.qml \
-             ControlWindow.qml
+             ControlWindow.qml \
+             CommandButton.qml

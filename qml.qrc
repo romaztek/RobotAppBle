@@ -3,5 +3,7 @@
         <file>main.qml</file>
         <file>ConnectWindow.qml</file>
         <file>ControlWindow.qml</file>
+        <file>CommandButton.qml</file>
+        <file>spinner.png</file>
     </qresource>
 </RCC>

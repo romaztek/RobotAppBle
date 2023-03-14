@@ -1,12 +1,15 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+#include <QLoggingCategory>
 
 #include "btcontroller.h"
 
 int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+
+    QLoggingCategory::setFilterRules(QStringLiteral("qt.bluetooth* = false"));
 
     QGuiApplication app(argc, argv);
 

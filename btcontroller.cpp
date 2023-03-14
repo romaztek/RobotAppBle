@@ -4,6 +4,24 @@ BtController::BtController(QObject *parent) : QObject(parent)
 {
 }
 
+BtController::~BtController()
+{
+    sendMessageAll("diss");
+
+    m_deviceDiscoveryAgent->stop();
+
+    /*foreach(QLowEnergyService *m_service, m_services) {
+        m_service->deleteLater();
+    }*/
+
+    foreach(ServiceAndController sc, servicesAndController) {
+        if (sc.m_control->state() != QLowEnergyController::UnconnectedState) {
+            sc.m_control->disconnectFromDevice();
+            sc.m_control->deleteLater();
+        }
+    }
+}
+
 void BtController::init()
 {
     m_deviceDiscoveryAgent = new QBluetoothDeviceDiscoveryAgent(this);
@@ -12,7 +30,6 @@ void BtController::init()
     connect(m_deviceDiscoveryAgent,SIGNAL(deviceDiscovered(QBluetoothDeviceInfo)), this,
             SLOT(addDevice(QBluetoothDeviceInfo)));
     connect(m_deviceDiscoveryAgent, SIGNAL(finished()), this, SLOT(scanFinished()));
-    connect(this, SIGNAL(returnAddress(QBluetoothDeviceInfo)), this, SLOT(createCtl(QBluetoothDeviceInfo)));
 
     m_deviceDiscoveryAgent->start(QBluetoothDeviceDiscoveryAgent::LowEnergyMethod);
 }
@@ -26,24 +43,100 @@ QVariant BtController::getDevices()
     return (QVariant)deviceList;
 }
 
-void BtController::connectTo(int index)
-{
-    qDebug().noquote() << "trying to connect to:" << deviceInfos[index].name();
-    createCtl(deviceInfos[index]);
+void BtController::connectToDevices(QList<int> indexes, QList<int> device_indexes)
+{    
+    m_deviceDiscoveryAgent->stop();
+
+    connected_count_desired = indexes.count();
+
+    connect(this, &BtController::signalToCreateCtl, this, &BtController::createCtl, Qt::QueuedConnection);
+
+    connect(this, &BtController::deviceConnected, [this](int index, QString name) {
+        qDebug().noquote() << "connected device at index:" << index << "name: " << name;
+        this->connected_count++;
+        if(connected_count == connected_count_desired) {
+            emit fullyConnected();
+        }
+    });
+
+    for(int i = 0; i < indexes.count(); i++) {
+        qDebug().noquote() << "trying to connect to:" << deviceInfos[indexes[i]].name();
+        ServiceAndController newsc;
+        newsc.name = deviceInfos[indexes[i]].name();
+        servicesAndController.append(newsc);
+
+        emit signalToCreateCtl(deviceInfos[indexes[i]], device_indexes[i]);
+    }
 }
 
-void BtController::sendMessage(QString text)
+void BtController::createCtl(QBluetoothDeviceInfo info, int index)
 {
-    QByteArray array = text.toLocal8Bit();
+    QLowEnergyController *m_control = QLowEnergyController::createCentral(info, this);
 
-    m_service->writeCharacteristic(m_writeCharacteristic[0], array, m_writeMode);
+    servicesAndController[index].m_control = m_control;
+
+    connect(m_control, &QLowEnergyController::serviceDiscovered,
+            [this, index](const QBluetoothUuid &gatt){
+        serviceDiscovered(gatt, index);
+    });
+
+    connect(m_control, &QLowEnergyController::discoveryFinished,
+            [this, index]() {
+        serviceScanDone(index);
+    });
+
+    connect(m_control, static_cast<void (QLowEnergyController::*)(QLowEnergyController::Error)>(&QLowEnergyController::error),
+            this, [this](QLowEnergyController::Error error) {
+        Q_UNUSED(this);
+        Q_UNUSED(error);
+        qDebug().noquote() << "Cannot connect to remote device."; //Wrong connection
+    });
+
+    connect(m_control, &QLowEnergyController::connected, this, [this, m_control]() {
+        Q_UNUSED(this);
+        qDebug().noquote() << "Controller connected. Search services..."; //Slot function triggered by successful connection
+        m_control->discoverServices();
+    });
+
+    connect(m_control, &QLowEnergyController::disconnected, this, [this]() {
+        Q_UNUSED(this);
+        qDebug().noquote() << "LowEnergy controller disconnected"; //Wrong connection
+    });
+
+    qDebug().noquote() << "start to connect";
+
+    m_control->connectToDevice();
 }
 
-void BtController::searchCharacteristic()
+void BtController::sendMessageAll(QString text)
 {
-    if(m_service)
+    QByteArray array = (text + "#").toLocal8Bit();
+
+    for(int index = 0; index < servicesAndController.count(); index++) {
+        if(servicesAndController[index].m_service != nullptr) {
+            servicesAndController[index].m_service->writeCharacteristic(servicesAndController[index].m_writeCharacteristic[0],
+                    array,
+                    servicesAndController[index].m_writeMode);
+        }
+    }
+}
+
+void BtController::sendMessage(QString text, int index)
+{
+    QByteArray array = (text + "#").toLocal8Bit();
+
+    if(servicesAndController[index].m_service != nullptr) {
+        servicesAndController[index].m_service->writeCharacteristic(servicesAndController[index].m_writeCharacteristic[0],
+                array,
+                servicesAndController[index].m_writeMode);
+    }
+}
+
+void BtController::searchCharacteristic(int index)
+{
+    if(servicesAndController[index].m_service)
     {
-        QList<QLowEnergyCharacteristic> list = m_service->characteristics();
+        QList<QLowEnergyCharacteristic> list = servicesAndController[index].m_service->characteristics();
 
         foreach(QLowEnergyCharacteristic c, list)
         {
@@ -51,19 +144,20 @@ void BtController::searchCharacteristic()
             {
                 if(c.properties() & QLowEnergyCharacteristic::WriteNoResponse || c.properties() & QLowEnergyCharacteristic::Write)
                 {
-                    qDebug().noquote() << "have write permission!\n";
-                    m_writeCharacteristic.append(c);
+                    qDebug().noquote() << "have write permission!";
+                    servicesAndController[index].m_writeCharacteristic.append(c);
                     if(c.properties() & QLowEnergyCharacteristic::WriteNoResponse)
-                        m_writeMode = QLowEnergyService::WriteWithoutResponse;
+                        servicesAndController[index].m_writeMode = QLowEnergyService::WriteWithoutResponse;
                     else
-                        m_writeMode = QLowEnergyService::WriteWithResponse;
+                        servicesAndController[index].m_writeMode = QLowEnergyService::WriteWithResponse;
                 }
                 if(c.properties() & QLowEnergyCharacteristic::Read)
                 {
-                    m_readCharacteristic = c;
+                    servicesAndController[index].m_readCharacteristic = c;
                 }
             }
         }
+
     }
 
 }
@@ -75,11 +169,6 @@ void BtController::addDevice(const QBluetoothDeviceInfo &info)
         const QString addr = info.address().toString();
         const QString name = info.name();
 
-        foreach(QString s, oui_prefixes) {
-            if(!addr.startsWith(s))
-                return;
-        }
-
         if(!deviceInfos.isEmpty() && deviceInfos.contains(info))
             return;
 
@@ -88,72 +177,46 @@ void BtController::addDevice(const QBluetoothDeviceInfo &info)
     }
 }
 
-void BtController::createCtl(QBluetoothDeviceInfo info)
-{
-    m_control = QLowEnergyController::createCentral(info, this);
-    connect(m_control, &QLowEnergyController::serviceDiscovered,
-            this, &BtController::serviceDiscovered); //The operation triggered after the target device is found
-
-    connect(m_control, &QLowEnergyController::discoveryFinished,
-            this, &BtController::serviceScanDone); //Configure the service
-
-    connect(m_control, static_cast<void (QLowEnergyController::*)(QLowEnergyController::Error)>(&QLowEnergyController::error),
-            this, [this](QLowEnergyController::Error error) {
-        Q_UNUSED(error);
-        qDebug().noquote() << "Cannot connect to remote device."; //Wrong connection
-    });
-
-    connect(m_control, &QLowEnergyController::connected, this, [this]() {
-        qDebug().noquote() << "Controller connected. Search services...\n"; //Slot function triggered by successful connection
-        m_control->discoverServices();
-        //isconnected=true;
-    });
-
-    connect(m_control, &QLowEnergyController::disconnected, this, [this]() {
-        qDebug().noquote() << "LowEnergy controller disconnected"; //Wrong connection
-    });
-
-    //connect
-    qDebug().noquote() << "start to connect\n";
-
-    m_control->connectToDevice(); //Start connecting to the target device
-
-}
-
 void BtController::scanFinished()
 {
 
 }
 
-void BtController::serviceDiscovered(const QBluetoothUuid &gatt)
+void BtController::serviceDiscovered(const QBluetoothUuid &gatt, int index)
 {
     if (gatt == QBluetoothUuid(QString("0000ffe0-0000-1000-8000-00805f9b34fb"))) {
         qDebug().noquote() << "found serial port:" << gatt.toString();
-        foundSpp = true;
+        servicesAndController[index].foundSpp = true;
+
+        servicesAndController[index].m_service = servicesAndController[index].m_control->createServiceObject(QBluetoothUuid(QString("0000ffe0-0000-1000-8000-00805f9b34fb")), this);
+
+        if (servicesAndController[index].m_service != nullptr) {
+            //disconnect(servicesAndController[index].m_control);
+
+            connect(servicesAndController[index].m_service, &QLowEnergyService::stateChanged, [this, index](QLowEnergyService::ServiceState s){
+                serviceStateChanged(s, index);
+            });
+            //connect(m_service, &QLowEnergyService::characteristicChanged, this, &DeviceHandler::updateHeartRateValue);
+            //connect(m_service, &QLowEnergyService::descriptorWritten, this, &DeviceHandler::confirmedDescriptorWrite);
+            servicesAndController[index].m_service->discoverDetails();
+        } else {
+            qDebug().noquote() << "SPP Service not found.";
+        }
+
     }
 
-
-    qDebug().noquote() << "gatt:" << gatt.toString();
+    //qDebug().noquote() << "gatt:" << gatt.toString();
 }
 
-void BtController::serviceScanDone()
+void BtController::serviceScanDone(int index)
 {
-    if(foundSpp) {
-        m_service = m_control->createServiceObject(QBluetoothUuid(QString("0000ffe0-0000-1000-8000-00805f9b34fb")), this);
-    }
+    if(servicesAndController[index].foundSpp) {
 
-    if (m_service) {
-        connect(m_service, &QLowEnergyService::stateChanged, this, &BtController::serviceStateChanged);
-        //connect(m_service, &QLowEnergyService::characteristicChanged, this, &DeviceHandler::updateHeartRateValue);
-        //connect(m_service, &QLowEnergyService::descriptorWritten, this, &DeviceHandler::confirmedDescriptorWrite);
-        m_service->discoverDetails();
-    } else {
-        qDebug().noquote() << "SPP Service not found.";
     }
 
 }
 
-void BtController::serviceStateChanged(QLowEnergyService::ServiceState s)
+void BtController::serviceStateChanged(QLowEnergyService::ServiceState s, int index)
 {
     switch (s) {
     case QLowEnergyService::DiscoveringServices:
@@ -163,7 +226,7 @@ void BtController::serviceStateChanged(QLowEnergyService::ServiceState s)
     {
         qDebug().noquote() << (tr("Service discovered."));
 
-        const QLowEnergyCharacteristic hrChar = m_service->characteristic(QBluetoothUuid(QString("0000ffe1-0000-1000-8000-00805f9b34fb")));
+        const QLowEnergyCharacteristic hrChar = servicesAndController[index].m_service->characteristic(QBluetoothUuid(QString("0000ffe1-0000-1000-8000-00805f9b34fb")));
         if (!hrChar.isValid()) {
             qDebug().noquote() << ("HR Data not found.");
             break;
@@ -175,20 +238,14 @@ void BtController::serviceStateChanged(QLowEnergyService::ServiceState s)
         {
             qDebug() << "YEP";
 
-            searchCharacteristic();
+            searchCharacteristic(index);
 
-            m_service->writeDescriptor(m_notificationDesc, QByteArray::fromHex("0100"));
+            servicesAndController[index].m_service->writeDescriptor(m_notificationDesc, QByteArray::fromHex("0100"));
 
-            sendMessage("Connected");
+            sendMessage(connected_word, index);
 
-            emit fullyConnected();
+            emit deviceConnected(index, servicesAndController[index].name);
         }
-
-
-        //        m_notificationDesc = hrChar.descriptor(QBluetoothUuid::DescriptorType::ClientCharacteristicConfiguration);
-        //        if (m_notificationDesc.isValid())
-        //            m_service->writeDescriptor(m_notificationDesc, QByteArray::fromHex("0100"));
-
         break;
     }
     default:
