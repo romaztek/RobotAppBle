@@ -41,6 +41,7 @@ Window {
             loadingWindow.destroy()
     }
 
+
     Component.onCompleted: {
         createControlWindow()
         createConnectWindow()

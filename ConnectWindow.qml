@@ -29,6 +29,18 @@ Rectangle {
         verticalAlignment: Qt.AlignVCenter
     }
 
+    Button {
+        id: skipButton
+        text: qsTr("Skip")
+        anchors.top: parent.top
+        anchors.left: selectPuppetsLabel.right
+        anchors.right: filterNameCheckBox.left
+        anchors.margins: 5
+        onClicked: {
+            destroyConnectWindow()
+        }
+    }
+
 
     CheckBox {
         id: filterNameCheckBox
@@ -137,7 +149,6 @@ Rectangle {
                 }
 
                 btController.connectToDevices(indexes, device_indexes)
-
             }
         }
     }

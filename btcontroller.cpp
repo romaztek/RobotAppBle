@@ -110,6 +110,7 @@ void BtController::createCtl(QBluetoothDeviceInfo info, int index)
 
 void BtController::sendMessageAll(QString text)
 {
+    qDebug().noquote() << "send to all:" << text;
     QByteArray array = (text + "#").toLocal8Bit();
 
     for(int index = 0; index < servicesAndController.count(); index++) {
@@ -123,6 +124,7 @@ void BtController::sendMessageAll(QString text)
 
 void BtController::sendMessage(QString text, int index)
 {
+    qDebug().noquote() << "send to " + QString::number(index) << ":" << text;
     QByteArray array = (text + "#").toLocal8Bit();
 
     if(servicesAndController[index].m_service != nullptr) {
