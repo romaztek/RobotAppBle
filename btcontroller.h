@@ -3,7 +3,6 @@
 
 #include <QObject>
 #include <QStringList>
-#include <QStringLiteral>
 #include <QDebug>
 #include <QBluetoothDeviceInfo>
 #include <QBluetoothDeviceDiscoveryAgent>
@@ -53,7 +52,7 @@ private:
 
     QList<ServiceAndController> servicesAndController;
 
-    const QString connected_word = QStringLiteral("conn");
+    const QString connected_word = QString("conn");
 
     void searchCharacteristic(int index);
 

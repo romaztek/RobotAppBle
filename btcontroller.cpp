@@ -193,20 +193,15 @@ void BtController::serviceDiscovered(const QBluetoothUuid &gatt, int index)
         servicesAndController[index].m_service = servicesAndController[index].m_control->createServiceObject(QBluetoothUuid(QString("0000ffe0-0000-1000-8000-00805f9b34fb")), this);
 
         if (servicesAndController[index].m_service != nullptr) {
-            //disconnect(servicesAndController[index].m_control);
-
             connect(servicesAndController[index].m_service, &QLowEnergyService::stateChanged, [this, index](QLowEnergyService::ServiceState s){
                 serviceStateChanged(s, index);
             });
-            //connect(m_service, &QLowEnergyService::characteristicChanged, this, &DeviceHandler::updateHeartRateValue);
-            //connect(m_service, &QLowEnergyService::descriptorWritten, this, &DeviceHandler::confirmedDescriptorWrite);
             servicesAndController[index].m_service->discoverDetails();
         } else {
             qDebug().noquote() << "SPP Service not found.";
         }
 
     }
-
     //qDebug().noquote() << "gatt:" << gatt.toString();
 }
 
