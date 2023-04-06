@@ -8,7 +8,8 @@ BtController::~BtController()
 {
     sendMessageAll("diss");
 
-    m_deviceDiscoveryAgent->stop();
+    if(m_deviceDiscoveryAgent)
+        m_deviceDiscoveryAgent->stop();
 
     /*foreach(QLowEnergyService *m_service, m_services) {
         m_service->deleteLater();
@@ -168,7 +169,11 @@ void BtController::addDevice(const QBluetoothDeviceInfo &info)
 {
     if (info.coreConfigurations() & QBluetoothDeviceInfo::LowEnergyCoreConfiguration)
     {
+#ifdef Q_OS_IOS
+        const QString addr = info.deviceUuid().toString();
+#else
         const QString addr = info.address().toString();
+#endif
         const QString name = info.name();
 
         if(!deviceInfos.isEmpty() && deviceInfos.contains(info))
