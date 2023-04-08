@@ -3,12 +3,22 @@ import QtQuick.Window 2.2
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
 
+import ru.romankartashev.logic 1.0
+import ru.romankartashev.bt_commands 1.0
+
 Window {
     id: appwindow
     visible: true
     width: 640
     height: 480
     title: qsTr("Puppet Controller")
+
+    property bool hasTouchScreen: logic.hasTouchScreen()
+
+    property color highlightColor: "#76FF03"
+    property color defaultColor: "#f6f6f6"
+    property color backgroundColor: "white"
+    property color labelBackgroundColor: "#4fc3f7"
 
     property var connectWindow
     property var controlWindow
@@ -45,6 +55,14 @@ Window {
     Component.onCompleted: {
         createControlWindow()
         createConnectWindow()
+    }
+
+    Logic {
+        id: logic
+    }
+
+    Bt_Commands {
+        id: btCommands
     }
 
     Connections {
@@ -101,7 +119,7 @@ Window {
                 height: width
                 contentItem: Image {
                     visible: myLoadingIndicator.running
-                    source: "spinner.png"
+                    source: "qrc:/spinner.png"
                     RotationAnimator on rotation {
                         running: myLoadingIndicator.running
                         loops: Animation.Infinite

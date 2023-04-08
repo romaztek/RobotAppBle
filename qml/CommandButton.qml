@@ -6,11 +6,12 @@ import QtQuick.Layouts 1.3
 
 Rectangle {
     id: cmdButton
-    Layout.fillWidth: true
-    Layout.preferredHeight: 50
+    width: scrollView1.width - 10
+    height: 50
+    x: 5
     border.width: 2
     radius: 5
-    color: selected ? Qt.lighter("yellow", 1.2) : "white"
+    color: selected ? highlightColor : defaultColor
     property alias text: cmdButtonText.text
     property bool selected: false
 
@@ -35,7 +36,7 @@ Rectangle {
 
         contentItem: Image {
             visible: cmdButtonLoadingIndicator.running
-            source: "spinner.png"
+            source: "qrc:/spinner.png"
             RotationAnimator on rotation {
                 running: cmdButtonLoadingIndicator.running
                 loops: Animation.Infinite

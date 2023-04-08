@@ -191,11 +191,11 @@ void BtController::scanFinished()
 
 void BtController::serviceDiscovered(const QBluetoothUuid &gatt, int index)
 {
-    if (gatt == QBluetoothUuid(QString("0000ffe0-0000-1000-8000-00805f9b34fb"))) {
+    if (gatt == QBluetoothUuid(bt_gatt)) {
         qDebug().noquote() << "found serial port:" << gatt.toString();
         servicesAndController[index].foundSpp = true;
 
-        servicesAndController[index].m_service = servicesAndController[index].m_control->createServiceObject(QBluetoothUuid(QString("0000ffe0-0000-1000-8000-00805f9b34fb")), this);
+        servicesAndController[index].m_service = servicesAndController[index].m_control->createServiceObject(QBluetoothUuid(bt_gatt), this);
 
         if (servicesAndController[index].m_service != nullptr) {
             connect(servicesAndController[index].m_service, &QLowEnergyService::stateChanged, [this, index](QLowEnergyService::ServiceState s){
@@ -244,7 +244,7 @@ void BtController::serviceStateChanged(QLowEnergyService::ServiceState s, int in
 
             servicesAndController[index].m_service->writeDescriptor(m_notificationDesc, QByteArray::fromHex("0100"));
 
-            sendMessage(connected_word, index);
+            sendMessage(bt_commands.connectedCommand(), index);
 
             emit deviceConnected(index, servicesAndController[index].name);
         }

@@ -9,6 +9,8 @@
 #include <QLowEnergyController>
 #include <QLowEnergyService>
 
+#include "bt_commands.h"
+
 
 class Device
 {
@@ -46,13 +48,13 @@ public:
     Q_INVOKABLE void sendMessageAll(QString text);
 
 private:
+    Bt_Commands bt_commands;
+    QString bt_gatt = QStringLiteral(u"0000ffe0-0000-1000-8000-00805f9b34fb");
     QBluetoothDeviceDiscoveryAgent *m_deviceDiscoveryAgent;
     QList<Device> devices;
     QList<QBluetoothDeviceInfo> deviceInfos;
 
     QList<ServiceAndController> servicesAndController;
-
-    const QString connected_word = QString("conn");
 
     void searchCharacteristic(int index);
 

@@ -1,21 +1,27 @@
 
 TARGET = PuppetController
 
-QT += bluetooth quick
+QT += bluetooth quick gamepad
 
 SOURCES += main.cpp \
+           bt_commands.cpp \
            btcontroller.cpp \
-           logic.cpp
+           logic.cpp \
+           enums.cpp
 
-HEADERS += btcontroller.h \
-           logic.h
+HEADERS += \
+           bt_commands.h \
+           btcontroller.h \
+           logic.h \
+           enums.h
 
 RESOURCES += qml.qrc
 
 DISTFILES += main.qml \
              ConnectWindow.qml \
              ControlWindow.qml \
-             CommandButton.qml
+             CommandButton.qml \
+             manualDriveWindow.qml
 
 ios {
 

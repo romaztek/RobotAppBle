@@ -1,9 +1,13 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+#include <QDebug>
 #include <QLoggingCategory>
 
 #include "btcontroller.h"
+#include "logic.h"
+#include "enums.h"
+#include "bt_commands.h"
 
 int main(int argc, char *argv[])
 {
@@ -15,9 +19,14 @@ int main(int argc, char *argv[])
 
     BtController btController;
 
+    Logic::init();
+    Enums::init();
+    Bt_Commands::init();
+
+
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperty("btController", &btController);
-    const QUrl url(QStringLiteral("qrc:/main.qml"));
+    const QUrl url(QStringLiteral("qrc:/qml/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {
         if (!obj && url == objUrl)

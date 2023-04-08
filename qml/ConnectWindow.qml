@@ -77,7 +77,7 @@ Rectangle {
             Rectangle {
                 width: parent.width
                 height: filterNameCheckBox.checked && !name.startsWith("Puppet") ? 0 : 50
-                color: checked ? "lime" : "white"
+                color: checked ? "lime" : defaultColor
                 border.color: "black"
                 border.width: 2
                 radius: 5
@@ -132,7 +132,7 @@ Rectangle {
                 connectButton.color = "lime"
             }
             onReleased: {
-                connectButton.color = "white"
+                connectButton.color = defaultColor
             }
             onClicked: {
                 createLoadingWindow()
