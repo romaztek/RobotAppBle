@@ -24,7 +24,7 @@ Rectangle {
     }
 
     Component.onCompleted: {
-        //create_robot_head()
+        create_robot_head('Dummy')
     }
 
     Connections {
@@ -63,11 +63,22 @@ Rectangle {
             height: 40
             y: 5
             property alias text: headText.text
+            Image {
+                id: headImage
+                fillMode: Image.PreserveAspectFit
+                source: "qrc:/images/robot_head.png"
+                sourceSize.width: 30
+                sourceSize.height: 30
+                anchors.verticalCenter: parent.verticalCenter
+                x: 5
+            }
             Text {
                 id: headText
                 x: 5
                 text: ""
                 anchors.verticalCenter: parent.verticalCenter
+                anchors.left: headImage.right
+                anchors.leftMargin: 5
             }
         }
     }

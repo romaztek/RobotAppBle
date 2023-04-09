@@ -17,11 +17,35 @@ HEADERS += \
 
 RESOURCES += qml.qrc
 
-DISTFILES += main.qml \
-             ConnectWindow.qml \
-             ControlWindow.qml \
-             CommandButton.qml \
-             manualDriveWindow.qml
+TRANSLATIONS += \
+    PuppetController_ru_RU.ts
+
+DISTFILES += qml/main.qml \
+             qml/ConnectWindow.qml \
+             qml/ControlWindow.qml \
+             qml/CommandButton.qml \
+             qml/FaceImageSelectorWindow \
+             qml/MoveButton.qml \
+             qml/MyIconButton.qml \
+             qml/MyIconLabel.qml \
+             qml/MyIconRadioButtonLabel.qml \
+             qml/ServoControlWindow.qml \
+             qml/ManualDriveWindow.qml
+
+lupdate_only{
+SOURCES = qml/main.qml \
+          qml/ConnectWindow.qml \
+          qml/ControlWindow.qml \
+          qml/CommandButton.qml \
+          qml/FaceImageSelectorWindow \
+          qml/MoveButton.qml \
+          qml/MyIconButton.qml \
+          qml/MyIconLabel.qml \
+          qml/MyIconRadioButtonLabel.qml \
+          qml/ServoControlWindow.qml \
+          qml/ManualDriveWindow.qml
+}
+
 
 ios {
 

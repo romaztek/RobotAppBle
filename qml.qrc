@@ -39,4 +39,7 @@
         <file alias="save_icon.png">images/save_icon.png</file>
         <file alias="back_icon.png">images/back_icon.png</file>
     </qresource>
+    <qresource prefix="/i18n">
+        <file>PuppetController_ru_RU.qm</file>
+    </qresource>
 </RCC>

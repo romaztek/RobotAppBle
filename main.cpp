@@ -1,7 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
-#include <QDebug>
+#include <QTranslator>
 #include <QLoggingCategory>
 
 #include "btcontroller.h"
@@ -16,6 +16,22 @@ int main(int argc, char *argv[])
     QLoggingCategory::setFilterRules(QStringLiteral("qt.bluetooth* = false"));
 
     QGuiApplication app(argc, argv);
+
+    // ru.romankartashev.PuppetController
+    QCoreApplication::setOrganizationName("romankartashev");
+    QCoreApplication::setOrganizationDomain("romankartashev.ru");
+    QCoreApplication::setApplicationName("PuppetController");
+
+    QTranslator translator;
+    const QStringList uiLanguages = QLocale::system().uiLanguages();
+    for (const QString &locale : uiLanguages) {
+        const QString baseName = "PuppetController_" + QLocale(locale).name();
+        if (translator.load(":/i18n/" + baseName)) {
+            app.installTranslator(&translator);
+            break;
+        }
+    }
+
 
     BtController btController;
 

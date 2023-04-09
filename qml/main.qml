@@ -11,7 +11,7 @@ Window {
     visible: true
     width: 640
     height: 480
-    title: qsTr("Puppet Controller")
+    title: qsTr("Puppet Controller - Debug")
 
     property bool hasTouchScreen: logic.hasTouchScreen()
 
