@@ -1,0 +1,336 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Translation Files">
+      <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
+      <Extensions>ts;xlf</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Translation Files">
+      <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
+      <Extensions>ts;xlf</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Deployment Files">
+      <UniqueIdentifier>{D9D6E243-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>deploy</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Deployment Files">
+      <UniqueIdentifier>{D9D6E243-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>deploy</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Distribution Files">
+      <UniqueIdentifier>{B83CAF91-C7BF-462F-B76C-EA11631F866C}</UniqueIdentifier>
+      <Extensions>*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Distribution Files">
+      <UniqueIdentifier>{B83CAF91-C7BF-462F-B76C-EA11631F866C}</UniqueIdentifier>
+      <Extensions>*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="bt_commands.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="btcontroller.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="enums.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="logic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="bt_commands.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="btcontroller.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="enums.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="logic.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    
+    
+    
+    
+    
+    
+    
+    
+    <CustomBuild Include="debug\moc_predefs.h.cbt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="release\moc_predefs.h.cbt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    
+    
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PuppetController_ru_RU.ts">
+      <Filter>Translation Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="qml\CommandButton.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\ConnectWindow.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\ControlWindow.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\FaceImageSelectorWindow.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\ManualDriveWindow.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\MoveButton.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\MyIconButton.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\MyIconLabel.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\MyIconRadioButtonLabel.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PuppetController_ru_RU.qm">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\ServoControlWindow.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\arrow_left_icon.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\arrow_right_icon.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\back_icon.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\brake_icon.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\break_icon.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\bt_icon.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\car_left_icon.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\car_right_icon.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\close_icon.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\connect_icon.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\debug_icon.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\error_icon.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\gamepad_icon.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\gaz_icon.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qml\main.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\no_icon.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <QtRcc Include="qml.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
+    <None Include="images\quit_icon.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\refresh_icon.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\robot_head.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\robot_icon.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\save_icon.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\settings_icon.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="spinner.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\stop_icon.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\touch_icon.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\yes_icon.png">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="F:\QT\QT5.14.2\5.14.2\WINRT_X86_MSVC2017\bin\Qt5Bluetooth.dll">
+      <Filter>Deployment Files</Filter>
+    </None>
+    <None Include="F:\QT\QT5.14.2\5.14.2\WINRT_X86_MSVC2017\bin\Qt5Bluetoothd.dll">
+      <Filter>Deployment Files</Filter>
+    </None>
+    <None Include="F:\QT\QT5.14.2\5.14.2\WINRT_X86_MSVC2017\bin\Qt5Core.dll">
+      <Filter>Deployment Files</Filter>
+    </None>
+    <None Include="F:\QT\QT5.14.2\5.14.2\WINRT_X86_MSVC2017\bin\Qt5Cored.dll">
+      <Filter>Deployment Files</Filter>
+    </None>
+    <None Include="F:\QT\QT5.14.2\5.14.2\WINRT_X86_MSVC2017\bin\Qt5Gamepad.dll">
+      <Filter>Deployment Files</Filter>
+    </None>
+    <None Include="F:\QT\QT5.14.2\5.14.2\WINRT_X86_MSVC2017\bin\Qt5Gamepadd.dll">
+      <Filter>Deployment Files</Filter>
+    </None>
+    <None Include="F:\QT\QT5.14.2\5.14.2\WINRT_X86_MSVC2017\bin\Qt5Gui.dll">
+      <Filter>Deployment Files</Filter>
+    </None>
+    <None Include="F:\QT\QT5.14.2\5.14.2\WINRT_X86_MSVC2017\bin\Qt5Guid.dll">
+      <Filter>Deployment Files</Filter>
+    </None>
+    <None Include="F:\QT\QT5.14.2\5.14.2\WINRT_X86_MSVC2017\bin\Qt5Network.dll">
+      <Filter>Deployment Files</Filter>
+    </None>
+    <None Include="F:\QT\QT5.14.2\5.14.2\WINRT_X86_MSVC2017\bin\Qt5Networkd.dll">
+      <Filter>Deployment Files</Filter>
+    </None>
+    <None Include="F:\QT\QT5.14.2\5.14.2\WINRT_X86_MSVC2017\bin\Qt5Qml.dll">
+      <Filter>Deployment Files</Filter>
+    </None>
+    <None Include="F:\QT\QT5.14.2\5.14.2\WINRT_X86_MSVC2017\bin\Qt5QmlModels.dll">
+      <Filter>Deployment Files</Filter>
+    </None>
+    <None Include="F:\QT\QT5.14.2\5.14.2\WINRT_X86_MSVC2017\bin\Qt5QmlModelsd.dll">
+      <Filter>Deployment Files</Filter>
+    </None>
+    <None Include="F:\QT\QT5.14.2\5.14.2\WINRT_X86_MSVC2017\bin\Qt5Qmld.dll">
+      <Filter>Deployment Files</Filter>
+    </None>
+    <None Include="F:\QT\QT5.14.2\5.14.2\WINRT_X86_MSVC2017\bin\Qt5Quick.dll">
+      <Filter>Deployment Files</Filter>
+    </None>
+    <None Include="F:\QT\QT5.14.2\5.14.2\WINRT_X86_MSVC2017\bin\Qt5Quickd.dll">
+      <Filter>Deployment Files</Filter>
+    </None>
+    <None Include="F:\QT\QT5.14.2\5.14.2\WINRT_X86_MSVC2017\bin\libEGL.dll">
+      <Filter>Deployment Files</Filter>
+    </None>
+    <None Include="F:\QT\QT5.14.2\5.14.2\WINRT_X86_MSVC2017\bin\libEGLd.dll">
+      <Filter>Deployment Files</Filter>
+    </None>
+    <None Include="F:\QT\QT5.14.2\5.14.2\WINRT_X86_MSVC2017\bin\libGLESv2.dll">
+      <Filter>Deployment Files</Filter>
+    </None>
+    <None Include="F:\QT\QT5.14.2\5.14.2\WINRT_X86_MSVC2017\bin\libGLESv2d.dll">
+      <Filter>Deployment Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="qml\CommandButton.qml">
+      <Filter>Distribution Files</Filter>
+    </None>
+    <None Include="qml\ConnectWindow.qml">
+      <Filter>Distribution Files</Filter>
+    </None>
+    <None Include="qml\ControlWindow.qml">
+      <Filter>Distribution Files</Filter>
+    </None>
+    <None Include="qml\FaceImageSelectorWindow">
+      <Filter>Distribution Files</Filter>
+    </None>
+    <None Include="qml\ManualDriveWindow.qml">
+      <Filter>Distribution Files</Filter>
+    </None>
+    <None Include="qml\MoveButton.qml">
+      <Filter>Distribution Files</Filter>
+    </None>
+    <None Include="qml\MyIconButton.qml">
+      <Filter>Distribution Files</Filter>
+    </None>
+    <None Include="qml\MyIconLabel.qml">
+      <Filter>Distribution Files</Filter>
+    </None>
+    <None Include="qml\MyIconRadioButtonLabel.qml">
+      <Filter>Distribution Files</Filter>
+    </None>
+    <None Include="qml\ServoControlWindow.qml">
+      <Filter>Distribution Files</Filter>
+    </None>
+    <None Include="qml\main.qml">
+      <Filter>Distribution Files</Filter>
+    </None>
+  </ItemGroup>
+</Project>

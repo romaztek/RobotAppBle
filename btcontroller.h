@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QStringList>
 #include <QDebug>
+#include <QBluetoothLocalDevice>
 #include <QBluetoothDeviceInfo>
 #include <QBluetoothDeviceDiscoveryAgent>
 #include <QLowEnergyController>

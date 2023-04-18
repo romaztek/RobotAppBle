@@ -16,7 +16,7 @@ Item {
     Component.onCompleted: {
         if(logic.hasTouchScreen()) {
             currentControlType = ControlType.TOUCH
-            currentTouchTop.radioButton.checked = true
+            //currentTouchTop.radioButton.checked = true
         }
     }
 

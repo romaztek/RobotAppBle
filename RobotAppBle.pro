@@ -46,6 +46,10 @@ SOURCES = qml/main.qml \
           qml/ManualDriveWindow.qml
 }
 
+android{
+QT+= androidextras
+}
+
 
 ios {
 

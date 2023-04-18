@@ -1,5 +1,6 @@
 #include "btcontroller.h"
 
+
 BtController::BtController(QObject *parent) : QObject(parent)
 {
 }
@@ -25,6 +26,11 @@ BtController::~BtController()
 
 void BtController::init()
 {
+#ifdef Q_OS_WINRT
+    if(QBluetoothLocalDevice::allDevices().empty())
+        return;
+#endif
+
     m_deviceDiscoveryAgent = new QBluetoothDeviceDiscoveryAgent(this);
     m_deviceDiscoveryAgent->setLowEnergyDiscoveryTimeout(20000);
 
