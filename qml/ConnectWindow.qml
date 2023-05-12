@@ -27,16 +27,18 @@ Rectangle {
         anchors.margins: 5
         height: filterNameCheckBox.height
         verticalAlignment: Qt.AlignVCenter
+        font.bold: true
     }
 
     Button {
         id: skipButton
         text: qsTr("Skip")
-        anchors.top: parent.top
-        anchors.left: selectPuppetsLabel.right
-        anchors.right: filterNameCheckBox.left
+        anchors.top: selectPuppetsLabel.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
         anchors.margins: 5
         onClicked: {
+            console.log("aaaa")
             destroyConnectWindow()
         }
     }
@@ -60,7 +62,7 @@ Rectangle {
         model: deviceModel
         delegate: deviceDelegate
         spacing: 0
-        anchors.top: selectPuppetsLabel.bottom
+        anchors.top: skipButton.bottom
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: connectButton.top
@@ -116,23 +118,28 @@ Rectangle {
         anchors.right: parent.right
         anchors.bottom: parent.bottom
         anchors.margins: 5
-        border.color: "black"
         border.width: 2
-        radius: 5
-        color: Qt.lighter("blue", 1.5)
+        border.color: connectButtonMouseArea.pressed ? "white" : "black"
+        color: connectButtonMouseArea.pressed ? "black" : "white"
+
+        ColorAnimation {
+            from: "white"
+            to: "black"
+            duration: 200
+        }
         Text {
             anchors.centerIn: parent
             text: qsTr("Connect")
+            color: connectButtonMouseArea.pressed ? "white" : "black"
+            font.bold: true
         }
         MouseArea {
             id: connectButtonMouseArea
             anchors.fill: parent
             hoverEnabled: true
             onPressed: {
-                connectButton.color = "lime"
             }
             onReleased: {
-                connectButton.color = defaultColor
             }
             onClicked: {
                 createLoadingWindow()

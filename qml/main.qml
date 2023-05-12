@@ -15,7 +15,7 @@ Window {
 
     property bool hasTouchScreen: logic.hasTouchScreen()
 
-    property color highlightColor: "#76FF03"
+    property color highlightColor: "black"
     property color defaultColor: "#f6f6f6"
     property color backgroundColor: "white"
     property color labelBackgroundColor: "#4fc3f7"

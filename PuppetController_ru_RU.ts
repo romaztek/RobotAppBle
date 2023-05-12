@@ -6,7 +6,7 @@
     <message>
         <location filename="qml/ConnectWindow.qml" line="24"/>
         <source>Select puppets (one or more):</source>
-        <translation>Выберите кукол</translation>
+        <translation type="unfinished">Выберите кукол:</translation>
     </message>
     <message>
         <location filename="qml/ConnectWindow.qml" line="34"/>

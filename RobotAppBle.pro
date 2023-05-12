@@ -21,6 +21,7 @@ TRANSLATIONS += \
     PuppetController_ru_RU.ts
 
 DISTFILES += qml/main.qml \
+             qml/AudioSelectorWindow.qml \
              qml/ConnectWindow.qml \
              qml/ControlWindow.qml \
              qml/CommandButton.qml \
@@ -30,7 +31,8 @@ DISTFILES += qml/main.qml \
              qml/MyIconLabel.qml \
              qml/MyIconRadioButtonLabel.qml \
              qml/ServoControlWindow.qml \
-             qml/ManualDriveWindow.qml
+             qml/ManualDriveWindow.qml \
+             qml/AudioSelectorWindow.qml
 
 lupdate_only{
 SOURCES = qml/main.qml \

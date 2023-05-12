@@ -43,7 +43,7 @@ Rectangle {
         height: 50
         color: defaultColor
         border.width: 2
-        radius: 5
+        radius: 0
         Item {
             id: headsLayout
             anchors.fill: parent
@@ -58,8 +58,8 @@ Rectangle {
             color: "lime"
             border.color: "black"
             border.width: 2
-            radius: 5
-            width: 100
+            radius: 0
+            width: headText.width + headImage.width + 15
             height: 40
             y: 5
             property alias text: headText.text
@@ -93,7 +93,7 @@ Rectangle {
         height: 50
         color: defaultColor
         border.width: 2
-        radius: 5
+        radius: 0
 
         ServoControlWindow {
             id: servoControlWindow
@@ -116,73 +116,74 @@ Rectangle {
             enabled: faceImageCommandsButton.selected
         }
 
-        RowLayout {
+        AudioSelectorWindow {
             anchors.fill: parent
             visible: manualAudioCommandsButton.selected
             enabled: manualAudioCommandsButton.selected
-            Rectangle {
-                id: audioButton1
-                Layout.fillWidth: true
-                Layout.preferredHeight: 50
-                border.width: 2
-                radius: 5
-                color: selected ? "lime" : defaultColor
-                property bool selected: false
-                Label {
-                    text: qsTr("1")
-                    elide: Text.ElideMiddle
-                    wrapMode: Text.WordWrap
-                    x: 5
-                    verticalAlignment: Qt.AlignVCenter
-                    height: parent.height
-                }
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        audioButton2.selected = false
-                        audioButton1.selected = true
-                        btController.sendMessageAll(btCommands.audio1Command())
-                    }
-                }
-            }
-            Rectangle {
-                id: audioButton2
-                Layout.fillWidth: true
-                Layout.preferredHeight: 50
-                border.width: 2
-                radius: 5
-                color: selected ? "lime" : defaultColor
-                property bool selected: false
-                Label {
-                    text: qsTr("2")
-                    elide: Text.ElideMiddle
-                    wrapMode: Text.WordWrap
-                    x: 5
-                    verticalAlignment: Qt.AlignVCenter
-                    height: parent.height
-                }
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        audioButton1.selected = false
-                        audioButton2.selected = true
-                        btController.sendMessageAll(btCommands.audio2Command())
-                    }
-                }
-            }
         }
+//            x: 10
+//            width: parent.width - 10
+//            Rectangle {
+//                id: audioButton1
+//                Layout.fillWidth: true
+//                Layout.preferredHeight: 50
+//                border.width: 2
+//                radius: 0
+//                color: selected ? highlightColor : defaultColor
+//                property bool selected: false
+//                Label {
+//                    text: qsTr("1")
+//                    elide: Text.ElideMiddle
+//                    wrapMode: Text.WordWrap
+//                    x: 5
+//                    verticalAlignment: Qt.AlignVCenter
+//                    height: parent.height
+//                    color: parent.selected ? defaultColor : highlightColor
+//                }
+//                MouseArea {
+//                    anchors.fill: parent
+//                    onClicked: {
+//                        audioButton2.selected = false
+//                        audioButton1.selected = true
+//                        btController.sendMessageAll(btCommands.audio1Command())
+//                    }
+//                }
+//            }
+//            Rectangle {
+//                id: audioButton2
+//                Layout.fillWidth: true
+//                Layout.preferredHeight: 50
+//                border.width: 2
+//                radius: 0
+//                color: selected ? highlightColor : defaultColor
+//                property bool selected: false
+//                Label {
+//                    text: qsTr("2")
+//                    elide: Text.ElideMiddle
+//                    wrapMode: Text.WordWrap
+//                    x: 5
+//                    verticalAlignment: Qt.AlignVCenter
+//                    height: parent.height
+//                }
+//                MouseArea {
+//                    anchors.fill: parent
+//                    onClicked: {
+//                        audioButton1.selected = false
+//                        audioButton2.selected = true
+//                        btController.sendMessageAll(btCommands.audio2Command())
+//                    }
+//                }
+//            }
+//        }
     }
 
-    Rectangle {
+    Item {
         id: bottomMenu
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: parent.bottom
-        anchors.margins: 5
+        anchors.margins: 0
         height: 100
-        color: defaultColor
-        border.width: 2
-        radius: 5
 
         GridLayout {
             anchors.fill: parent
@@ -195,8 +196,8 @@ Rectangle {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 border.width: 2
-                radius: 5
-                color: selected ? "lime" : defaultColor
+                radius: 0
+                color: selected ? highlightColor : defaultColor
                 property bool selected: true
                 Label {
                     text: qsTr("Servo movement")
@@ -205,6 +206,7 @@ Rectangle {
                     x: 5
                     verticalAlignment: Qt.AlignVCenter
                     height: parent.height
+                    color: parent.selected ? defaultColor : highlightColor
                 }
                 MouseArea {
                     anchors.fill: parent
@@ -224,8 +226,8 @@ Rectangle {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 border.width: 2
-                radius: 5
-                color: selected ? "lime" : defaultColor
+                radius: 0
+                color: selected ? highlightColor : defaultColor
                 property bool selected: false
                 Label {
                     text: qsTr("Advanced")
@@ -234,6 +236,7 @@ Rectangle {
                     x: 5
                     verticalAlignment: Qt.AlignVCenter
                     height: parent.height
+                    color: parent.selected ? defaultColor : highlightColor
                 }
                 MouseArea {
                     anchors.fill: parent
@@ -253,8 +256,8 @@ Rectangle {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 border.width: 2
-                radius: 5
-                color: selected ? "lime" : defaultColor
+                radius: 0
+                color: selected ? highlightColor : defaultColor
                 property bool selected: false
                 Label {
                     text: qsTr("Manual drive")
@@ -263,6 +266,7 @@ Rectangle {
                     x: 5
                     verticalAlignment: Qt.AlignVCenter
                     height: parent.height
+                    color: parent.selected ? defaultColor : highlightColor
                 }
                 MouseArea {
                     anchors.fill: parent
@@ -282,8 +286,8 @@ Rectangle {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 border.width: 2
-                radius: 5
-                color: selected ? "lime" : defaultColor
+                radius: 0
+                color: selected ? highlightColor : defaultColor
                 property bool selected: false
                 Label {
                     text: qsTr("Face image")
@@ -292,6 +296,7 @@ Rectangle {
                     x: 5
                     verticalAlignment: Qt.AlignVCenter
                     height: parent.height
+                    color: parent.selected ? defaultColor : highlightColor
                 }
                 MouseArea {
                     anchors.fill: parent
@@ -311,8 +316,8 @@ Rectangle {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 border.width: 2
-                radius: 5
-                color: selected ? "lime" : defaultColor
+                radius: 0
+                color: selected ? highlightColor : defaultColor
                 property bool selected: false
                 Label {
                     text: qsTr("Manual audio")
@@ -321,6 +326,7 @@ Rectangle {
                     x: 5
                     verticalAlignment: Qt.AlignVCenter
                     height: parent.height
+                    color: parent.selected ? defaultColor : highlightColor
                 }
                 MouseArea {
                     anchors.fill: parent
@@ -340,8 +346,8 @@ Rectangle {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 border.width: 2
-                radius: 5
-                color: selected ? "lime" : defaultColor
+                radius: 0
+                color: selected ? highlightColor : defaultColor
                 property bool selected: false
                 Label {
                     text: qsTr("Camera view")
@@ -350,6 +356,7 @@ Rectangle {
                     x: 5
                     verticalAlignment: Qt.AlignVCenter
                     height: parent.height
+                    color: parent.selected ? defaultColor : highlightColor
                 }
                 MouseArea {
                     anchors.fill: parent

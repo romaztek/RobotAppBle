@@ -1,5 +1,6 @@
 import QtQuick 2.7
 import QtQuick.Layouts 1.3
+import QtGraphicalEffects 1.0
 
 import ru.romankartashev.enums 1.0
 
@@ -9,7 +10,7 @@ Rectangle {
     border.width: 2
     border.color: "black"
 
-    radius: 5
+    radius: 0
 
     property alias text: btnText.text
     property alias image: btnImage.source
@@ -25,7 +26,7 @@ Rectangle {
 
     onIsPressedChanged: {
         if(isPressed) {
-            btn.color = highlightColor
+            btn.color = "lime"
         } else {
             btn.color = defaultColor
         }
@@ -60,6 +61,9 @@ Rectangle {
             antialiasing: true
             property real prefHeight: btn.width > btn.height ? btn.height/sizeScale : btn.width/sizeScale
         }
+
+
+
         Text {
             id: btnText
             Layout.fillWidth: true

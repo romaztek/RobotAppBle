@@ -12,6 +12,7 @@
         <file>qml/MyIconRadioButtonLabel.qml</file>
         <file>qml/ServoControlWindow.qml</file>
         <file>qml/FaceImageSelectorWindow.qml</file>
+        <file>qml/AudioSelectorWindow.qml</file>
     </qresource>
     <qresource prefix="/images">
         <file alias="robot_head.png">images/robot_head.png</file>
