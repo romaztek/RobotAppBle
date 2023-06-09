@@ -15,10 +15,13 @@ debug
 *.dylib
 
 android-PuppetController-deployment-settings.json
-android/
 app_process
 armeabi-v7a/
 linker
+..gitignore.un~
+.gitignore~
+.qtc_clangd/
+android-build/
 
 # Qt-es
 object_script.*.Release
