@@ -53,8 +53,8 @@ Window {
 
 
     Component.onCompleted: {
-        createControlWindow()
-        createConnectWindow()
+//        createControlWindow()
+//        createConnectWindow()
     }
 
     Logic {

@@ -131,7 +131,13 @@ void BtController::sendMessageAll(QString text)
 
 void BtController::sendMessage(QString text, int index)
 {
-    qDebug().noquote() << "send to " + QString::number(index) << ":" << text;
+    if(index < 0 || index > devices.length()-1) {
+        qDebug().noquote() << "Index out of range";
+        return;
+    }
+
+
+    qDebug().noquote() << "send to " + QString::number(index) << ": (" << devices.at(index).name << ") :" << text;
     QByteArray array = (text + "#").toLocal8Bit();
 
     if(servicesAndController[index].m_service != nullptr) {

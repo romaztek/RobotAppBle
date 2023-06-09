@@ -19,6 +19,58 @@ ScrollView {
         height: parent.height - 10
         y: 5
         spacing: 5
+
+        CommandButton {
+            id: headUpButton
+            text: qsTr("Head Up")
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    btController.sendMessage(btCommands.headUpCommand())
+                }
+            }
+        }
+        CommandButton {
+            id: headDownButton
+            text: qsTr("Head Down")
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    btController.sendMessage(btCommands.headDownCommand(), current_head)
+                }
+            }
+        }
+        CommandButton {
+            id: headLeftButton
+            text: qsTr("Head Left")
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    btController.sendMessage(btCommands.headLeftCommand(), current_head)
+                }
+            }
+        }
+        CommandButton {
+            id: headRightButton
+            text: qsTr("Head Right")
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    btController.sendMessage(btCommands.headRightCommand(), current_head)
+                }
+            }
+        }
+        CommandButton {
+            id: headDefaultButton
+            text: qsTr("Head Default")
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    btController.sendMessage(btCommands.headDefaultCommand(), current_head)
+                }
+            }
+        }
+
         CommandButton {
             id: returnToDefaultButton
             text: qsTr("Return to default")

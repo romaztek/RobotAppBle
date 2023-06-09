@@ -34,6 +34,12 @@ public:
     Q_INVOKABLE QString servoDanceCommand() { return  QStringLiteral(u"u"); }
     Q_INVOKABLE QString servoByeCommand() { return  QStringLiteral(u"i"); }
 
+    Q_INVOKABLE QString headUpCommand() { return  QStringLiteral(u"("); }
+    Q_INVOKABLE QString headDownCommand() { return  QStringLiteral(u")"); }
+    Q_INVOKABLE QString headLeftCommand() { return  QStringLiteral(u"-"); }
+    Q_INVOKABLE QString headRightCommand() { return  QStringLiteral(u"+"); }
+    Q_INVOKABLE QString headDefaultCommand() { return  QStringLiteral(u"_"); }
+
     Q_INVOKABLE QString faceImage1Command() { return  QStringLiteral(u"o"); }
     Q_INVOKABLE QString faceImage2Command() { return  QStringLiteral(u"p"); }
     Q_INVOKABLE QString faceImage3Command() { return  QStringLiteral(u"a"); }
@@ -42,6 +48,7 @@ public:
 
     Q_INVOKABLE QString audio1Command() { return  QStringLiteral(u"!"); }
     Q_INVOKABLE QString audio2Command() { return  QStringLiteral(u"@"); }
+    Q_INVOKABLE QString audio3Command() { return  QStringLiteral(u"#"); }
 
 
     static void init();

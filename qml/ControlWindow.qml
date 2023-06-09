@@ -7,24 +7,42 @@ Rectangle {
 
     property var heads: []
     property int head_count: 0
+    property int current_head: 0
 
     MouseArea { anchors.fill: parent }
 
     function create_robot_head(name) {
         var newHead
 
+        if(headsLayout.children.length > 0) {
+            newHead = headDelegate.createObject(headsLayout,
+                                                {"id": "head_" + head_count.toString(),
+                                                    "anchors.left": headsLayout.children[headsLayout.children.length-1].right,
+                                                    "anchors.leftMargin": 5,
+                                                    "text": name
+                                                });
+        } else {
+            newHead = headDelegate.createObject(headsLayout,
+                                                {"id": "head_" + head_count.toString(),
+                                                    "x": 5,
+                                                    "text": name
+                                                });
+        }
 
-        newHead = headDelegate.createObject(headsLayout,
-                                            {"id": "head_" + head_count.toString(),
-                                                "x": head_count*100 + 5*(head_count+1),
-                                                "text": name
-                                            });
         heads.push(newHead)
         head_count++
+        return newHead
+    }
+
+    function get_robot_head_name(idx) {
+        if(idx < 0 || idx > headsLayout.children.length - 1)
+            return ""
+        var name = headsLayout.children[idx].text
     }
 
     Component.onCompleted: {
-        create_robot_head('Dummy')
+        create_robot_head('Кукла').setChecked(true)
+        create_robot_head('Собака')
     }
 
     Connections {
@@ -55,7 +73,7 @@ Rectangle {
         id: headDelegate
         Rectangle {
             id: headDelegateRect
-            color: "lime"
+            color: checked ? "lime" : "white"
             border.color: "black"
             border.width: 2
             radius: 0
@@ -63,6 +81,12 @@ Rectangle {
             height: 40
             y: 5
             property alias text: headText.text
+            property bool checked: false
+
+            function setChecked(val) {
+                checked = val
+            }
+
             Image {
                 id: headImage
                 fillMode: Image.PreserveAspectFit
@@ -79,6 +103,22 @@ Rectangle {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: headImage.right
                 anchors.leftMargin: 5
+            }
+            MouseArea {
+                anchors.fill: parent
+
+                onClicked: {
+                    var this_i
+                    for(var i = 0; i < headsLayout.children.length; i++) {
+                        headsLayout.children[i].checked = false
+                        if(headsLayout.children[i] === parent) {
+                            this_i = i
+                        }
+                    }
+                    parent.checked = true
+                    current_head = this_i
+                    console.log(current_head)
+                }
             }
         }
     }

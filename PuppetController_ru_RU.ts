@@ -2,6 +2,24 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="ru_RU">
 <context>
+    <name>AudioSelectorWindow</name>
+    <message>
+        <location filename="qml/AudioSelectorWindow.qml" line="22"/>
+        <source>1</source>
+        <translation type="unfinished">1</translation>
+    </message>
+    <message>
+        <location filename="qml/AudioSelectorWindow.qml" line="48"/>
+        <source>2</source>
+        <translation type="unfinished">2</translation>
+    </message>
+    <message>
+        <location filename="qml/AudioSelectorWindow.qml" line="74"/>
+        <source>3</source>
+        <translation type="unfinished">3</translation>
+    </message>
+</context>
+<context>
     <name>ConnectWindow</name>
     <message>
         <location filename="qml/ConnectWindow.qml" line="24"/>
@@ -9,17 +27,17 @@
         <translation type="unfinished">Выберите кукол:</translation>
     </message>
     <message>
-        <location filename="qml/ConnectWindow.qml" line="34"/>
+        <location filename="qml/ConnectWindow.qml" line="35"/>
         <source>Skip</source>
         <translation>Пропустить</translation>
     </message>
     <message>
-        <location filename="qml/ConnectWindow.qml" line="47"/>
+        <location filename="qml/ConnectWindow.qml" line="49"/>
         <source>Filter &apos;Puppet*&apos;</source>
         <translation>Только &apos;Puppet*&apos;</translation>
     </message>
     <message>
-        <location filename="qml/ConnectWindow.qml" line="125"/>
+        <location filename="qml/ConnectWindow.qml" line="132"/>
         <source>Connect</source>
         <translation>Подключить</translation>
     </message>
@@ -27,32 +45,32 @@
 <context>
     <name>ControlWindow</name>
     <message>
-        <location filename="qml/ControlWindow.qml" line="135"/>
+        <location filename="qml/ControlWindow.qml" line="243"/>
         <source>Servo movement</source>
         <translation>Движение сервоприводами</translation>
     </message>
     <message>
-        <location filename="qml/ControlWindow.qml" line="164"/>
+        <location filename="qml/ControlWindow.qml" line="273"/>
         <source>Advanced</source>
-        <translation>Продвинутые</translation>
+        <translation>Распознавание</translation>
     </message>
     <message>
-        <location filename="qml/ControlWindow.qml" line="193"/>
+        <location filename="qml/ControlWindow.qml" line="303"/>
         <source>Manual drive</source>
         <translation>Передвижение</translation>
     </message>
     <message>
-        <location filename="qml/ControlWindow.qml" line="222"/>
+        <location filename="qml/ControlWindow.qml" line="333"/>
         <source>Face image</source>
         <translation>Изображение лица</translation>
     </message>
     <message>
-        <location filename="qml/ControlWindow.qml" line="251"/>
+        <location filename="qml/ControlWindow.qml" line="363"/>
         <source>Manual audio</source>
         <translation>Аудио</translation>
     </message>
     <message>
-        <location filename="qml/ControlWindow.qml" line="280"/>
+        <location filename="qml/ControlWindow.qml" line="393"/>
         <source>Camera view</source>
         <translation>Камера</translation>
     </message>
@@ -164,22 +182,47 @@
 <context>
     <name>ServoControlWindow</name>
     <message>
-        <location filename="qml/ServoControlWindow.qml" line="24"/>
+        <location filename="qml/ServoControlWindow.qml" line="25"/>
+        <source>Head Up</source>
+        <translation>Поднять Голову</translation>
+    </message>
+    <message>
+        <location filename="qml/ServoControlWindow.qml" line="35"/>
+        <source>Head Down</source>
+        <translation>Опустить Голову</translation>
+    </message>
+    <message>
+        <location filename="qml/ServoControlWindow.qml" line="45"/>
+        <source>Head Left</source>
+        <translation>Повернуть Голову Влево</translation>
+    </message>
+    <message>
+        <location filename="qml/ServoControlWindow.qml" line="55"/>
+        <source>Head Right</source>
+        <translation>Повернуть Голову Вправо</translation>
+    </message>
+    <message>
+        <location filename="qml/ServoControlWindow.qml" line="65"/>
+        <source>Head Default</source>
+        <translation>Возврат Головы</translation>
+    </message>
+    <message>
+        <location filename="qml/ServoControlWindow.qml" line="76"/>
         <source>Return to default</source>
         <translation>Возврат по умолчанию</translation>
     </message>
     <message>
-        <location filename="qml/ServoControlWindow.qml" line="48"/>
+        <location filename="qml/ServoControlWindow.qml" line="100"/>
         <source>Hello</source>
         <translation>Приветствие</translation>
     </message>
     <message>
-        <location filename="qml/ServoControlWindow.qml" line="71"/>
+        <location filename="qml/ServoControlWindow.qml" line="123"/>
         <source>Dance</source>
         <translation>Танец</translation>
     </message>
     <message>
-        <location filename="qml/ServoControlWindow.qml" line="94"/>
+        <location filename="qml/ServoControlWindow.qml" line="146"/>
         <source>Bye</source>
         <translation>Прощание</translation>
     </message>

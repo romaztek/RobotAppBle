@@ -21,6 +21,13 @@ TRANSLATIONS += \
     PuppetController_ru_RU.ts
 
 DISTFILES += qml/main.qml \
+             android/AndroidManifest.xml \
+             android/build.gradle \
+             android/gradle/wrapper/gradle-wrapper.jar \
+             android/gradle/wrapper/gradle-wrapper.properties \
+             android/gradlew \
+             android/gradlew.bat \
+             android/res/values/libs.xml \
              qml/AudioSelectorWindow.qml \
              qml/ConnectWindow.qml \
              qml/ControlWindow.qml \
@@ -93,3 +100,5 @@ QMAKE_MAC_XCODE_SETTINGS += MY_BUNDLE_VER
 #CONFIG += device
 #CONFIG += release
 }
+
+ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android

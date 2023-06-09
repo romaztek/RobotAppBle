@@ -14,6 +14,12 @@ debug
 *.dll
 *.dylib
 
+android-PuppetController-deployment-settings.json
+android/
+app_process
+armeabi-v7a/
+linker
+
 # Qt-es
 object_script.*.Release
 object_script.*.Debug
