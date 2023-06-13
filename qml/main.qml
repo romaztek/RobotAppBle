@@ -24,18 +24,21 @@ Window {
     property var controlWindow
     property var loadingWindow
 
-
     function createConnectWindow() {
-        connectWindow = myConnectWindow.createObject(appwindow, {"id": "connectWindow"});
+        connectWindow = myConnectWindow.createObject(appwindow, {
+                                                         "id": "connectWindow"
+                                                     })
     }
 
     function destroyConnectWindow() {
-        if(connectWindow)
+        if (connectWindow)
             connectWindow.destroy()
     }
 
     function createControlWindow() {
-        controlWindow = myControlWindow.createObject(appwindow, {"id": "controlWindow"});
+        controlWindow = myControlWindow.createObject(appwindow, {
+                                                         "id": "controlWindow"
+                                                     })
     }
 
     function destroyControlWindow() {
@@ -43,18 +46,19 @@ Window {
     }
 
     function createLoadingWindow() {
-        loadingWindow = myLoadingWindow.createObject(appwindow, {"id": "loadingWindow"});
+        loadingWindow = myLoadingWindow.createObject(appwindow, {
+                                                         "id": "loadingWindow"
+                                                     })
     }
 
     function destroyLoadingWindow() {
-        if(loadingWindow)
+        if (loadingWindow)
             loadingWindow.destroy()
     }
 
-
     Component.onCompleted: {
-//        createControlWindow()
-//        createConnectWindow()
+        //        createControlWindow()
+        createConnectWindow()
     }
 
     Logic {
@@ -67,7 +71,7 @@ Window {
 
     Connections {
         target: btController
-        onFullyConnected: {
+        function onFullyConnected() {
             destroyLoadingWindow()
             destroyConnectWindow()
         }
@@ -106,7 +110,7 @@ Window {
                 anchors.centerIn: parent
                 width: 60
                 height: width
-                radius: width/2
+                radius: width / 2
                 border.width: 2
                 border.color: "black"
             }
@@ -124,23 +128,11 @@ Window {
                         running: myLoadingIndicator.running
                         loops: Animation.Infinite
                         duration: 2000
-                        from: 360 ; to: 0
+                        from: 360
+                        to: 0
                     }
                 }
             }
         }
     }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-

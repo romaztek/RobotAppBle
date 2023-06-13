@@ -10,12 +10,16 @@ Rectangle {
 
     Connections {
         target: btController
-        onNewDeviceFound: {
+        function onNewDeviceFound(device) {
             var _addr = device.split("#")[0]
             var _name = device.split("#")[1]
 
             console.log(_addr + " " + _name)
-            deviceModel.append({"address": _addr, "name": _name, "checked": false})
+            deviceModel.append({
+                                   "address": _addr,
+                                   "name": _name,
+                                   "checked": false
+                               })
         }
     }
 
@@ -40,9 +44,9 @@ Rectangle {
         onClicked: {
             console.log("aaaa")
             destroyConnectWindow()
+            createControlWindow()
         }
     }
-
 
     CheckBox {
         id: filterNameCheckBox
@@ -74,11 +78,13 @@ Rectangle {
         id: deviceDelegate
         Item {
             width: parent.width
-            height: filterNameCheckBox.checked && !name.startsWith("Puppet") ? 0 : 55
+            height: filterNameCheckBox.checked && !name.startsWith(
+                        "Puppet") ? 0 : 55
 
             Rectangle {
                 width: parent.width
-                height: filterNameCheckBox.checked && !name.startsWith("Puppet") ? 0 : 50
+                height: filterNameCheckBox.checked && !name.startsWith(
+                            "Puppet") ? 0 : 50
                 color: checked ? "lime" : defaultColor
                 border.color: "black"
                 border.width: 2
@@ -87,7 +93,8 @@ Rectangle {
 
             ColumnLayout {
                 x: 5
-                visible: filterNameCheckBox.checked && !name.startsWith("Puppet") ? false : true
+                visible: filterNameCheckBox.checked && !name.startsWith(
+                             "Puppet") ? false : true
                 Text {
                     id: nameField
                     text: name
@@ -107,7 +114,6 @@ Rectangle {
                     checked = !checked
                 }
             }
-
         }
     }
 
@@ -138,8 +144,10 @@ Rectangle {
             anchors.fill: parent
             hoverEnabled: true
             onPressed: {
+
             }
             onReleased: {
+
             }
             onClicked: {
                 createLoadingWindow()
@@ -147,8 +155,8 @@ Rectangle {
                 var indexes = []
                 var device_indexes = []
 
-                for(var i = 0; i < deviceModel.count; i++) {
-                    if(deviceModel.get(i).checked) {
+                for (var i = 0; i < deviceModel.count; i++) {
+                    if (deviceModel.get(i).checked) {
                         indexes.push(i)
                         device_indexes.push(checked_count)
                         checked_count++
@@ -160,10 +168,3 @@ Rectangle {
         }
     }
 }
-
-
-
-
-
-
-

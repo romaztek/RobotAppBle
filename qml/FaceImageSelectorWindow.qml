@@ -31,7 +31,6 @@ Item {
                 onClicked: {
                     imageButton2.selected = false
                     imageButton3.selected = false
-                    imageButton4.selected = false
                     imageButton1.selected = true
                     btController.sendMessageAll(btCommands.faceImage1Command())
                 }
@@ -58,7 +57,6 @@ Item {
                 onClicked: {
                     imageButton1.selected = false
                     imageButton3.selected = false
-                    imageButton4.selected = false
                     imageButton2.selected = true
                     btController.sendMessageAll(btCommands.faceImage2Command())
                 }
@@ -85,39 +83,10 @@ Item {
                 onClicked: {
                     imageButton1.selected = false
                     imageButton2.selected = false
-                    imageButton4.selected = false
                     imageButton3.selected = true
                     btController.sendMessageAll(btCommands.faceImage3Command())
                 }
             }
         }
-        Rectangle {
-            id: imageButton4
-            Layout.fillWidth: true
-            Layout.preferredHeight: 50
-            border.width: 2
-            radius: 5
-            color: selected ? "lime" : defaultColor
-            property bool selected: false
-            Label {
-                text: qsTr("4")
-                elide: Text.ElideMiddle
-                wrapMode: Text.WordWrap
-                x: 5
-                verticalAlignment: Qt.AlignVCenter
-                height: parent.height
-            }
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    imageButton1.selected = false
-                    imageButton2.selected = false
-                    imageButton3.selected = false
-                    imageButton4.selected = true
-                    btController.sendMessageAll(btCommands.faceImage4Command())
-                }
-            }
-        }
     }
-
 }

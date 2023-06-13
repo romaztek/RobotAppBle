@@ -2,6 +2,7 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QTranslator>
+#include <QDebug>
 #include <QLoggingCategory>
 
 #include "btcontroller.h"
@@ -45,8 +46,10 @@ int main(int argc, char *argv[])
     const QUrl url(QStringLiteral("qrc:/qml/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {
-        if (!obj && url == objUrl)
+        if (!obj && url == objUrl) {
+                qDebug().noquote() << "error";
             QCoreApplication::exit(-1);
+        }
     }, Qt::QueuedConnection);
     engine.load(url);
 

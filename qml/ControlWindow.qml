@@ -9,24 +9,28 @@ Rectangle {
     property int head_count: 0
     property int current_head: 0
 
-    MouseArea { anchors.fill: parent }
+    MouseArea {
+        anchors.fill: parent
+    }
 
     function create_robot_head(name) {
         var newHead
 
-        if(headsLayout.children.length > 0) {
-            newHead = headDelegate.createObject(headsLayout,
-                                                {"id": "head_" + head_count.toString(),
-                                                    "anchors.left": headsLayout.children[headsLayout.children.length-1].right,
+        if (headsLayout.children.length > 0) {
+            newHead = headDelegate.createObject(headsLayout, {
+                                                    "id": "head_" + head_count.toString(
+                                                              ),
+                                                    "anchors.left": headsLayout.children[headsLayout.children.length - 1].right,
                                                     "anchors.leftMargin": 5,
                                                     "text": name
-                                                });
+                                                })
         } else {
-            newHead = headDelegate.createObject(headsLayout,
-                                                {"id": "head_" + head_count.toString(),
+            newHead = headDelegate.createObject(headsLayout, {
+                                                    "id": "head_" + head_count.toString(
+                                                              ),
                                                     "x": 5,
                                                     "text": name
-                                                });
+                                                })
         }
 
         heads.push(newHead)
@@ -35,7 +39,7 @@ Rectangle {
     }
 
     function get_robot_head_name(idx) {
-        if(idx < 0 || idx > headsLayout.children.length - 1)
+        if (idx < 0 || idx > headsLayout.children.length - 1)
             return ""
         var name = headsLayout.children[idx].text
     }
@@ -47,7 +51,7 @@ Rectangle {
 
     Connections {
         target: btController
-        onDeviceConnected: {
+        function onDeviceConnected(name) {
             create_robot_head(name)
         }
     }
@@ -66,7 +70,6 @@ Rectangle {
             id: headsLayout
             anchors.fill: parent
         }
-
     }
 
     Component {
@@ -109,9 +112,9 @@ Rectangle {
 
                 onClicked: {
                     var this_i
-                    for(var i = 0; i < headsLayout.children.length; i++) {
+                    for (var i = 0; i < headsLayout.children.length; i++) {
                         headsLayout.children[i].checked = false
-                        if(headsLayout.children[i] === parent) {
+                        if (headsLayout.children[i] === parent) {
                             this_i = i
                         }
                     }
@@ -161,60 +164,60 @@ Rectangle {
             visible: manualAudioCommandsButton.selected
             enabled: manualAudioCommandsButton.selected
         }
-//            x: 10
-//            width: parent.width - 10
-//            Rectangle {
-//                id: audioButton1
-//                Layout.fillWidth: true
-//                Layout.preferredHeight: 50
-//                border.width: 2
-//                radius: 0
-//                color: selected ? highlightColor : defaultColor
-//                property bool selected: false
-//                Label {
-//                    text: qsTr("1")
-//                    elide: Text.ElideMiddle
-//                    wrapMode: Text.WordWrap
-//                    x: 5
-//                    verticalAlignment: Qt.AlignVCenter
-//                    height: parent.height
-//                    color: parent.selected ? defaultColor : highlightColor
-//                }
-//                MouseArea {
-//                    anchors.fill: parent
-//                    onClicked: {
-//                        audioButton2.selected = false
-//                        audioButton1.selected = true
-//                        btController.sendMessageAll(btCommands.audio1Command())
-//                    }
-//                }
-//            }
-//            Rectangle {
-//                id: audioButton2
-//                Layout.fillWidth: true
-//                Layout.preferredHeight: 50
-//                border.width: 2
-//                radius: 0
-//                color: selected ? highlightColor : defaultColor
-//                property bool selected: false
-//                Label {
-//                    text: qsTr("2")
-//                    elide: Text.ElideMiddle
-//                    wrapMode: Text.WordWrap
-//                    x: 5
-//                    verticalAlignment: Qt.AlignVCenter
-//                    height: parent.height
-//                }
-//                MouseArea {
-//                    anchors.fill: parent
-//                    onClicked: {
-//                        audioButton1.selected = false
-//                        audioButton2.selected = true
-//                        btController.sendMessageAll(btCommands.audio2Command())
-//                    }
-//                }
-//            }
-//        }
+        //            x: 10
+        //            width: parent.width - 10
+        //            Rectangle {
+        //                id: audioButton1
+        //                Layout.fillWidth: true
+        //                Layout.preferredHeight: 50
+        //                border.width: 2
+        //                radius: 0
+        //                color: selected ? highlightColor : defaultColor
+        //                property bool selected: false
+        //                Label {
+        //                    text: qsTr("1")
+        //                    elide: Text.ElideMiddle
+        //                    wrapMode: Text.WordWrap
+        //                    x: 5
+        //                    verticalAlignment: Qt.AlignVCenter
+        //                    height: parent.height
+        //                    color: parent.selected ? defaultColor : highlightColor
+        //                }
+        //                MouseArea {
+        //                    anchors.fill: parent
+        //                    onClicked: {
+        //                        audioButton2.selected = false
+        //                        audioButton1.selected = true
+        //                        btController.sendMessageAll(btCommands.audio1Command())
+        //                    }
+        //                }
+        //            }
+        //            Rectangle {
+        //                id: audioButton2
+        //                Layout.fillWidth: true
+        //                Layout.preferredHeight: 50
+        //                border.width: 2
+        //                radius: 0
+        //                color: selected ? highlightColor : defaultColor
+        //                property bool selected: false
+        //                Label {
+        //                    text: qsTr("2")
+        //                    elide: Text.ElideMiddle
+        //                    wrapMode: Text.WordWrap
+        //                    x: 5
+        //                    verticalAlignment: Qt.AlignVCenter
+        //                    height: parent.height
+        //                }
+        //                MouseArea {
+        //                    anchors.fill: parent
+        //                    onClicked: {
+        //                        audioButton1.selected = false
+        //                        audioButton2.selected = true
+        //                        btController.sendMessageAll(btCommands.audio2Command())
+        //                    }
+        //                }
+        //            }
+        //        }
     }
 
     Item {
@@ -229,8 +232,8 @@ Rectangle {
             anchors.fill: parent
             anchors.margins: 5
             columns: 3
-            //spacing: 5
 
+            //spacing: 5
             Rectangle {
                 id: syncCommandsButton
                 Layout.fillWidth: true
@@ -412,17 +415,4 @@ Rectangle {
             }
         }
     }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
