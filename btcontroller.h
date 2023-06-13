@@ -9,6 +9,7 @@
 #include <QBluetoothDeviceDiscoveryAgent>
 #include <QLowEnergyController>
 #include <QLowEnergyService>
+#include <QTimer>
 
 #include "bt_commands.h"
 
@@ -52,7 +53,6 @@ private:
     Bt_Commands bt_commands;
     QString bt_gatt = QStringLiteral(u"0000ffe0-0000-1000-8000-00805f9b34fb");
     QBluetoothDeviceDiscoveryAgent *m_deviceDiscoveryAgent;
-    QList<Device> devices;
     QList<QBluetoothDeviceInfo> deviceInfos;
 
     QList<ServiceAndController> servicesAndController;
@@ -62,12 +62,16 @@ private:
     int connected_count = 0;
     int connected_count_desired = 0;
 
+    QTimer readMessagesTimer;
+
 signals:
     void newDeviceFound(QVariant device);
     void foundSpp();
     void fullyConnected();
     void signalToCreateCtl(QBluetoothDeviceInfo info, int index);
     void deviceConnected(int index, QString name);
+
+    void recognitionMsgGot(QString msg);
 
 public slots:
     void addDevice(const QBluetoothDeviceInfo &info);
@@ -76,6 +80,8 @@ public slots:
     void serviceDiscovered(const QBluetoothUuid &gatt, int index);
     void serviceScanDone(int index);
     void serviceStateChanged(QLowEnergyService::ServiceState s, int index);
+
+    void readValueFromService(const QLowEnergyCharacteristic &info, const QByteArray &value);
 };
 
 #endif // BTCONTROLLER_H

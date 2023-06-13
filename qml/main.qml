@@ -57,7 +57,7 @@ Window {
     }
 
     Component.onCompleted: {
-        //        createControlWindow()
+        createControlWindow()
         createConnectWindow()
     }
 
@@ -71,7 +71,7 @@ Window {
 
     Connections {
         target: btController
-        function onFullyConnected() {
+        onFullyConnected: {
             destroyLoadingWindow()
             destroyConnectWindow()
         }

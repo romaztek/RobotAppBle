@@ -48,7 +48,8 @@ Item {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        btController.sendMessage(btCommands.headUpCommand())
+                        btController.sendMessage(btCommands.headUpCommand(),
+                                                 current_head)
                     }
                 }
             }

@@ -7,7 +7,7 @@ BtController::BtController(QObject *parent) : QObject(parent)
 
 BtController::~BtController()
 {
-    sendMessageAll("diss");
+    sendMessageAll(bt_commands.disconnectedCommand());
 
     if(m_deviceDiscoveryAgent)
         m_deviceDiscoveryAgent->stop();
@@ -39,6 +39,20 @@ void BtController::init()
     connect(m_deviceDiscoveryAgent, SIGNAL(finished()), this, SLOT(scanFinished()));
 
     m_deviceDiscoveryAgent->start(QBluetoothDeviceDiscoveryAgent::LowEnergyMethod);
+
+    readMessagesTimer.setInterval(250);
+    connect(&readMessagesTimer, &QTimer::timeout, this, [=]() {
+        for(int index = 0; index < servicesAndController.count(); index++) {
+
+            if(servicesAndController[index].m_service != nullptr) {
+
+                //if(servicesAndController[index].m_service.cha)
+
+                servicesAndController[index].m_service->readCharacteristic(servicesAndController[index].m_readCharacteristic);
+            }
+        }
+    });
+
 }
 
 QVariant BtController::getDevices()
@@ -84,20 +98,20 @@ void BtController::createCtl(QBluetoothDeviceInfo info, int index)
 
     connect(m_control, &QLowEnergyController::serviceDiscovered,
             [this, index](const QBluetoothUuid &gatt){
-        serviceDiscovered(gatt, index);
-    });
+                serviceDiscovered(gatt, index);
+            });
 
     connect(m_control, &QLowEnergyController::discoveryFinished,
             [this, index]() {
-        serviceScanDone(index);
-    });
+                serviceScanDone(index);
+            });
 
     connect(m_control, static_cast<void (QLowEnergyController::*)(QLowEnergyController::Error)>(&QLowEnergyController::error),
             this, [this](QLowEnergyController::Error error) {
-        Q_UNUSED(this);
-        Q_UNUSED(error);
-        qDebug().noquote() << "Cannot connect to remote device."; //Wrong connection
-    });
+                Q_UNUSED(this);
+                Q_UNUSED(error);
+                qDebug().noquote() << "Cannot connect to remote device."; //Wrong connection
+            });
 
     connect(m_control, &QLowEnergyController::connected, this, [this, m_control]() {
         Q_UNUSED(this);
@@ -113,37 +127,43 @@ void BtController::createCtl(QBluetoothDeviceInfo info, int index)
     qDebug().noquote() << "start to connect";
 
     m_control->connectToDevice();
+
 }
 
 void BtController::sendMessageAll(QString text)
 {
     qDebug().noquote() << "send to all:" << text;
-    QByteArray array = (text + "#").toLocal8Bit();
+    QByteArray array = (text).toLocal8Bit();
 
     for(int index = 0; index < servicesAndController.count(); index++) {
         if(servicesAndController[index].m_service != nullptr) {
             servicesAndController[index].m_service->writeCharacteristic(servicesAndController[index].m_writeCharacteristic[0],
-                    array,
-                    servicesAndController[index].m_writeMode);
+                                                                        array,
+                                                                        servicesAndController[index].m_writeMode);
         }
     }
+
 }
 
 void BtController::sendMessage(QString text, int index)
 {
-    if(index < 0 || index > devices.length()-1) {
+    if(servicesAndController.count() == 0) {
+        return;
+    }
+
+    if(index < 0 || index > servicesAndController.count()-1) {
         qDebug().noquote() << "Index out of range";
         return;
     }
 
 
-    qDebug().noquote() << "send to " + QString::number(index) << ": (" << devices.at(index).name << ") :" << text;
-    QByteArray array = (text + "#").toLocal8Bit();
+    qDebug().noquote() << "send to " + QString::number(index) << ": (" << servicesAndController.at(index).name << ") :" << text;
+    QByteArray array = (text).toLocal8Bit();
 
     if(servicesAndController[index].m_service != nullptr) {
         servicesAndController[index].m_service->writeCharacteristic(servicesAndController[index].m_writeCharacteristic[0],
-                array,
-                servicesAndController[index].m_writeMode);
+                                                                    array,
+                                                                    servicesAndController[index].m_writeMode);
     }
 }
 
@@ -256,6 +276,10 @@ void BtController::serviceStateChanged(QLowEnergyService::ServiceState s, int in
 
             servicesAndController[index].m_service->writeDescriptor(m_notificationDesc, QByteArray::fromHex("0100"));
 
+
+            connect(servicesAndController[index].m_service, &QLowEnergyService::characteristicRead, this, &BtController::readValueFromService);
+            readMessagesTimer.start();
+
             sendMessage(bt_commands.connectedCommand(), index);
 
             emit deviceConnected(index, servicesAndController[index].name);
@@ -265,6 +289,18 @@ void BtController::serviceStateChanged(QLowEnergyService::ServiceState s, int in
     default:
         //nothing for now
         break;
+    }
+}
+
+void BtController::readValueFromService(const QLowEnergyCharacteristic &info, const QByteArray &value)
+{
+    Q_UNUSED(info);
+
+    QString msg = QString::fromLocal8Bit(value);
+
+    if(msg == QString("O") || msg == QString("G") || msg == QString("B")) {
+//        qDebug().noquote() << "i got:" << value;
+        emit recognitionMsgGot(msg);
     }
 }
 

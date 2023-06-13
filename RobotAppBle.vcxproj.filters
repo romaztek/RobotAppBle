@@ -98,29 +98,53 @@
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
-    
-    
-    
-    
-    
-    
-    
-    
     <CustomBuild Include="debug\moc_predefs.h.cbt">
       <Filter>Generated Files</Filter>
     </CustomBuild>
     <CustomBuild Include="release\moc_predefs.h.cbt">
       <Filter>Generated Files</Filter>
     </CustomBuild>
-    
-    
   </ItemGroup>
   <ItemGroup>
     <None Include="PuppetController_ru_RU.ts">
       <Filter>Translation Files</Filter>
     </None>
+    <None Include="$(QTDIR)\bin\Qt5Bluetooth.dll" />
+    <None Include="$(QTDIR)\bin\Qt5Bluetoothd.dll" />
+    <None Include="$(QTDIR)\bin\Qt5Core.dll" />
+    <None Include="$(QTDIR)\bin\Qt5Cored.dll" />
+    <None Include="$(QTDIR)\bin\Qt5Gamepad.dll" />
+    <None Include="$(QTDIR)\bin\Qt5Gamepadd.dll" />
+    <None Include="$(QTDIR)\bin\Qt5Gui.dll" />
+    <None Include="$(QTDIR)\bin\Qt5Guid.dll" />
+    <None Include="$(QTDIR)\bin\Qt5Network.dll" />
+    <None Include="$(QTDIR)\bin\Qt5Networkd.dll" />
+    <None Include="$(QTDIR)\bin\Qt5Qml.dll" />
+    <None Include="$(QTDIR)\bin\Qt5QmlModels.dll" />
+    <None Include="$(QTDIR)\bin\Qt5QmlModelsd.dll" />
+    <None Include="$(QTDIR)\bin\Qt5Qmld.dll" />
+    <None Include="$(QTDIR)\bin\Qt5Quick.dll" />
+    <None Include="$(QTDIR)\bin\Qt5Quickd.dll" />
+    <None Include="$(QTDIR)\bin\libEGL.dll" />
+    <None Include="$(QTDIR)\bin\libEGLd.dll" />
+    <None Include="$(QTDIR)\bin\libGLESv2.dll" />
+    <None Include="$(QTDIR)\bin\libGLESv2d.dll" />
+    <None Include="qml\AudioSelectorWindow.qml" />
+    <None Include="qml\CommandButton.qml" />
+    <None Include="qml\ConnectWindow.qml" />
+    <None Include="qml\ControlWindow.qml" />
+    <None Include="qml\ManualDriveWindow.qml" />
+    <None Include="qml\MoveButton.qml" />
+    <None Include="qml\MyIconButton.qml" />
+    <None Include="qml\MyIconLabel.qml" />
+    <None Include="qml\MyIconRadioButtonLabel.qml" />
+    <None Include="qml\ServoControlWindow.qml" />
+    <None Include="qml\main.qml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="qml\AudioSelectorWindow.qml">
+      <Filter>Resource Files</Filter>
+    </None>
     <None Include="qml\CommandButton.qml">
       <Filter>Resource Files</Filter>
     </None>
@@ -237,68 +261,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="F:\QT\QT5.14.2\5.14.2\WINRT_X86_MSVC2017\bin\Qt5Bluetooth.dll">
-      <Filter>Deployment Files</Filter>
+    <None Include="android\AndroidManifest.xml">
+      <Filter>Distribution Files</Filter>
     </None>
-    <None Include="F:\QT\QT5.14.2\5.14.2\WINRT_X86_MSVC2017\bin\Qt5Bluetoothd.dll">
-      <Filter>Deployment Files</Filter>
+    <None Include="qml\AudioSelectorWindow.qml">
+      <Filter>Distribution Files</Filter>
     </None>
-    <None Include="F:\QT\QT5.14.2\5.14.2\WINRT_X86_MSVC2017\bin\Qt5Core.dll">
-      <Filter>Deployment Files</Filter>
-    </None>
-    <None Include="F:\QT\QT5.14.2\5.14.2\WINRT_X86_MSVC2017\bin\Qt5Cored.dll">
-      <Filter>Deployment Files</Filter>
-    </None>
-    <None Include="F:\QT\QT5.14.2\5.14.2\WINRT_X86_MSVC2017\bin\Qt5Gamepad.dll">
-      <Filter>Deployment Files</Filter>
-    </None>
-    <None Include="F:\QT\QT5.14.2\5.14.2\WINRT_X86_MSVC2017\bin\Qt5Gamepadd.dll">
-      <Filter>Deployment Files</Filter>
-    </None>
-    <None Include="F:\QT\QT5.14.2\5.14.2\WINRT_X86_MSVC2017\bin\Qt5Gui.dll">
-      <Filter>Deployment Files</Filter>
-    </None>
-    <None Include="F:\QT\QT5.14.2\5.14.2\WINRT_X86_MSVC2017\bin\Qt5Guid.dll">
-      <Filter>Deployment Files</Filter>
-    </None>
-    <None Include="F:\QT\QT5.14.2\5.14.2\WINRT_X86_MSVC2017\bin\Qt5Network.dll">
-      <Filter>Deployment Files</Filter>
-    </None>
-    <None Include="F:\QT\QT5.14.2\5.14.2\WINRT_X86_MSVC2017\bin\Qt5Networkd.dll">
-      <Filter>Deployment Files</Filter>
-    </None>
-    <None Include="F:\QT\QT5.14.2\5.14.2\WINRT_X86_MSVC2017\bin\Qt5Qml.dll">
-      <Filter>Deployment Files</Filter>
-    </None>
-    <None Include="F:\QT\QT5.14.2\5.14.2\WINRT_X86_MSVC2017\bin\Qt5QmlModels.dll">
-      <Filter>Deployment Files</Filter>
-    </None>
-    <None Include="F:\QT\QT5.14.2\5.14.2\WINRT_X86_MSVC2017\bin\Qt5QmlModelsd.dll">
-      <Filter>Deployment Files</Filter>
-    </None>
-    <None Include="F:\QT\QT5.14.2\5.14.2\WINRT_X86_MSVC2017\bin\Qt5Qmld.dll">
-      <Filter>Deployment Files</Filter>
-    </None>
-    <None Include="F:\QT\QT5.14.2\5.14.2\WINRT_X86_MSVC2017\bin\Qt5Quick.dll">
-      <Filter>Deployment Files</Filter>
-    </None>
-    <None Include="F:\QT\QT5.14.2\5.14.2\WINRT_X86_MSVC2017\bin\Qt5Quickd.dll">
-      <Filter>Deployment Files</Filter>
-    </None>
-    <None Include="F:\QT\QT5.14.2\5.14.2\WINRT_X86_MSVC2017\bin\libEGL.dll">
-      <Filter>Deployment Files</Filter>
-    </None>
-    <None Include="F:\QT\QT5.14.2\5.14.2\WINRT_X86_MSVC2017\bin\libEGLd.dll">
-      <Filter>Deployment Files</Filter>
-    </None>
-    <None Include="F:\QT\QT5.14.2\5.14.2\WINRT_X86_MSVC2017\bin\libGLESv2.dll">
-      <Filter>Deployment Files</Filter>
-    </None>
-    <None Include="F:\QT\QT5.14.2\5.14.2\WINRT_X86_MSVC2017\bin\libGLESv2d.dll">
-      <Filter>Deployment Files</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="qml\CommandButton.qml">
       <Filter>Distribution Files</Filter>
     </None>
@@ -329,8 +297,38 @@
     <None Include="qml\ServoControlWindow.qml">
       <Filter>Distribution Files</Filter>
     </None>
+    <None Include="android\build.gradle">
+      <Filter>Distribution Files</Filter>
+    </None>
+    <None Include="android\gradle\wrapper\gradle-wrapper.jar">
+      <Filter>Distribution Files</Filter>
+    </None>
+    <None Include="android\gradle\wrapper\gradle-wrapper.properties">
+      <Filter>Distribution Files</Filter>
+    </None>
+    <None Include="android\gradle.properties">
+      <Filter>Distribution Files</Filter>
+    </None>
+    <None Include="android\gradlew.bat">
+      <Filter>Distribution Files</Filter>
+    </None>
+    <None Include="android\gradlew">
+      <Filter>Distribution Files</Filter>
+    </None>
+    <None Include="android\res\values\libs.xml">
+      <Filter>Distribution Files</Filter>
+    </None>
     <None Include="qml\main.qml">
       <Filter>Distribution Files</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets/logo_150x150.png" />
+    <Image Include="assets/logo_44x44.png" />
+    <Image Include="assets/logo_store.png" />
+    <Image Include="assets/logo_620x300.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest" />
   </ItemGroup>
 </Project>

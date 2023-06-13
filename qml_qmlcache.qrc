@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<RCC>
+    <qresource prefix="/">
+        <file alias="qml/main.qml">qml/main.qml</file>
+        <file alias="qml/ConnectWindow.qml">qml/ConnectWindow.qml</file>
+        <file alias="qml/ControlWindow.qml">qml/ControlWindow.qml</file>
+        <file alias="qml/CommandButton.qml">qml/CommandButton.qml</file>
+        <file alias="spinner.png">spinner.png</file>
+        <file alias="qml/ManualDriveWindow.qml">qml/ManualDriveWindow.qml</file>
+        <file alias="qml/MoveButton.qml">qml/MoveButton.qml</file>
+        <file alias="qml/MyIconButton.qml">qml/MyIconButton.qml</file>
+        <file alias="qml/MyIconLabel.qml">qml/MyIconLabel.qml</file>
+        <file alias="qml/MyIconRadioButtonLabel.qml">qml/MyIconRadioButtonLabel.qml</file>
+        <file alias="qml/ServoControlWindow.qml">qml/ServoControlWindow.qml</file>
+        <file alias="qml/FaceImageSelectorWindow.qml">qml/FaceImageSelectorWindow.qml</file>
+        <file alias="qml/AudioSelectorWindow.qml">qml/AudioSelectorWindow.qml</file>
+    </qresource>
+    <qresource prefix="/images">
+        <file alias="robot_head.png">images/robot_head.png</file>
+        <file alias="bt_icon.png">images/bt_icon.png</file>
+        <file alias="refresh_icon.png">images/refresh_icon.png</file>
+        <file alias="connect_icon.png">images/connect_icon.png</file>
+        <file alias="error_icon.png">images/error_icon.png</file>
+        <file alias="close_icon.png">images/close_icon.png</file>
+        <file alias="stop_icon.png">images/stop_icon.png</file>
+        <file alias="robot_icon.png">images/robot_icon.png</file>
+        <file alias="gamepad_icon.png">images/gamepad_icon.png</file>
+        <file alias="debug_icon.png">images/debug_icon.png</file>
+        <file alias="brake_icon.png">images/brake_icon.png</file>
+        <file alias="car_left_icon.png">images/car_left_icon.png</file>
+        <file alias="car_right_icon.png">images/car_right_icon.png</file>
+        <file alias="gaz_icon.png">images/gaz_icon.png</file>
+        <file alias="break_icon.png">images/break_icon.png</file>
+        <file alias="touch_icon.png">images/touch_icon.png</file>
+        <file alias="quit_icon.png">images/quit_icon.png</file>
+        <file alias="yes_icon.png">images/yes_icon.png</file>
+        <file alias="no_icon.png">images/no_icon.png</file>
+        <file alias="arrow_left_icon.png">images/arrow_left_icon.png</file>
+        <file alias="arrow_right_icon.png">images/arrow_right_icon.png</file>
+        <file alias="settings_icon.png">images/settings_icon.png</file>
+        <file alias="save_icon.png">images/save_icon.png</file>
+        <file alias="back_icon.png">images/back_icon.png</file>
+    </qresource>
+    <qresource prefix="/i18n">
+        <file alias="PuppetController_ru_RU.qm">PuppetController_ru_RU.qm</file>
+    </qresource>
+</RCC>

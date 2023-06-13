@@ -12,6 +12,7 @@
 
 int main(int argc, char *argv[])
 {
+    qputenv("QT_ANDROID_VOLUME_KEYS", "1"); // "1" is dummy
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     QLoggingCategory::setFilterRules(QStringLiteral("qt.bluetooth* = false"));

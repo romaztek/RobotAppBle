@@ -12,6 +12,7 @@ public:
     Bt_Commands();
 
     Q_INVOKABLE QString connectedCommand() { return  QStringLiteral(u"0"); }
+    Q_INVOKABLE QString disconnectedCommand() { return  QStringLiteral(u"$"); }
 
     Q_INVOKABLE QString driveLeftCommandLow() { return  QStringLiteral(u"1"); }
     Q_INVOKABLE QString driveLeftCommandNormal() { return  QStringLiteral(u"2"); }
@@ -30,6 +31,7 @@ public:
 
     Q_INVOKABLE QString servoStopCommand() { return  QStringLiteral(u"r"); }
     Q_INVOKABLE QString servoReturnToDefaultCommand() { return  QStringLiteral(u"t"); }
+
     Q_INVOKABLE QString servoHelloCommand() { return  QStringLiteral(u"y"); }
     Q_INVOKABLE QString servoDanceCommand() { return  QStringLiteral(u"u"); }
     Q_INVOKABLE QString servoByeCommand() { return  QStringLiteral(u"i"); }
@@ -43,7 +45,6 @@ public:
     Q_INVOKABLE QString faceImage1Command() { return  QStringLiteral(u"o"); }
     Q_INVOKABLE QString faceImage2Command() { return  QStringLiteral(u"p"); }
     Q_INVOKABLE QString faceImage3Command() { return  QStringLiteral(u"a"); }
-    Q_INVOKABLE QString faceImage4Command() { return  QStringLiteral(u"s"); }
 
 
     Q_INVOKABLE QString audio1Command() { return  QStringLiteral(u"!"); }

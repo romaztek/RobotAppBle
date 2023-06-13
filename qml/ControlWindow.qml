@@ -45,13 +45,14 @@ Rectangle {
     }
 
     Component.onCompleted: {
-        create_robot_head('Кукла').setChecked(true)
-        create_robot_head('Собака')
+
+        //        create_robot_head('Кукла').setChecked(true)
+        //        create_robot_head('Собака')s
     }
 
     Connections {
         target: btController
-        function onDeviceConnected(name) {
+        onDeviceConnected: {
             create_robot_head(name)
         }
     }
@@ -163,61 +164,44 @@ Rectangle {
             anchors.fill: parent
             visible: manualAudioCommandsButton.selected
             enabled: manualAudioCommandsButton.selected
+
+            onVisibleChanged: {
+                setVolumeSliderFocus()
+            }
         }
-        //            x: 10
-        //            width: parent.width - 10
-        //            Rectangle {
-        //                id: audioButton1
-        //                Layout.fillWidth: true
-        //                Layout.preferredHeight: 50
-        //                border.width: 2
-        //                radius: 0
-        //                color: selected ? highlightColor : defaultColor
-        //                property bool selected: false
-        //                Label {
-        //                    text: qsTr("1")
-        //                    elide: Text.ElideMiddle
-        //                    wrapMode: Text.WordWrap
-        //                    x: 5
-        //                    verticalAlignment: Qt.AlignVCenter
-        //                    height: parent.height
-        //                    color: parent.selected ? defaultColor : highlightColor
-        //                }
-        //                MouseArea {
-        //                    anchors.fill: parent
-        //                    onClicked: {
-        //                        audioButton2.selected = false
-        //                        audioButton1.selected = true
-        //                        btController.sendMessageAll(btCommands.audio1Command())
-        //                    }
-        //                }
-        //            }
-        //            Rectangle {
-        //                id: audioButton2
-        //                Layout.fillWidth: true
-        //                Layout.preferredHeight: 50
-        //                border.width: 2
-        //                radius: 0
-        //                color: selected ? highlightColor : defaultColor
-        //                property bool selected: false
-        //                Label {
-        //                    text: qsTr("2")
-        //                    elide: Text.ElideMiddle
-        //                    wrapMode: Text.WordWrap
-        //                    x: 5
-        //                    verticalAlignment: Qt.AlignVCenter
-        //                    height: parent.height
-        //                }
-        //                MouseArea {
-        //                    anchors.fill: parent
-        //                    onClicked: {
-        //                        audioButton1.selected = false
-        //                        audioButton2.selected = true
-        //                        btController.sendMessageAll(btCommands.audio2Command())
-        //                    }
-        //                }
-        //            }
-        //        }
+
+        Item {
+            anchors.fill: parent
+            visible: advancedCommandsButton.selected
+            enabled: advancedCommandsButton.selected
+
+            Connections {
+                target: btController
+                function onRecognitionMsgGot(msg) {
+
+                    switch (msg) {
+                    case "O":
+                        recognitedText.text = "Оранжевый"
+                        break
+                    case "G":
+                        recognitedText.text = "Зеленый"
+                        break
+                    case "B":
+                        recognitedText.text = "Синий"
+                        break
+                    default:
+                        recognitedText.text = "Неизвестно"
+                        break
+                    }
+                }
+            }
+
+            Label {
+                id: recognitedText
+                anchors.centerIn: parent
+                text: "Неизвестно"
+            }
+        }
     }
 
     Item {
