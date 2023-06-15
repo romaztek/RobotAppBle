@@ -76,7 +76,7 @@ QML2_IMPORT_PATH += /Users/roman/Qt5.9.9/5.9.9/ios/qml/
 
 QMAKE_INFO_PLIST = $$PWD/ios/Info.plist
 QMAKE_ASSET_CATALOGS += ios/Assets.xcassets
-ios_icon.files = $$files($$PWD/ios/AppIcon.appiconset/Icon*.png)
+ios_icon.files = $$files($$PWD/ios/Assets.xcassets/AppIcon.appiconset/Icon*.png)
 QMAKE_BUNDLE_DATA += ios_icon
 app_launch_screen.files = $$files($$PWD/ios/LaunchScreen.storyboard)
 QMAKE_BUNDLE_DATA += app_launch_screen
