@@ -14,12 +14,11 @@ Item {
     focus: true
 
     Component.onCompleted: {
-        if(logic.hasTouchScreen()) {
+        if (logic.hasTouchScreen()) {
             currentControlType = ControlType.TOUCH
             //currentTouchTop.radioButton.checked = true
         }
     }
-
 
     property double deadzoneValue: 0.1
 
@@ -32,9 +31,11 @@ Item {
     property string driveLeftCommandStrong: btCommands.driveLeftCommandStrong()
 
     property string driveRightCommandLow: btCommands.driveRightCommandLow()
-    property string driveRightCommandNormal: btCommands.driveRightCommandNormal()
+    property string driveRightCommandNormal: btCommands.driveRightCommandNormal(
+                                                 )
     property string driveRightCommandHigh: btCommands.driveRightCommandHigh()
-    property string driveRightCommandStrong: btCommands.driveRightCommandStrong()
+    property string driveRightCommandStrong: btCommands.driveRightCommandStrong(
+                                                 )
 
     property string centerCommand: btCommands.centerCommand()
     property string forwardCommand: btCommands.forwardCommand()
@@ -44,130 +45,134 @@ Item {
     property bool enableLogs: true
 
     function myprint(value) {
-        if(enableLogs) console.log(value)
+        if (enableLogs)
+            console.log(value)
     }
 
     onCurrentControlTypeChanged: {
-        if(moveButtonLeft.isPressed) {
+        if (moveButtonLeft.isPressed) {
             moveButtonLeft.released()
-        } else if(moveButtonRight.isPressed) {
+        } else if (moveButtonRight.isPressed) {
             moveButtonRight.released()
-        } else if(moveButtonForward.isPressed) {
+        } else if (moveButtonForward.isPressed) {
             moveButtonForward.released()
-        } else if(moveButtonBackward.isPressed) {
+        } else if (moveButtonBackward.isPressed) {
             moveButtonBackward.released()
         }
     }
 
+    //    Connections {
+    //        target: logic
+    //        function onDeviceConnected() {
+    //            setDeviceName(connectedDeviceName)
+    //        }
 
-//    Connections {
-//        target: logic
-//        function onDeviceConnected() {
-//            setDeviceName(connectedDeviceName)
-//        }
-
-//        function onDeviceDisconnected() {
-//            setDeviceName(qsTr("Reconnect?"))
-//        }
-//    }
-
+    //        function onDeviceDisconnected() {
+    //            setDeviceName(qsTr("Reconnect?"))
+    //        }
+    //    }
     Gamepad {
         id: gamepad
-        deviceId: GamepadManager.connectedGamepads.length > 0 ? GamepadManager.connectedGamepads[0] : -1
+        deviceId: GamepadManager.connectedGamepads.length
+                  > 0 ? GamepadManager.connectedGamepads[0] : -1
 
         onConnectedChanged: {
-//            if(connected) {
-//                var gamePadName = logic.getGamepadName(gamepad.deviceId)
-//                currentGamepadTop.text = gamePadName.length === 0 ?  qsTr("Connected") : gamePadName
-//                currentControlType = ControlType.GAMEPAD
-//                currentGamepadTop.enabled = true
-//                currentGamepadTop.radioButton.checked = true
-//            } else {
-//                currentGamepadTop.text = qsTr("Not Connected")
-//                stopMovement()
-//                centerMovement()
-//                if(currentControlType === ControlType.GAMEPAD) {
-//                    currentControlType = ControlType.TOUCH
-//                    currentGamepadTop.enabled = false
-//                    currentGamepadTop.radioButton.checked = false
-//                }
-//            }
+
+            //            if(connected) {
+            //                var gamePadName = logic.getGamepadName(gamepad.deviceId)
+            //                currentGamepadTop.text = gamePadName.length === 0 ?  qsTr("Connected") : gamePadName
+            //                currentControlType = ControlType.GAMEPAD
+            //                currentGamepadTop.enabled = true
+            //                currentGamepadTop.radioButton.checked = true
+            //            } else {
+            //                currentGamepadTop.text = qsTr("Not Connected")
+            //                stopMovement()
+            //                centerMovement()
+            //                if(currentControlType === ControlType.GAMEPAD) {
+            //                    currentControlType = ControlType.TOUCH
+            //                    currentGamepadTop.enabled = false
+            //                    currentGamepadTop.radioButton.checked = false
+            //                }
+            //            }
         }
 
         onButtonR2Changed: {
-            if(currentControlType !== ControlType.GAMEPAD) return
-            if(buttonR2) {
-                if(moveButtonBackward.isPressed)
+            if (currentControlType !== ControlType.GAMEPAD)
+                return
+            if (buttonR2) {
+                if (moveButtonBackward.isPressed)
                     moveButtonBackward.released()
-                if(!moveButtonForward.isPressed)
+                if (!moveButtonForward.isPressed)
                     moveButtonForward.pressed()
             } else {
-                if(moveButtonForward.isPressed && !moveButtonBackward.isPressed)
+                if (moveButtonForward.isPressed
+                        && !moveButtonBackward.isPressed)
                     moveButtonForward.released()
             }
         }
 
         onButtonL2Changed: {
-            if(currentControlType !== ControlType.GAMEPAD) return
-            if(buttonL2) {
-                if(moveButtonForward.isPressed)
+            if (currentControlType !== ControlType.GAMEPAD)
+                return
+            if (buttonL2) {
+                if (moveButtonForward.isPressed)
                     moveButtonForward.released()
-                if(!moveButtonBackward.isPressed)
+                if (!moveButtonBackward.isPressed)
                     moveButtonBackward.pressed()
             } else {
-                if(moveButtonBackward.isPressed && !moveButtonForward.isPressed)
+                if (moveButtonBackward.isPressed
+                        && !moveButtonForward.isPressed)
                     moveButtonBackward.released()
             }
         }
 
         onAxisLeftXChanged: {
-            if(currentControlType !== ControlType.GAMEPAD) return
+            if (currentControlType !== ControlType.GAMEPAD)
+                return
 
             var newIntensity
 
             // Left
-            if(axisLeftX < -deadzoneValue) {
+            if (axisLeftX < -deadzoneValue) {
                 moveButtonRight.isPressed = false
 
-                if(axisLeftX > -0.4) {
+                if (axisLeftX > -0.4) {
                     newIntensity = SteeringIntensity.LOW
-                } else if(axisLeftX > -0.7) {
+                } else if (axisLeftX > -0.7) {
                     newIntensity = SteeringIntensity.NORMAL
                 } else {
                     newIntensity = SteeringIntensity.HIGH
                 }
 
-                if(newIntensity !== currentIntensity) {
+                if (newIntensity !== currentIntensity) {
                     currentIntensity = newIntensity
                     leftMovement()
                 }
 
                 moveButtonLeft.isPressed = true
                 //myprint(newIntensity)
-            }
-            // Right
-            else if(axisLeftX > deadzoneValue) {
+            } // Right
+            else if (axisLeftX > deadzoneValue) {
                 moveButtonLeft.isPressed = false
 
-                if(axisLeftX > 0.1 && axisLeftX < 0.4) {
+                if (axisLeftX > 0.1 && axisLeftX < 0.4) {
                     newIntensity = SteeringIntensity.LOW
-                } else if(axisLeftX >= 0.4 && axisLeftX < 0.7) {
+                } else if (axisLeftX >= 0.4 && axisLeftX < 0.7) {
                     newIntensity = SteeringIntensity.NORMAL
                 } else {
                     newIntensity = SteeringIntensity.HIGH
                 }
 
-                if(newIntensity !== currentIntensity) {
+                if (newIntensity !== currentIntensity) {
                     currentIntensity = newIntensity
                     rightMovement()
                 }
 
                 moveButtonRight.isPressed = true
                 //myprint(newIntensity)
-            }
-            // In Deadzone
+            } // In Deadzone
             else {
-                if(currentIntensity !== SteeringIntensity.NONE) {
+                if (currentIntensity !== SteeringIntensity.NONE) {
                     currentIntensity = SteeringIntensity.NONE
                     centerMovement()
                 }
@@ -177,41 +182,40 @@ Item {
         }
 
         onAxisRightXChanged: {
-            if(currentControlType !== ControlType.GAMEPAD) return
+            if (currentControlType !== ControlType.GAMEPAD)
+                return
 
             var newIntensity
 
             // Left Strong
-            if(axisRightX < -deadzoneValue) {
+            if (axisRightX < -deadzoneValue) {
                 driftButtonRight.isPressed = false
 
                 newIntensity = SteeringIntensity.TURN
 
-                if(newIntensity !== currentIntensity) {
+                if (newIntensity !== currentIntensity) {
                     currentIntensity = newIntensity
                     leftMovement()
                 }
 
                 driftButtonLeft.isPressed = true
                 //myprint(newIntensity)
-            }
-            // Right Strong
-            else if(axisRightX > deadzoneValue) {
+            } // Right Strong
+            else if (axisRightX > deadzoneValue) {
                 driftButtonLeft.isPressed = false
 
                 newIntensity = SteeringIntensity.TURN
 
-                if(newIntensity !== currentIntensity) {
+                if (newIntensity !== currentIntensity) {
                     currentIntensity = newIntensity
                     rightMovement()
                 }
 
                 driftButtonRight.isPressed = true
                 //myprint(newIntensity)
-            }
-            // In Deadzone
+            } // In Deadzone
             else {
-                if(currentIntensity !== SteeringIntensity.NONE) {
+                if (currentIntensity !== SteeringIntensity.NONE) {
                     currentIntensity = SteeringIntensity.NONE
                     centerMovement()
                 }
@@ -239,7 +243,7 @@ Item {
         const print_dir = qsTr("LEFT")
         var print_intensity
         var cmd
-        switch(currentIntensity) {
+        switch (currentIntensity) {
         case SteeringIntensity.LOW:
             cmd = driveLeftCommandLow
             print_intensity = qsTr("LOW")
@@ -268,7 +272,7 @@ Item {
         const print_dir = qsTr("RIGHT")
         var print_intensity
         var cmd
-        switch(currentIntensity) {
+        switch (currentIntensity) {
         case SteeringIntensity.LOW:
             cmd = driveRightCommandLow
             print_intensity = qsTr("LOW")
@@ -313,15 +317,15 @@ Item {
 
             Item {
                 id: moveButtons
-                Layout.preferredWidth: controlRowLayout.width/3
+                Layout.preferredWidth: controlRowLayout.width / 3
                 Layout.preferredHeight: controlRowLayout.height
-                Layout.maximumWidth: controlRowLayout.width/3
+                Layout.maximumWidth: controlRowLayout.width / 3
                 Layout.maximumHeight: controlRowLayout.height
 
                 property real spacing: 5
-                property real elementWidth: (width - spacing)/2
-                property real topElementHeight: (height - spacing)/3*2
-                property real bottomElementHeight: (height - spacing)/3
+                property real elementWidth: (width - spacing) / 2
+                property real topElementHeight: (height - spacing) / 3 * 2
+                property real bottomElementHeight: (height - spacing) / 3
 
                 MoveButton {
                     id: moveButtonLeft
@@ -368,7 +372,7 @@ Item {
                     id: driftButtonLeft
                     width: moveButtons.elementWidth
                     height: moveButtons.bottomElementHeight
-                    anchors.top:  moveButtonLeft.bottom
+                    anchors.top: moveButtonLeft.bottom
                     anchors.topMargin: 5
                     anchors.bottom: parent.bottom
                     touchEnabled: currentControlType === ControlType.TOUCH
@@ -393,7 +397,7 @@ Item {
                     height: moveButtons.bottomElementHeight
                     anchors.left: driftButtonLeft.right
                     anchors.leftMargin: 5
-                    anchors.top:  moveButtonRight.bottom
+                    anchors.top: moveButtonRight.bottom
                     anchors.topMargin: 5
                     anchors.bottom: parent.bottom
 
@@ -453,7 +457,5 @@ Item {
                 }
             }
         }
-
     }
-
 }

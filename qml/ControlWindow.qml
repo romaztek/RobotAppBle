@@ -152,9 +152,6 @@ Rectangle {
             id: manualDriveWindow
             visible: manualDriveCommandsButton.selected
             enabled: manualDriveCommandsButton.selected
-            rotation: 90
-            width: parent.height
-            height: parent.width
         }
 
         FaceImageSelectorWindow {
