@@ -71,7 +71,7 @@ Window {
 
     Connections {
         target: btController
-        onFullyConnected: {
+        function onFullyConnected() {
             destroyLoadingWindow()
             destroyConnectWindow()
         }

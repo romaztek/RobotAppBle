@@ -33,6 +33,8 @@ Rectangle {
                                                 })
         }
 
+        newHead.setChecked(true)
+
         heads.push(newHead)
         head_count++
         return newHead
@@ -202,6 +204,12 @@ Rectangle {
                 text: "Неизвестно"
             }
         }
+
+        ChokerWindow {
+            anchors.fill: parent
+            visible: chokerCommandsButton.selected
+            enabled: chokerCommandsButton.selected
+        }
     }
 
     Item {
@@ -241,7 +249,7 @@ Rectangle {
                         manualDriveCommandsButton.selected = false
                         advancedCommandsButton.selected = false
                         manualAudioCommandsButton.selected = false
-                        cameraViewCommandsButton.selected = false
+                        chokerCommandsButton.selected = false
                         faceImageCommandsButton.selected = false
                         syncCommandsButton.selected = true
                     }
@@ -271,7 +279,7 @@ Rectangle {
                         syncCommandsButton.selected = false
                         manualDriveCommandsButton.selected = false
                         manualAudioCommandsButton.selected = false
-                        cameraViewCommandsButton.selected = false
+                        chokerCommandsButton.selected = false
                         faceImageCommandsButton.selected = false
                         advancedCommandsButton.selected = true
                     }
@@ -301,7 +309,7 @@ Rectangle {
                         syncCommandsButton.selected = false
                         advancedCommandsButton.selected = false
                         manualAudioCommandsButton.selected = false
-                        cameraViewCommandsButton.selected = false
+                        chokerCommandsButton.selected = false
                         faceImageCommandsButton.selected = false
                         manualDriveCommandsButton.selected = true
                     }
@@ -332,7 +340,7 @@ Rectangle {
                         advancedCommandsButton.selected = false
                         manualDriveCommandsButton.selected = false
                         manualAudioCommandsButton.selected = false
-                        cameraViewCommandsButton.selected = false
+                        chokerCommandsButton.selected = false
                         faceImageCommandsButton.selected = true
                     }
                 }
@@ -361,7 +369,7 @@ Rectangle {
                         syncCommandsButton.selected = false
                         advancedCommandsButton.selected = false
                         manualDriveCommandsButton.selected = false
-                        cameraViewCommandsButton.selected = false
+                        chokerCommandsButton.selected = false
                         faceImageCommandsButton.selected = false
                         manualAudioCommandsButton.selected = true
                     }
@@ -369,7 +377,7 @@ Rectangle {
             }
 
             Rectangle {
-                id: cameraViewCommandsButton
+                id: chokerCommandsButton
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 border.width: 2
@@ -377,7 +385,7 @@ Rectangle {
                 color: selected ? highlightColor : defaultColor
                 property bool selected: false
                 Label {
-                    text: qsTr("Camera view")
+                    text: qsTr("Choker")
                     elide: Text.ElideLeft
                     wrapMode: Text.WordWrap
                     x: 5
@@ -393,7 +401,7 @@ Rectangle {
                         manualDriveCommandsButton.selected = false
                         manualAudioCommandsButton.selected = false
                         faceImageCommandsButton.selected = false
-                        cameraViewCommandsButton.selected = true
+                        chokerCommandsButton.selected = true
                     }
                 }
             }

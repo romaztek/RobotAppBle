@@ -5,6 +5,10 @@
 #include <QDebug>
 #include <QLoggingCategory>
 
+#ifdef Q_OS_ANDROID
+#include <QtAndroidExtras>
+#endif
+
 #include "btcontroller.h"
 #include "logic.h"
 #include "enums.h"
@@ -33,6 +37,20 @@ int main(int argc, char *argv[])
             break;
         }
     }
+
+#ifdef Q_OS_ANDROID
+    if(QtAndroid::androidSdkVersion() >= 31) {
+        auto result = QtAndroid::checkPermission(QString("android.permission.BLUETOOTH_CONNECT"));
+        if(result == QtAndroid::PermissionResult::Denied){
+            QtAndroid::PermissionResultMap resultHash = QtAndroid::requestPermissionsSync(QStringList({"android.permission.BLUETOOTH_CONNECT"}));
+            if(resultHash["android.permission.BLUETOOTH_CONNECT"] == QtAndroid::PermissionResult::Denied)
+                return 0;
+        }
+    }
+
+    QAndroidJniObject::callStaticMethod<void>("ru/romankartashev/PuppetController/MyActivity", "enableBluetooth");
+#endif
+
 
 
     BtController btController;

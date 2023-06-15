@@ -37,6 +37,7 @@ DISTFILES += qml/main.qml \
              android/res/values/libs.xml \
              android/res/values/libs.xml \
              qml/AudioSelectorWindow.qml \
+             qml/ChokerWindow.qml \
              qml/ConnectWindow.qml \
              qml/ControlWindow.qml \
              qml/CommandButton.qml \

@@ -13,6 +13,7 @@
         <file>qml/ServoControlWindow.qml</file>
         <file>qml/FaceImageSelectorWindow.qml</file>
         <file>qml/AudioSelectorWindow.qml</file>
+        <file>qml/ChokerWindow.qml</file>
     </qresource>
     <qresource prefix="/images">
         <file alias="robot_head.png">images/robot_head.png</file>

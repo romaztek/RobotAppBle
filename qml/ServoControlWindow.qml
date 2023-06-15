@@ -42,6 +42,11 @@ Item {
             y: 0
             spacing: 5
 
+            Label {
+                text: "Общие команды:"
+                x: 5
+            }
+
             CommandButton {
                 id: headUpButton
                 text: qsTr("Head Up")
@@ -96,6 +101,11 @@ Item {
                                                      ), current_head)
                     }
                 }
+            }
+
+            Label {
+                text: "Команды прошлой куклы:"
+                x: 5
             }
 
             CommandButton {
