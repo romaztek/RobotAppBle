@@ -61,7 +61,8 @@ android {
     }
 
     lintOptions {
-        abortOnError false
+	abortOnError false
+	checkReleaseBuilds false
     }
 
     // Do not compress Qt binary resources file
@@ -71,7 +72,7 @@ android {
 
     defaultConfig {
         resConfig "en"
-        minSdkVersion = qtMinSdkVersion
-        targetSdkVersion = qtTargetSdkVersion
+	minSdkVersion = 21
+	targetSdkVersion = 29
     }
 }

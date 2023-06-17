@@ -7,13 +7,13 @@ Rectangle {
 
     property var heads: []
     property int head_count: 0
-    property int current_head: 0
+    property var current_head: []
 
     MouseArea {
         anchors.fill: parent
     }
 
-    function create_robot_head(name) {
+    function create_robot_head(index, name) {
         var newHead
 
         if (headsLayout.children.length > 0) {
@@ -22,14 +22,16 @@ Rectangle {
                                                               ),
                                                     "anchors.left": headsLayout.children[headsLayout.children.length - 1].right,
                                                     "anchors.leftMargin": 5,
-                                                    "text": name
+                                                    "text": name,
+                                                    "idx": index
                                                 })
         } else {
             newHead = headDelegate.createObject(headsLayout, {
                                                     "id": "head_" + head_count.toString(
                                                               ),
                                                     "x": 5,
-                                                    "text": name
+                                                    "text": name,
+                                                    "idx": index
                                                 })
         }
 
@@ -47,15 +49,14 @@ Rectangle {
     }
 
     Component.onCompleted: {
-
-        //        create_robot_head('Кукла').setChecked(true)
-        //        create_robot_head('Собака')s
+//        create_robot_head(0, 'Кукла')
+//        create_robot_head(1, 'Собака')
     }
 
     Connections {
         target: btController
-        onDeviceConnected: {
-            create_robot_head(name)
+        function onDeviceConnected(index, name) {
+            create_robot_head(index, name)
         }
     }
 
@@ -88,9 +89,30 @@ Rectangle {
             y: 5
             property alias text: headText.text
             property bool checked: false
+            property int idx: -1
 
             function setChecked(val) {
                 checked = val
+            }
+
+            onCheckedChanged: {
+                if(checked) {
+                    if(current_head.length === 0) {
+                        current_head.push(idx)
+                    } else {
+                        if(!(current_head.indexOf(idx) >= 0)) {
+                            current_head.push(idx)
+                        }
+                    }
+                } else {
+                    var idx_index = current_head.indexOf(idx);
+                    if(idx_index >= 0) {
+                        if (idx_index !== -1) {
+                          current_head.splice(idx_index, 1);
+                        }
+                    }
+                }
+                console.log("new current_head: " + current_head)
             }
 
             Image {
@@ -114,16 +136,16 @@ Rectangle {
                 anchors.fill: parent
 
                 onClicked: {
-                    var this_i
-                    for (var i = 0; i < headsLayout.children.length; i++) {
-                        headsLayout.children[i].checked = false
-                        if (headsLayout.children[i] === parent) {
-                            this_i = i
-                        }
-                    }
-                    parent.checked = true
-                    current_head = this_i
-                    console.log(current_head)
+                    parent.checked = !parent.checked
+//                    var this_i
+//                    for (var i = 0; i < headsLayout.children.length; i++) {
+//                        headsLayout.children[i].checked = false
+//                        if (headsLayout.children[i] === parent) {
+//                            this_i = i
+//                        }
+//                    }
+//                    current_head = this_i
+//                    console.log(current_head)
                 }
             }
         }
@@ -186,6 +208,7 @@ Rectangle {
                         break
                     case "G":
                         recognitedText.text = "Зеленый"
+                        btController.sendMessageAll("L")
                         break
                     case "B":
                         recognitedText.text = "Синий"

@@ -32,7 +32,7 @@ Item {
                     imageButton2.selected = false
                     imageButton3.selected = false
                     imageButton1.selected = true
-                    btController.sendMessageAll(btCommands.faceImage1Command())
+                    btController.sendMessage(btCommands.faceImage1Command(), current_head)
                 }
             }
         }
@@ -58,7 +58,7 @@ Item {
                     imageButton1.selected = false
                     imageButton3.selected = false
                     imageButton2.selected = true
-                    btController.sendMessageAll(btCommands.faceImage2Command())
+                    btController.sendMessage(btCommands.faceImage2Command(), current_head)
                 }
             }
         }
@@ -84,7 +84,7 @@ Item {
                     imageButton1.selected = false
                     imageButton2.selected = false
                     imageButton3.selected = true
-                    btController.sendMessageAll(btCommands.faceImage3Command())
+                    btController.sendMessage(btCommands.faceImage3Command(), current_head)
                 }
             }
         }

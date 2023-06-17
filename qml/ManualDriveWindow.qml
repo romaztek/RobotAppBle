@@ -230,12 +230,12 @@ Item {
     }
 
     function stopMovement() {
-        btController.sendMessageAll(driveStopCommand)
+        btController.sendMessage(driveStopCommand, current_head)
         myprint(qsTr("STOP"))
     }
 
     function centerMovement() {
-        btController.sendMessageAll(centerCommand)
+        btController.sendMessage(centerCommand, current_head)
         myprint(qsTr("MIDDLE"))
     }
 
@@ -264,7 +264,7 @@ Item {
             cmd = driveLeftCommandLow
             print_intensity = qsTr("LOW")
         }
-        btController.sendMessageAll(cmd)
+        btController.sendMessage(cmd, current_head)
         myprint(print_dir + " " + print_intensity)
     }
 
@@ -293,7 +293,7 @@ Item {
             cmd = driveRightCommandLow
             print_intensity = qsTr("LOW")
         }
-        btController.sendMessageAll(cmd)
+        btController.sendMessage(cmd, current_head)
         myprint(print_dir + " " + print_intensity)
     }
 
@@ -432,7 +432,7 @@ Item {
                     touchEnabled: currentControlType === ControlType.TOUCH
 
                     onPressed: {
-                        btController.sendMessageAll(forwardCommand)
+                        btController.sendMessage(forwardCommand, current_head)
                         myprint(qsTr("FORWARD"))
                     }
                     onReleased: {
@@ -448,7 +448,7 @@ Item {
                     touchEnabled: currentControlType === ControlType.TOUCH
 
                     onPressed: {
-                        btController.sendMessageAll(backwardCommand)
+                        btController.sendMessage(backwardCommand, current_head)
                         myprint(qsTr("BACKWARD"))
                     }
                     onReleased: {

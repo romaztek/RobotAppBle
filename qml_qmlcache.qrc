@@ -1,19 +1,7 @@
 <?xml version="1.0"?>
 <RCC>
     <qresource prefix="/">
-        <file alias="qml/main.qml">qml/main.qml</file>
-        <file alias="qml/ConnectWindow.qml">qml/ConnectWindow.qml</file>
-        <file alias="qml/ControlWindow.qml">qml/ControlWindow.qml</file>
-        <file alias="qml/CommandButton.qml">qml/CommandButton.qml</file>
         <file alias="spinner.png">spinner.png</file>
-        <file alias="qml/ManualDriveWindow.qml">qml/ManualDriveWindow.qml</file>
-        <file alias="qml/MoveButton.qml">qml/MoveButton.qml</file>
-        <file alias="qml/MyIconButton.qml">qml/MyIconButton.qml</file>
-        <file alias="qml/MyIconLabel.qml">qml/MyIconLabel.qml</file>
-        <file alias="qml/MyIconRadioButtonLabel.qml">qml/MyIconRadioButtonLabel.qml</file>
-        <file alias="qml/ServoControlWindow.qml">qml/ServoControlWindow.qml</file>
-        <file alias="qml/FaceImageSelectorWindow.qml">qml/FaceImageSelectorWindow.qml</file>
-        <file alias="qml/AudioSelectorWindow.qml">qml/AudioSelectorWindow.qml</file>
     </qresource>
     <qresource prefix="/images">
         <file alias="robot_head.png">images/robot_head.png</file>

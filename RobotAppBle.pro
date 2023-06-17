@@ -36,6 +36,7 @@ DISTFILES += qml/main.qml \
              android/gradlew.bat \
              android/res/values/libs.xml \
              android/res/values/libs.xml \
+	     android/src/ru/romankartashev/PuppetController/MyActivity.java \
              qml/AudioSelectorWindow.qml \
              qml/ChokerWindow.qml \
              qml/ConnectWindow.qml \

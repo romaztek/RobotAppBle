@@ -97,6 +97,33 @@ Item {
                 }
             }
         }
+        Rectangle {
+            id: audioButtonStop
+            Layout.fillWidth: true
+            Layout.preferredHeight: 50
+            border.width: 2
+            radius: 5
+            color: selected ? "lime" : defaultColor
+            property bool selected: false
+            Label {
+                text: qsTr("Stop")
+                elide: Text.ElideMiddle
+                wrapMode: Text.WordWrap
+                x: 5
+                verticalAlignment: Qt.AlignVCenter
+                height: parent.height
+            }
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    audioButton1.selected = false
+                    audioButton2.selected = false
+                    audioButton3.selected = false
+                    btController.sendMessage("%",
+                                             current_head)
+                }
+            }
+        }
     }
 
     Slider {

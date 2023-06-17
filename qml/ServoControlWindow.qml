@@ -115,7 +115,7 @@ Item {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        btController.sendMessage(btCommands.headDefaultCommand(), current_head)
+                        btController.sendMessage(servoReturnToDefaultCommand, current_head)
                     }
                 }
             }
@@ -138,13 +138,13 @@ Item {
                                 syncCommandButtons.children[i].selected
                                         = !syncCommandButtons.children[i].selected
                                 if (syncCommandButtons.children[i].selected) {
-                                    btController.sendMessageAll(
-                                                servoStopCommand)
-                                    btController.sendMessageAll(
-                                                servoHelloCommand)
+                                    btController.sendMessage(
+                                                servoStopCommand, current_head)
+                                    btController.sendMessage(
+                                                servoHelloCommand, current_head)
                                 } else {
-                                    btController.sendMessageAll(
-                                                servoStopCommand)
+                                    btController.sendMessage(
+                                                servoStopCommand, current_head)
                                 }
                             }
                         }
@@ -169,13 +169,13 @@ Item {
                                 syncCommandButtons.children[i].selected
                                         = !syncCommandButtons.children[i].selected
                                 if (syncCommandButtons.children[i].selected) {
-                                    btController.sendMessageAll(
-                                                servoStopCommand)
-                                    btController.sendMessageAll(
-                                                servoDanceCommand)
+                                    btController.sendMessage(
+                                                servoStopCommand, current_head)
+                                    btController.sendMessage(
+                                                servoDanceCommand, current_head)
                                 } else {
-                                    btController.sendMessageAll(
-                                                servoStopCommand)
+                                    btController.sendMessage(
+                                                servoStopCommand, current_head)
                                 }
                             }
                         }
@@ -200,12 +200,12 @@ Item {
                                 syncCommandButtons.children[i].selected
                                         = !syncCommandButtons.children[i].selected
                                 if (syncCommandButtons.children[i].selected) {
-                                    btController.sendMessageAll(
-                                                servoStopCommand)
-                                    btController.sendMessageAll(servoByeCommand)
+                                    btController.sendMessage(
+                                                servoStopCommand, current_head)
+                                    btController.sendMessage(servoByeCommand, current_head)
                                 } else {
-                                    btController.sendMessageAll(
-                                                servoStopCommand)
+                                    btController.sendMessage(
+                                                servoStopCommand, current_head)
                                 }
                             }
                         }

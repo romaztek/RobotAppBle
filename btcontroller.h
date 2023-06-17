@@ -46,7 +46,7 @@ public:
     Q_INVOKABLE void init();
     Q_INVOKABLE QVariant getDevices();
     Q_INVOKABLE void connectToDevices(QList<int> indexes, QList<int> device_indexes);
-    Q_INVOKABLE void sendMessage(QString text, int index);
+    Q_INVOKABLE void sendMessage(QString text, const QList<int> &array);
     Q_INVOKABLE void sendMessageAll(QString text);
 
 private:
