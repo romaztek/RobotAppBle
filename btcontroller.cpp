@@ -12,10 +12,6 @@ BtController::~BtController()
     if(m_deviceDiscoveryAgent)
         m_deviceDiscoveryAgent->stop();
 
-    /*foreach(QLowEnergyService *m_service, m_services) {
-        m_service->deleteLater();
-    }*/
-
     foreach(ServiceAndController sc, servicesAndController) {
         if (sc.m_control->state() != QLowEnergyController::UnconnectedState) {
             sc.m_control->disconnectFromDevice();
@@ -43,16 +39,11 @@ void BtController::init()
     readMessagesTimer.setInterval(250);
     connect(&readMessagesTimer, &QTimer::timeout, this, [=]() {
         for(int index = 0; index < servicesAndController.count(); index++) {
-
             if(servicesAndController[index].m_service != nullptr) {
-
-                //if(servicesAndController[index].m_service.cha)
-
                 servicesAndController[index].m_service->readCharacteristic(servicesAndController[index].m_readCharacteristic);
             }
         }
     });
-
 }
 
 QVariant BtController::getDevices()
@@ -147,11 +138,6 @@ void BtController::sendMessageAll(QString text)
 
 void BtController::sendMessage(QString text, const QList<int> &array)
 {
-//    for(int i = 0; i < array.size(); i++) {
-//        int index = array.at(i);
-//        qDebug().noquote() << "send to " + QString::number(index) << text;
-//    }
-
     if(servicesAndController.count() == 0) {
         return;
     }
@@ -204,7 +190,6 @@ void BtController::searchCharacteristic(int index)
         }
 
     }
-
 }
 
 void BtController::addDevice(const QBluetoothDeviceInfo &info)
@@ -287,7 +272,8 @@ void BtController::serviceStateChanged(QLowEnergyService::ServiceState s, int in
             servicesAndController[index].m_service->writeDescriptor(m_notificationDesc, QByteArray::fromHex("0100"));
 
 
-            connect(servicesAndController[index].m_service, &QLowEnergyService::characteristicRead, this, &BtController::readValueFromService);
+            connect(servicesAndController[index].m_service, &QLowEnergyService::characteristicRead,
+                    this, &BtController::readValueFromService);
             readMessagesTimer.start();
 
             QList<int> new_index = {index};

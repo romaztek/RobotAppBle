@@ -201,7 +201,6 @@ Rectangle {
             Connections {
                 target: btController
                 function onRecognitionMsgGot(msg) {
-
                     switch (msg) {
                     case "O":
                         recognitedText.text = "Оранжевый"
