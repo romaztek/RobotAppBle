@@ -1,11 +1,13 @@
 release
 debug
 .vs
+*.json
 
 # C++ objects and libs
 *.slo
 *.lo
 *.o
+*.obj
 *.a
 *.la
 *.lai

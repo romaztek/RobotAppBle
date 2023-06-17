@@ -25,16 +25,17 @@ Item {
 
     anchors.topMargin: 5
     anchors.bottomMargin: 5
+
+    property string servoStopCommand: btCommands.servoStopCommand()
+    property string servoReturnToDefaultCommand: btCommands.servoReturnToDefaultCommand()
+    property string servoHelloCommand: btCommands.servoHelloCommand()
+    property string servoDanceCommand: btCommands.servoDanceCommand()
+    property string servoByeCommand: btCommands.servoByeCommand()
+
     ScrollView {
         anchors.fill: parent
         ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
         ScrollBar.vertical.policy: ScrollBar.AsNeeded
-
-        property string servoStopCommand: btCommands.servoStopCommand()
-        property string servoReturnToDefaultCommand: btCommands.servoReturnToDefaultCommand()
-        property string servoHelloCommand: btCommands.servoHelloCommand()
-        property string servoDanceCommand: btCommands.servoDanceCommand()
-        property string servoByeCommand: btCommands.servoByeCommand()
 
         Column {
             id: syncCommandButtons
@@ -114,27 +115,11 @@ Item {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        for (var i = 0; i < syncCommandButtons.children.length; i++) {
-                            if (syncCommandButtons.children[i] !== returnToDefaultButton) {
-                                syncCommandButtons.children[i].selected = false
-                            } else {
-                                syncCommandButtons.children[i].selected
-                                        = !syncCommandButtons.children[i].selected
-                                if (syncCommandButtons.children[i].selected) {
-                                    btController.sendMessageAll(
-                                                servoStopCommand)
-                                    btController.sendMessageAll(
-                                                servoReturnToDefaultCommand)
-                                    syncCommandButtons.children[i].selected = false
-                                } else {
-                                    btController.sendMessageAll(
-                                                servoStopCommand)
-                                }
-                            }
-                        }
+                        btController.sendMessage(btCommands.headDefaultCommand(), current_head)
                     }
                 }
             }
+
             CommandButton {
                 id: helloButton
                 text: qsTr("Hello")
@@ -142,6 +127,11 @@ Item {
                     anchors.fill: parent
                     onClicked: {
                         for (var i = 0; i < syncCommandButtons.children.length; i++) {
+
+                            if(!syncCommandButtons.children[i].hasOwnProperty("selected")) {
+                                continue
+                            }
+
                             if (syncCommandButtons.children[i] !== helloButton) {
                                 syncCommandButtons.children[i].selected = false
                             } else {
@@ -168,6 +158,11 @@ Item {
                     anchors.fill: parent
                     onClicked: {
                         for (var i = 0; i < syncCommandButtons.children.length; i++) {
+
+                            if(!syncCommandButtons.children[i].hasOwnProperty("selected")) {
+                                continue
+                            }
+
                             if (syncCommandButtons.children[i] !== danceButton) {
                                 syncCommandButtons.children[i].selected = false
                             } else {
@@ -194,6 +189,11 @@ Item {
                     anchors.fill: parent
                     onClicked: {
                         for (var i = 0; i < syncCommandButtons.children.length; i++) {
+
+                            if(!syncCommandButtons.children[i].hasOwnProperty("selected")) {
+                                continue
+                            }
+
                             if (syncCommandButtons.children[i] !== byeButton) {
                                 syncCommandButtons.children[i].selected = false
                             } else {
