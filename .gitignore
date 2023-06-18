@@ -24,6 +24,10 @@ linker
 .gitignore~
 .qtc_clangd/
 android-build/
+arm64-v8a/
+linker64
+x86/
+x86_64/
 
 # Qt-es
 object_script.*.Release
