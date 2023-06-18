@@ -55,7 +55,7 @@ Rectangle {
 
     Connections {
         target: btController
-        function onDeviceConnected(index, name) {
+        onDeviceConnected: {
             create_robot_head(index, name)
         }
     }
@@ -200,7 +200,7 @@ Rectangle {
 
             Connections {
                 target: btController
-                function onRecognitionMsgGot(msg) {
+                onRecognitionMsgGot: {
                     switch (msg) {
                     case "O":
                         recognitedText.text = "Оранжевый"

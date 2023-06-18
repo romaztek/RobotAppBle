@@ -73,8 +73,8 @@ Item {
     //    }
     Gamepad {
         id: gamepad
-        deviceId: GamepadManager.connectedGamepads.length
-                  > 0 ? GamepadManager.connectedGamepads[0] : -1
+//        deviceId: GamepadManager.connectedGamepads.length
+//                  > 0 ? GamepadManager.connectedGamepads[0] : -1
 
         onConnectedChanged: {
 

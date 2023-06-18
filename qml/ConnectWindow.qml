@@ -10,7 +10,7 @@ Rectangle {
 
     Connections {
         target: btController
-        function onNewDeviceFound(device) {
+        onNewDeviceFound: {
             var _addr = device.split("#")[0]
             var _name = device.split("#")[1]
 
@@ -95,6 +95,7 @@ Rectangle {
                 x: 5
                 visible: filterNameCheckBox.checked && !name.startsWith(
                              "Puppet") ? false : true
+
                 Text {
                     id: nameField
                     text: name

@@ -198,6 +198,7 @@ void BtController::addDevice(const QBluetoothDeviceInfo &info)
     {
 #ifdef Q_OS_IOS
         const QString addr = info.deviceUuid().toString();
+        qDebug().noquote() << "Added:" << addr;
 #else
         const QString addr = info.address().toString();
 #endif
