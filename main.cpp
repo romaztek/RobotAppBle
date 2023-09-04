@@ -51,8 +51,6 @@ int main(int argc, char *argv[])
     QAndroidJniObject::callStaticMethod<void>("ru/romankartashev/PuppetController/MyActivity", "enableBluetooth");
 #endif
 
-
-
     BtController btController;
 
     Logic::init();

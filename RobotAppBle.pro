@@ -65,6 +65,8 @@ SOURCES = qml/main.qml \
           qml/ManualDriveWindow.qml
 }
 
+win32:RC_ICONS += $$PWD/icon.ico
+
 android{
 QT+= androidextras
 }

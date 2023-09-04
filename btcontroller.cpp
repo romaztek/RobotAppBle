@@ -12,10 +12,6 @@ BtController::~BtController()
     if(m_deviceDiscoveryAgent)
         m_deviceDiscoveryAgent->stop();
 
-    /*foreach(QLowEnergyService *m_service, m_services) {
-        m_service->deleteLater();
-    }*/
-
     foreach(ServiceAndController sc, servicesAndController) {
         if (sc.m_control->state() != QLowEnergyController::UnconnectedState) {
             sc.m_control->disconnectFromDevice();
@@ -26,17 +22,14 @@ BtController::~BtController()
 
 void BtController::init()
 {
-#ifdef Q_OS_WINRT
-    if(QBluetoothLocalDevice::allDevices().empty())
-        return;
-#endif
-
     m_deviceDiscoveryAgent = new QBluetoothDeviceDiscoveryAgent(this);
     m_deviceDiscoveryAgent->setLowEnergyDiscoveryTimeout(20000);
 
     connect(m_deviceDiscoveryAgent,SIGNAL(deviceDiscovered(QBluetoothDeviceInfo)), this,
             SLOT(addDevice(QBluetoothDeviceInfo)));
     connect(m_deviceDiscoveryAgent, SIGNAL(finished()), this, SLOT(scanFinished()));
+
+
 
     m_deviceDiscoveryAgent->start(QBluetoothDeviceDiscoveryAgent::LowEnergyMethod);
 
@@ -45,13 +38,15 @@ void BtController::init()
         sendMessageToKukla(QString("^") + prevDalnomerValue, QString("Puppet1"));
         for(int index = 0; index < servicesAndController.count(); index++) {
             if(servicesAndController[index].m_service != nullptr) {
+<<<<<<< HEAD
 
                 //if(servicesAndController[index].m_service.cha)
+=======
+>>>>>>> 6d30cde3c0685cd88c9f5ca8f94365010ca9eec4
                 servicesAndController[index].m_service->readCharacteristic(servicesAndController[index].m_readCharacteristic);
             }
         }
     });
-
 }
 
 QVariant BtController::getDevices()
@@ -152,6 +147,7 @@ void BtController::setDalnomerState(bool state)
 
 void BtController::sendMessage(QString text, const QList<int> &array)
 {
+<<<<<<< HEAD
 
 
     //    for(int i = 0; i < array.size(); i++) {
@@ -159,6 +155,8 @@ void BtController::sendMessage(QString text, const QList<int> &array)
     //        qDebug().noquote() << "send to " + QString::number(index) << text;
     //    }
 
+=======
+>>>>>>> 6d30cde3c0685cd88c9f5ca8f94365010ca9eec4
     if(servicesAndController.count() == 0) {
         return;
     }
@@ -240,7 +238,6 @@ void BtController::searchCharacteristic(int index)
         }
 
     }
-
 }
 
 void BtController::addDevice(const QBluetoothDeviceInfo &info)
@@ -249,6 +246,7 @@ void BtController::addDevice(const QBluetoothDeviceInfo &info)
     {
 #ifdef Q_OS_IOS
         const QString addr = info.deviceUuid().toString();
+        qDebug().noquote() << "Added:" << addr;
 #else
         const QString addr = info.address().toString();
 #endif
@@ -322,7 +320,13 @@ void BtController::serviceStateChanged(QLowEnergyService::ServiceState s, int in
 
             servicesAndController[index].m_service->writeDescriptor(m_notificationDesc, QByteArray::fromHex("0100"));
 
+<<<<<<< HEAD
             connect(servicesAndController[index].m_service, &QLowEnergyService::characteristicRead, this, &BtController::readValueFromService);
+=======
+
+            connect(servicesAndController[index].m_service, &QLowEnergyService::characteristicRead,
+                    this, &BtController::readValueFromService);
+>>>>>>> 6d30cde3c0685cd88c9f5ca8f94365010ca9eec4
             readMessagesTimer.start();
 
             QList<int> new_index = {index};
