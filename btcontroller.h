@@ -47,7 +47,9 @@ public:
     Q_INVOKABLE QVariant getDevices();
     Q_INVOKABLE void connectToDevices(QList<int> indexes, QList<int> device_indexes);
     Q_INVOKABLE void sendMessage(QString text, const QList<int> &array);
+    Q_INVOKABLE void sendMessageToKukla(QString text, const QString btName);
     Q_INVOKABLE void sendMessageAll(QString text);
+    Q_INVOKABLE void setDalnomerState(bool state);
 
 private:
     Bt_Commands bt_commands;
@@ -64,6 +66,10 @@ private:
 
     QTimer readMessagesTimer;
 
+    bool dalnomerState = false;
+
+    QString prevDalnomerValue = "0";
+
 signals:
     void newDeviceFound(QVariant device);
     void foundSpp();
@@ -72,6 +78,7 @@ signals:
     void deviceConnected(int index, QString name);
 
     void recognitionMsgGot(QString msg);
+    void dalnomerValuesGot(QString side, QString value);
 
 public slots:
     void addDevice(const QBluetoothDeviceInfo &info);

@@ -46,7 +46,6 @@ public:
     Q_INVOKABLE QString faceImage2Command() { return  QStringLiteral(u"p"); }
     Q_INVOKABLE QString faceImage3Command() { return  QStringLiteral(u"a"); }
 
-
     Q_INVOKABLE QString audio1Command() { return  QStringLiteral(u"!"); }
     Q_INVOKABLE QString audio2Command() { return  QStringLiteral(u"@"); }
     Q_INVOKABLE QString audio3Command() { return  QStringLiteral(u"#"); }

@@ -42,12 +42,11 @@ void BtController::init()
 
     readMessagesTimer.setInterval(250);
     connect(&readMessagesTimer, &QTimer::timeout, this, [=]() {
+        sendMessageToKukla(QString("^") + prevDalnomerValue, QString("Puppet1"));
         for(int index = 0; index < servicesAndController.count(); index++) {
-
             if(servicesAndController[index].m_service != nullptr) {
 
                 //if(servicesAndController[index].m_service.cha)
-
                 servicesAndController[index].m_service->readCharacteristic(servicesAndController[index].m_readCharacteristic);
             }
         }
@@ -143,14 +142,22 @@ void BtController::sendMessageAll(QString text)
         }
     }
 
+    qDebug().noquote() << text;
+}
+
+void BtController::setDalnomerState(bool state)
+{
+    dalnomerState = state;
 }
 
 void BtController::sendMessage(QString text, const QList<int> &array)
 {
-//    for(int i = 0; i < array.size(); i++) {
-//        int index = array.at(i);
-//        qDebug().noquote() << "send to " + QString::number(index) << text;
-//    }
+
+
+    //    for(int i = 0; i < array.size(); i++) {
+    //        int index = array.at(i);
+    //        qDebug().noquote() << "send to " + QString::number(index) << text;
+    //    }
 
     if(servicesAndController.count() == 0) {
         return;
@@ -167,7 +174,7 @@ void BtController::sendMessage(QString text, const QList<int> &array)
     for(int i = 0; i < array.size(); i++) {
         int index = array.at(i);
         qDebug().noquote() << "send to " + QString::number(index) << ": (" << servicesAndController.at(index).name << ") :" << text;
-        QByteArray text_array = (text).toLocal8Bit();
+        QByteArray text_array = text.toLocal8Bit();
 
         if(servicesAndController[index].m_service != nullptr) {
             servicesAndController[index].m_service->writeCharacteristic(servicesAndController[index].m_writeCharacteristic[0],
@@ -175,6 +182,35 @@ void BtController::sendMessage(QString text, const QList<int> &array)
                     servicesAndController[index].m_writeMode);
         }
     }
+
+    qDebug().noquote() << "ANUS PSA" << text;
+}
+
+void BtController::sendMessageToKukla(QString text, const QString btName)
+{
+    if(servicesAndController.count() == 0) {
+        return;
+    }
+
+    int index = -1;
+
+    for(int i = 0; i < servicesAndController.size(); i++) {
+        if(servicesAndController.at(i).name == btName) {
+            index = i;
+        }
+    }
+
+    if(index == -1) return;
+
+    QByteArray text_array = text.toLocal8Bit();
+
+    if(servicesAndController[index].m_service != nullptr) {
+        servicesAndController[index].m_service->writeCharacteristic(servicesAndController[index].m_writeCharacteristic[0],
+                text_array,
+                servicesAndController[index].m_writeMode);
+    }
+
+    qDebug().noquote() << text;
 }
 
 void BtController::searchCharacteristic(int index)
@@ -286,7 +322,6 @@ void BtController::serviceStateChanged(QLowEnergyService::ServiceState s, int in
 
             servicesAndController[index].m_service->writeDescriptor(m_notificationDesc, QByteArray::fromHex("0100"));
 
-
             connect(servicesAndController[index].m_service, &QLowEnergyService::characteristicRead, this, &BtController::readValueFromService);
             readMessagesTimer.start();
 
@@ -310,8 +345,23 @@ void BtController::readValueFromService(const QLowEnergyCharacteristic &info, co
 
     QString msg = QString::fromLocal8Bit(value);
 
-    if(msg == QString("O") || msg == QString("G") || msg == QString("B")) {
-        emit recognitionMsgGot(msg);
+    // if dalnomer is enabled in app
+    if(dalnomerState) {
+        qDebug().noquote() << "dalnomer:" << msg;
+        QString trimmedMsg = msg.trimmed();
+        QString value = "";
+
+        for(int i = 1; i < trimmedMsg.length(); i++) {
+            value += trimmedMsg.at(i);
+        }
+
+        prevDalnomerValue = value;
+
+        emit dalnomerValuesGot(trimmedMsg.at(0), value);
+    } else {
+        if(msg == QString("O") || msg == QString("G") || msg == QString("B")) {
+            emit recognitionMsgGot(msg);
+        }
     }
 }
 

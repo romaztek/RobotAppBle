@@ -49,8 +49,8 @@ Rectangle {
     }
 
     Component.onCompleted: {
-//        create_robot_head(0, 'Кукла')
-//        create_robot_head(1, 'Собака')
+        //        create_robot_head(0, 'Кукла')
+        //        create_robot_head(1, 'Собака')
     }
 
     Connections {
@@ -108,7 +108,7 @@ Rectangle {
                     var idx_index = current_head.indexOf(idx);
                     if(idx_index >= 0) {
                         if (idx_index !== -1) {
-                          current_head.splice(idx_index, 1);
+                            current_head.splice(idx_index, 1);
                         }
                     }
                 }
@@ -137,15 +137,15 @@ Rectangle {
 
                 onClicked: {
                     parent.checked = !parent.checked
-//                    var this_i
-//                    for (var i = 0; i < headsLayout.children.length; i++) {
-//                        headsLayout.children[i].checked = false
-//                        if (headsLayout.children[i] === parent) {
-//                            this_i = i
-//                        }
-//                    }
-//                    current_head = this_i
-//                    console.log(current_head)
+                    //                    var this_i
+                    //                    for (var i = 0; i < headsLayout.children.length; i++) {
+                    //                        headsLayout.children[i].checked = false
+                    //                        if (headsLayout.children[i] === parent) {
+                    //                            this_i = i
+                    //                        }
+                    //                    }
+                    //                    current_head = this_i
+                    //                    console.log(current_head)
                 }
             }
         }
@@ -232,6 +232,89 @@ Rectangle {
             visible: chokerCommandsButton.selected
             enabled: chokerCommandsButton.selected
         }
+
+        Item {
+            anchors.fill: parent
+            visible: dalnomerCommandsButton.selected
+            enabled: dalnomerCommandsButton.selected
+
+            Connections {
+                target: btController
+                function onDalnomerValuesGot(side, value) {
+
+                    switch (side) {
+                    case "L":
+                        rangeTextLeft.dalnomerValue = value
+                        break
+                    case "F":
+                        rangeTextFront.dalnomerValue = value
+//                        btController.sendMessageAll("L")
+                        break
+                    case "R":
+                        rangeTextRight.dalnomerValue = value
+                        break
+                    default:
+                        break
+                    }
+                }
+            }
+
+            GridLayout {
+                columns: 3
+                rowSpacing: 5
+                columnSpacing: 5
+                anchors.fill: parent
+                anchors.margins: 5
+                Button {
+                    id: dalnomerEnabler
+                    Layout.columnSpan: 3
+                    Layout.preferredHeight: 50
+                    Layout.fillWidth: true
+                    property bool dalnomerEnabled: false
+                    text: qsTr("Dalnomer: ") + (dalnomerEnabled ? qsTr("ON") : qsTr("OFF"))
+                    background:
+                        Rectangle {
+                        implicitWidth: 100
+                        implicitHeight: 40
+                        color: dalnomerEnabler.dalnomerEnabled ? "lime" : "red"
+                        border.width: 1
+                        radius: 4
+                    }
+                    onPressed: {
+                        dalnomerEnabled = !dalnomerEnabled
+                        btController.setDalnomerState(dalnomerEnabled)
+                    }
+                }
+
+                Label {
+                    id: rangeTextLeft
+                    property var dalnomerValue: 0
+                    text: "LEFT\n" + dalnomerValue.toString()
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 50
+                    horizontalAlignment: Text.AlignHCenter
+                }
+
+                Label {
+                    id: rangeTextFront
+                    property var dalnomerValue: 0
+                    text: "FRONT\n" + dalnomerValue.toString()
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 50
+                    horizontalAlignment: Text.AlignHCenter
+                }
+
+                Label {
+                    id: rangeTextRight
+                    property var dalnomerValue: 0
+                    text: "RIGHT\n" + dalnomerValue.toString()
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 50
+                    horizontalAlignment: Text.AlignHCenter
+                }
+            }
+
+        }
     }
 
     Item {
@@ -245,7 +328,7 @@ Rectangle {
         GridLayout {
             anchors.fill: parent
             anchors.margins: 5
-            columns: 3
+            columns: 4
 
             //spacing: 5
             Rectangle {
@@ -273,6 +356,7 @@ Rectangle {
                         manualAudioCommandsButton.selected = false
                         chokerCommandsButton.selected = false
                         faceImageCommandsButton.selected = false
+                        dalnomerCommandsButton.selected = false
                         syncCommandsButton.selected = true
                     }
                 }
@@ -303,6 +387,7 @@ Rectangle {
                         manualAudioCommandsButton.selected = false
                         chokerCommandsButton.selected = false
                         faceImageCommandsButton.selected = false
+                        dalnomerCommandsButton.selected = false
                         advancedCommandsButton.selected = true
                     }
                 }
@@ -333,6 +418,7 @@ Rectangle {
                         manualAudioCommandsButton.selected = false
                         chokerCommandsButton.selected = false
                         faceImageCommandsButton.selected = false
+                        dalnomerCommandsButton.selected = false
                         manualDriveCommandsButton.selected = true
                     }
                 }
@@ -363,6 +449,7 @@ Rectangle {
                         manualDriveCommandsButton.selected = false
                         manualAudioCommandsButton.selected = false
                         chokerCommandsButton.selected = false
+                        dalnomerCommandsButton.selected = false
                         faceImageCommandsButton.selected = true
                     }
                 }
@@ -393,6 +480,7 @@ Rectangle {
                         manualDriveCommandsButton.selected = false
                         chokerCommandsButton.selected = false
                         faceImageCommandsButton.selected = false
+                        dalnomerCommandsButton.selected = false
                         manualAudioCommandsButton.selected = true
                     }
                 }
@@ -423,10 +511,43 @@ Rectangle {
                         manualDriveCommandsButton.selected = false
                         manualAudioCommandsButton.selected = false
                         faceImageCommandsButton.selected = false
+                        dalnomerCommandsButton.selected = false
                         chokerCommandsButton.selected = true
                     }
                 }
             }
+
+            Rectangle {
+                id: dalnomerCommandsButton
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                border.width: 2
+                radius: 0
+                color: selected ? highlightColor : defaultColor
+                property bool selected: false
+                Label {
+                    text: qsTr("Ranger")
+                    elide: Text.ElideLeft
+                    wrapMode: Text.WordWrap
+                    x: 5
+                    verticalAlignment: Qt.AlignVCenter
+                    height: parent.height
+                    color: parent.selected ? defaultColor : highlightColor
+                }
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        syncCommandsButton.selected = false
+                        advancedCommandsButton.selected = false
+                        manualDriveCommandsButton.selected = false
+                        manualAudioCommandsButton.selected = false
+                        faceImageCommandsButton.selected = false
+                        chokerCommandsButton.selected = false
+                        dalnomerCommandsButton.selected = true
+                    }
+                }
+            }
+
         }
     }
 }
