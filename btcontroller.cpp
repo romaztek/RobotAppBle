@@ -35,7 +35,9 @@ void BtController::init()
 
     readMessagesTimer.setInterval(250);
     connect(&readMessagesTimer, &QTimer::timeout, this, [=]() {
-        sendMessageToKukla(QString("^") + prevDalnomerValue, QString("Puppet1"));
+        if(dalnomerState)
+            sendMessageToKukla(QString("^") + prevDalnomerValue, QString("Puppet1"));
+
         for(int index = 0; index < servicesAndController.count(); index++) {
             if(servicesAndController[index].m_service != nullptr) {
                 servicesAndController[index].m_service->readCharacteristic(servicesAndController[index].m_readCharacteristic);
@@ -142,16 +144,6 @@ void BtController::setDalnomerState(bool state)
 
 void BtController::sendMessage(QString text, const QList<int> &array)
 {
-<<<<<<< HEAD
-
-
-    //    for(int i = 0; i < array.size(); i++) {
-    //        int index = array.at(i);
-    //        qDebug().noquote() << "send to " + QString::number(index) << text;
-    //    }
-
-=======
->>>>>>> 6d30cde3c0685cd88c9f5ca8f94365010ca9eec4
     if(servicesAndController.count() == 0) {
         return;
     }
@@ -315,13 +307,9 @@ void BtController::serviceStateChanged(QLowEnergyService::ServiceState s, int in
 
             servicesAndController[index].m_service->writeDescriptor(m_notificationDesc, QByteArray::fromHex("0100"));
 
-<<<<<<< HEAD
-            connect(servicesAndController[index].m_service, &QLowEnergyService::characteristicRead, this, &BtController::readValueFromService);
-=======
-
             connect(servicesAndController[index].m_service, &QLowEnergyService::characteristicRead,
                     this, &BtController::readValueFromService);
->>>>>>> 6d30cde3c0685cd88c9f5ca8f94365010ca9eec4
+
             readMessagesTimer.start();
 
             QList<int> new_index = {index};
