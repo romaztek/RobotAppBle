@@ -1,0 +1,72 @@
+
+
+extern volatile bool servo_flag;
+
+#define DELAY_AND_CHECK delay(15); if(!servo_flag) return;
+
+#define PIN_SPINE 15
+
+#define PIN_RIGHT_SHOULDER_1 12
+#define PIN_LEFT_SHOULDER_1 11
+
+#define PIN_RIGHT_SHOULDER_2 1
+#define PIN_LEFT_SHOULDER_2 3
+
+#define PIN_RIGHT_HAND_1 4
+#define PIN_LEFT_HAND_1 5
+
+#define PIN_RIGHT_HAND_2 8
+#define PIN_LEFT_HAND_2 9
+
+#define PIN_BELT 13
+
+#define PIN_NECK 7
+#define PIN_HEAD 0
+
+#define LEFT_SHOULDER_1_MIN 100
+#define LEFT_SHOULDER_1_DEFAULT 180
+#define LEFT_SHOULDER_1_MAX 180
+
+#define LEFT_SHOULDER_2_MIN 0
+#define LEFT_SHOULDER_2_DEFAULT 0
+#define LEFT_SHOULDER_2_MAX 120
+
+#define RIGHT_SHOULDER_1_MIN 0
+#define RIGHT_SHOULDER_1_DEFAULT 0
+#define RIGHT_SHOULDER_1_MAX 80
+
+#define RIGHT_SHOULDER_2_MIN 180
+#define RIGHT_SHOULDER_2_DEFAULT 180
+#define RIGHT_SHOULDER_2_MID_MAX 120
+#define RIGHT_SHOULDER_2_MAX 60
+
+
+#define SPINE_DEFAULT 72
+
+#define RIGHT_HAND_1_MIN 150
+#define RIGHT_HAND_1_DEFAULT 75
+#define RIGHT_HAND_1_MAX 0
+
+#define RIGHT_HAND_2_MIN 0
+#define RIGHT_HAND_2_DEFAULT 0
+#define RIGHT_HAND_2_MAX 180
+
+#define LEFT_HAND_1_MIN 0
+#define LEFT_HAND_1_DEFAULT 75
+#define LEFT_HAND_1_MAX 150
+
+#define LEFT_HAND_2_MIN 75
+#define LEFT_HAND_2_DEFAULT 180
+#define LEFT_HAND_2_MAX 75
+
+#define BELT_DEFAULT 72
+#define BELT_MIN 50
+#define BELT_MAX 94
+
+#define NECK_DEFAULT 82
+#define NECK_MIN 52
+#define NECK_MAX 112
+
+#define HEAD_DEFAULT 46
+#define HEAD_MIN 25
+#define HEAD_MAX 80
