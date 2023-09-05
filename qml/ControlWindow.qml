@@ -342,6 +342,7 @@ Rectangle {
                     text: qsTr("Servo movement")
                     elide: Text.ElideLeft
                     wrapMode: Text.WordWrap
+                    font.pointSize: 12
                     x: 5
                     verticalAlignment: Qt.AlignVCenter
                     height: parent.height
@@ -373,6 +374,7 @@ Rectangle {
                     text: qsTr("Advanced")
                     elide: Text.ElideLeft
                     wrapMode: Text.WordWrap
+                    font.pointSize: 12
                     x: 5
                     verticalAlignment: Qt.AlignVCenter
                     height: parent.height
@@ -404,6 +406,7 @@ Rectangle {
                     text: qsTr("Manual drive")
                     elide: Text.ElideLeft
                     wrapMode: Text.WordWrap
+                    font.pointSize: 12
                     x: 5
                     verticalAlignment: Qt.AlignVCenter
                     height: parent.height
@@ -435,6 +438,7 @@ Rectangle {
                     text: qsTr("Face image")
                     elide: Text.ElideLeft
                     wrapMode: Text.WordWrap
+                    font.pointSize: 12
                     x: 5
                     verticalAlignment: Qt.AlignVCenter
                     height: parent.height
@@ -466,6 +470,7 @@ Rectangle {
                     text: qsTr("Manual audio")
                     elide: Text.ElideLeft
                     wrapMode: Text.WordWrap
+                    font.pointSize: 12
                     x: 5
                     verticalAlignment: Qt.AlignVCenter
                     height: parent.height
@@ -497,6 +502,7 @@ Rectangle {
                     text: qsTr("Choker")
                     elide: Text.ElideLeft
                     wrapMode: Text.WordWrap
+                    font.pointSize: 12
                     x: 5
                     verticalAlignment: Qt.AlignVCenter
                     height: parent.height
@@ -528,6 +534,7 @@ Rectangle {
                     text: qsTr("Ranger")
                     elide: Text.ElideLeft
                     wrapMode: Text.WordWrap
+                    font.pointSize: 12
                     x: 5
                     verticalAlignment: Qt.AlignVCenter
                     height: parent.height

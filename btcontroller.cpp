@@ -29,8 +29,6 @@ void BtController::init()
             SLOT(addDevice(QBluetoothDeviceInfo)));
     connect(m_deviceDiscoveryAgent, SIGNAL(finished()), this, SLOT(scanFinished()));
 
-
-
     m_deviceDiscoveryAgent->start(QBluetoothDeviceDiscoveryAgent::LowEnergyMethod);
 
     readMessagesTimer.setInterval(250);
@@ -338,11 +336,12 @@ void BtController::readValueFromService(const QLowEnergyCharacteristic &info, co
         QString trimmedMsg = msg.trimmed();
         QString value = "";
 
+        prevDalnomerValue = value;
+
         for(int i = 1; i < trimmedMsg.length(); i++) {
             value += trimmedMsg.at(i);
         }
 
-        prevDalnomerValue = value;
 
         emit dalnomerValuesGot(trimmedMsg.at(0), value);
     } else {
