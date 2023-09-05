@@ -126,12 +126,15 @@ void draw(int index)
       u8g->setColorIndex(1);
     case 0:
       u8g->drawXBMP(0, 0, u8g_logo_width, u8g_logo_height, face_1_bits);
+      // u8g->drawStr(0, 0, "ODIN");
       break;
     case 1:
       u8g->drawXBMP(0, 0, u8g_logo_width, u8g_logo_height, face_2_bits);
+      // u8g->drawStr(0, 0, "DWA");
       break;
     case 2:
       u8g->drawXBMP(0, 0, u8g_logo_width, u8g_logo_height, face_3_bits);
+      // u8g->drawStr(0, 0, "TRI");
       break;
     default:
       break;
