@@ -38,11 +38,6 @@ void BtController::init()
         sendMessageToKukla(QString("^") + prevDalnomerValue, QString("Puppet1"));
         for(int index = 0; index < servicesAndController.count(); index++) {
             if(servicesAndController[index].m_service != nullptr) {
-<<<<<<< HEAD
-
-                //if(servicesAndController[index].m_service.cha)
-=======
->>>>>>> 6d30cde3c0685cd88c9f5ca8f94365010ca9eec4
                 servicesAndController[index].m_service->readCharacteristic(servicesAndController[index].m_readCharacteristic);
             }
         }
