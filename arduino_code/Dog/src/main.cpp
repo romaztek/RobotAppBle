@@ -32,9 +32,15 @@ U8GLIB_ST7920_128X64_4X u8g(
 #define LATCH 22
 #define CLK 21
 
-#define IR_SENSOR A0
-SharpIR sensor(SharpIR::GP2Y0A02YK0F, IR_SENSOR);
-int distance;
+#define IR_SENSOR_F A0
+// #define IR_SENSOR_L A1
+// #define IR_SENSOR_R A2
+
+SharpIR sensorF(SharpIR::GP2Y0A02YK0F, IR_SENSOR_F);
+// SharpIR sensorL(SharpIR::GP2Y0A21YK0F, IR_SENSOR_L);
+// SharpIR sensorR(SharpIR::GP2Y0A21YK0F, IR_SENSOR_R);
+
+int distanceF, distanceL, distanceR;
 
 DFRobotDFPlayerMini myDFPlayer;
 
@@ -183,6 +189,8 @@ int runMiddleArifmOptim(int newVal) {
   return average / NUM_READ;
 }
 
+void draw_lcd(unsigned char *bits);
+
 void bt_reader()
 {
   if (Serial3.available())
@@ -198,15 +206,34 @@ void bt_reader()
       rpi_msg_flag = 1;
   }
 
-  distance = runMiddleArifmOptim(sensor.getDistance());
-  //distance = sensor.getDistance();
-  Serial.print("Distance is ");
-  Serial.println(distance);
-  if(distance > 99) {
-    Serial3.print("F"+String(distance));
+  distanceF = runMiddleArifmOptim(sensorF.getDistance());
+  // distanceL = runMiddleArifmOptim(sensorL.getDistance());
+  // distanceR = runMiddleArifmOptim(sensorR.getDistance());
+
+  // distanceF = sensorF.getDistance();
+  // distanceL = sensorL.getDistance();
+  // distanceR = sensorR.getDistance();
+
+  Serial.println("front" + String(distanceF));
+  // Serial.println("left" + String(distanceL));
+  // Serial.println("right" + String(distanceR));
+
+  if(distanceF > 99) {
+    Serial3.print("F"+String(distanceF));
   } else {
-    Serial3.print("F0"+String(distance));
+    Serial3.print("F0"+String(distanceF));
+    gav_gav_flag = true;
   }
+  // if(distanceL < 10) {
+  //   Serial3.print("L0"+String(distanceL));
+  // } else {
+  //   Serial3.print("L"+String(distanceL));
+  // }
+  // if(distanceL < 10) {
+  //   Serial3.print("R0"+String(distanceR));
+  // } else {
+  //   Serial3.print("R"+String(distanceR));
+  // }
 }
 
 void init_bt()
@@ -241,11 +268,15 @@ void draw_lcd(unsigned char *bits)
     u8g.drawBox(0, 0, 128, 64);
     u8g.setColorIndex(0);
     u8g.drawXBMP(0, 0, lcd_width, lcd_height, bits);
+    
+    u8g.setColorIndex(0);
+    u8g.drawBox(0, 0, 25, 10);
 
-    // u8g.setFont(u8g_font_unifont);
-    // u8g.setPrintPos(0, 20);
-    // u8g.setColorIndex(1);
-    // u8g.print("Hello World!");
+    u8g.setFont(u8g_font_unifont);
+    u8g.setPrintPos(0, 10);
+    u8g.setColorIndex(1);
+
+    u8g.print(distanceF);
   } while (u8g.nextPage());
   delay(100);
 }
@@ -344,13 +375,22 @@ void setup()
 void loop()
 {
   //test_motors();
+  
+  // draw_lcd(face_2_bits);
 
   if (millis() - gav_gav_timeout > 1000){ // Вместо 10000 подставьте нужное вам значение паузы 
     gav_gav_timeout = millis(); 
-    gav_gav_flag = true;
+    // gav_gav_flag = true;
     no_no_flag = true;
     yes_yes_flag = true;
  }
+
+ if(gav_gav_flag) {
+    myDFPlayer.volume(20);
+    myDFPlayer.play(4);
+    gav_gav_flag = false;
+    // myDFPlayer.volume(10);
+  }
 
   if (bt_msg_flag)
   {
