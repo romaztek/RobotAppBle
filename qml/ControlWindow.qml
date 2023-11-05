@@ -1,9 +1,12 @@
-import QtQuick 2.7
+import QtQuick 2.9
 import QtQuick.Controls 2.2
+import QtQuick.Controls.Material 2.2
 import QtQuick.Layouts 1.3
 
 Rectangle {
     id: win
+
+    color: !(mySysPalette.windowText.hsvValue<mySysPalette.window.hsvValue) ? "black" : "white"
 
     property var heads: []
     property int head_count: 0
@@ -287,7 +290,7 @@ Rectangle {
 
                 Label {
                     id: rangeTextLeft
-                    property var dalnomerValue: 0
+                    property int dalnomerValue: 0
                     text: "LEFT\n" + dalnomerValue.toString()
                     Layout.fillWidth: true
                     Layout.preferredHeight: 50
@@ -296,7 +299,7 @@ Rectangle {
 
                 Label {
                     id: rangeTextFront
-                    property var dalnomerValue: 0
+                    property int dalnomerValue: 0
                     text: "FRONT\n" + dalnomerValue.toString()
                     Layout.fillWidth: true
                     Layout.preferredHeight: 50
@@ -305,7 +308,7 @@ Rectangle {
 
                 Label {
                     id: rangeTextRight
-                    property var dalnomerValue: 0
+                    property int dalnomerValue: 0
                     text: "RIGHT\n" + dalnomerValue.toString()
                     Layout.fillWidth: true
                     Layout.preferredHeight: 50
@@ -316,7 +319,7 @@ Rectangle {
         }
     }
 
-    Item {
+    ToolBar {
         id: bottomMenu
         anchors.left: parent.left
         anchors.right: parent.right
@@ -330,227 +333,123 @@ Rectangle {
             columns: 4
 
             //spacing: 5
-            Rectangle {
+            ToolButton {
                 id: syncCommandsButton
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                border.width: 2
-                radius: 0
-                color: selected ? highlightColor : defaultColor
+                text: qsTr("Servo movement")
+                Material.theme : !(mySysPalette.windowText.hsvValue<mySysPalette.window.hsvValue) ? Material.Light : Material.Dark
                 property bool selected: true
-                Label {
-                    text: qsTr("Servo movement")
-                    elide: Text.ElideLeft
-                    wrapMode: Text.WordWrap
-                    font.pointSize: 12
-                    x: 5
-                    verticalAlignment: Qt.AlignVCenter
-                    height: parent.height
-                    color: parent.selected ? defaultColor : highlightColor
-                }
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        manualDriveCommandsButton.selected = false
-                        advancedCommandsButton.selected = false
-                        manualAudioCommandsButton.selected = false
-                        chokerCommandsButton.selected = false
-                        faceImageCommandsButton.selected = false
-                        dalnomerCommandsButton.selected = false
-                        syncCommandsButton.selected = true
-                    }
+                onClicked: {
+                    manualDriveCommandsButton.selected = false
+                    advancedCommandsButton.selected = false
+                    manualAudioCommandsButton.selected = false
+                    chokerCommandsButton.selected = false
+                    faceImageCommandsButton.selected = false
+                    dalnomerCommandsButton.selected = false
+                    syncCommandsButton.selected = true
                 }
             }
-
-            Rectangle {
+            ToolButton {
                 id: advancedCommandsButton
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                border.width: 2
-                radius: 0
-                color: selected ? highlightColor : defaultColor
-                property bool selected: false
-                Label {
-                    text: qsTr("Advanced")
-                    elide: Text.ElideLeft
-                    wrapMode: Text.WordWrap
-                    font.pointSize: 12
-                    x: 5
-                    verticalAlignment: Qt.AlignVCenter
-                    height: parent.height
-                    color: parent.selected ? defaultColor : highlightColor
-                }
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        syncCommandsButton.selected = false
-                        manualDriveCommandsButton.selected = false
-                        manualAudioCommandsButton.selected = false
-                        chokerCommandsButton.selected = false
-                        faceImageCommandsButton.selected = false
-                        dalnomerCommandsButton.selected = false
-                        advancedCommandsButton.selected = true
-                    }
+                text: qsTr("Advanced")
+                Material.theme : !(mySysPalette.windowText.hsvValue<mySysPalette.window.hsvValue) ? Material.Light : Material.Dark
+                property bool selected: true
+                onClicked: {
+                    syncCommandsButton.selected = false
+                    manualDriveCommandsButton.selected = false
+                    manualAudioCommandsButton.selected = false
+                    chokerCommandsButton.selected = false
+                    faceImageCommandsButton.selected = false
+                    dalnomerCommandsButton.selected = false
+                    advancedCommandsButton.selected = true
                 }
             }
-
-            Rectangle {
+            ToolButton {
                 id: manualDriveCommandsButton
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                border.width: 2
-                radius: 0
-                color: selected ? highlightColor : defaultColor
-                property bool selected: false
-                Label {
-                    text: qsTr("Manual drive")
-                    elide: Text.ElideLeft
-                    wrapMode: Text.WordWrap
-                    font.pointSize: 12
-                    x: 5
-                    verticalAlignment: Qt.AlignVCenter
-                    height: parent.height
-                    color: parent.selected ? defaultColor : highlightColor
-                }
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        syncCommandsButton.selected = false
-                        advancedCommandsButton.selected = false
-                        manualAudioCommandsButton.selected = false
-                        chokerCommandsButton.selected = false
-                        faceImageCommandsButton.selected = false
-                        dalnomerCommandsButton.selected = false
-                        manualDriveCommandsButton.selected = true
-                    }
+                text: qsTr("Manual drive")
+                Material.theme : !(mySysPalette.windowText.hsvValue<mySysPalette.window.hsvValue) ? Material.Light : Material.Dark
+                property bool selected: true
+                onClicked: {
+                    syncCommandsButton.selected = false
+                    advancedCommandsButton.selected = false
+                    manualAudioCommandsButton.selected = false
+                    chokerCommandsButton.selected = false
+                    faceImageCommandsButton.selected = false
+                    dalnomerCommandsButton.selected = false
+                    manualDriveCommandsButton.selected = true
                 }
             }
-
-            Rectangle {
+            ToolButton {
                 id: faceImageCommandsButton
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                border.width: 2
-                radius: 0
-                color: selected ? highlightColor : defaultColor
-                property bool selected: false
-                Label {
-                    text: qsTr("Face image")
-                    elide: Text.ElideLeft
-                    wrapMode: Text.WordWrap
-                    font.pointSize: 12
-                    x: 5
-                    verticalAlignment: Qt.AlignVCenter
-                    height: parent.height
-                    color: parent.selected ? defaultColor : highlightColor
-                }
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        syncCommandsButton.selected = false
-                        advancedCommandsButton.selected = false
-                        manualDriveCommandsButton.selected = false
-                        manualAudioCommandsButton.selected = false
-                        chokerCommandsButton.selected = false
-                        dalnomerCommandsButton.selected = false
-                        faceImageCommandsButton.selected = true
-                    }
+                text: qsTr("Face image")
+                Material.theme : !(mySysPalette.windowText.hsvValue<mySysPalette.window.hsvValue) ? Material.Light : Material.Dark
+                property bool selected: true
+                onClicked: {
+                    syncCommandsButton.selected = false
+                    advancedCommandsButton.selected = false
+                    manualDriveCommandsButton.selected = false
+                    manualAudioCommandsButton.selected = false
+                    chokerCommandsButton.selected = false
+                    dalnomerCommandsButton.selected = false
+                    faceImageCommandsButton.selected = true
                 }
             }
-
-            Rectangle {
+            ToolButton {
                 id: manualAudioCommandsButton
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                border.width: 2
-                radius: 0
-                color: selected ? highlightColor : defaultColor
-                property bool selected: false
-                Label {
-                    text: qsTr("Manual audio")
-                    elide: Text.ElideLeft
-                    wrapMode: Text.WordWrap
-                    font.pointSize: 12
-                    x: 5
-                    verticalAlignment: Qt.AlignVCenter
-                    height: parent.height
-                    color: parent.selected ? defaultColor : highlightColor
-                }
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        syncCommandsButton.selected = false
-                        advancedCommandsButton.selected = false
-                        manualDriveCommandsButton.selected = false
-                        chokerCommandsButton.selected = false
-                        faceImageCommandsButton.selected = false
-                        dalnomerCommandsButton.selected = false
-                        manualAudioCommandsButton.selected = true
-                    }
+                text: qsTr("Manual audio")
+                Material.theme : !(mySysPalette.windowText.hsvValue<mySysPalette.window.hsvValue) ? Material.Light : Material.Dark
+                property bool selected: true
+                onClicked: {
+                    syncCommandsButton.selected = false
+                    advancedCommandsButton.selected = false
+                    manualDriveCommandsButton.selected = false
+                    chokerCommandsButton.selected = false
+                    faceImageCommandsButton.selected = false
+                    dalnomerCommandsButton.selected = false
+                    manualAudioCommandsButton.selected = true
                 }
             }
-
-            Rectangle {
+            ToolButton {
                 id: chokerCommandsButton
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                border.width: 2
-                radius: 0
-                color: selected ? highlightColor : defaultColor
-                property bool selected: false
-                Label {
-                    text: qsTr("Choker")
-                    elide: Text.ElideLeft
-                    wrapMode: Text.WordWrap
-                    font.pointSize: 12
-                    x: 5
-                    verticalAlignment: Qt.AlignVCenter
-                    height: parent.height
-                    color: parent.selected ? defaultColor : highlightColor
-                }
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        syncCommandsButton.selected = false
-                        advancedCommandsButton.selected = false
-                        manualDriveCommandsButton.selected = false
-                        manualAudioCommandsButton.selected = false
-                        faceImageCommandsButton.selected = false
-                        dalnomerCommandsButton.selected = false
-                        chokerCommandsButton.selected = true
-                    }
+                text: qsTr("Choker")
+                Material.theme : !(mySysPalette.windowText.hsvValue<mySysPalette.window.hsvValue) ? Material.Light : Material.Dark
+                property bool selected: true
+                onClicked: {
+                    syncCommandsButton.selected = false
+                    advancedCommandsButton.selected = false
+                    manualDriveCommandsButton.selected = false
+                    manualAudioCommandsButton.selected = false
+                    faceImageCommandsButton.selected = false
+                    dalnomerCommandsButton.selected = false
+                    chokerCommandsButton.selected = true
                 }
             }
-
-            Rectangle {
+            ToolButton {
                 id: dalnomerCommandsButton
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                border.width: 2
-                radius: 0
-                color: selected ? highlightColor : defaultColor
-                property bool selected: false
-                Label {
-                    text: qsTr("Ranger")
-                    elide: Text.ElideLeft
-                    wrapMode: Text.WordWrap
-                    font.pointSize: 12
-                    x: 5
-                    verticalAlignment: Qt.AlignVCenter
-                    height: parent.height
-                    color: parent.selected ? defaultColor : highlightColor
-                }
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        syncCommandsButton.selected = false
-                        advancedCommandsButton.selected = false
-                        manualDriveCommandsButton.selected = false
-                        manualAudioCommandsButton.selected = false
-                        faceImageCommandsButton.selected = false
-                        chokerCommandsButton.selected = false
-                        dalnomerCommandsButton.selected = true
-                    }
+                text: qsTr("Ranger")
+                Material.theme : !(mySysPalette.windowText.hsvValue<mySysPalette.window.hsvValue) ? Material.Light : Material.Dark
+                property bool selected: true
+                onClicked: {
+                    syncCommandsButton.selected = false
+                    advancedCommandsButton.selected = false
+                    manualDriveCommandsButton.selected = false
+                    manualAudioCommandsButton.selected = false
+                    faceImageCommandsButton.selected = false
+                    chokerCommandsButton.selected = false
+                    dalnomerCommandsButton.selected = true
                 }
             }
 

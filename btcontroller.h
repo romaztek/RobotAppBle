@@ -2,6 +2,7 @@
 #define BTCONTROLLER_H
 
 #include <QObject>
+#include <QMap>
 #include <QStringList>
 #include <QDebug>
 #include <QBluetoothLocalDevice>
@@ -58,6 +59,8 @@ private:
     QList<QBluetoothDeviceInfo> deviceInfos;
 
     QList<ServiceAndController> servicesAndController;
+
+    QMap<int, bool> sppServicesFoundList;
 
     void searchCharacteristic(int index);
 

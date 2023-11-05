@@ -1,4 +1,4 @@
-import QtQuick 2.7
+import QtQuick 2.9
 import QtQuick.Window 2.2
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
@@ -13,10 +13,13 @@ Window {
     height: 480
     title: qsTr("Puppet Controller - Debug")
 
+    SystemPalette{id:mySysPalette}
+
     property bool hasTouchScreen: logic.hasTouchScreen()
 
     property color highlightColor: "black"
-    property color defaultColor: "#f6f6f6"
+//    property color defaultColor: !(mySysPalette.windowText.hsvValue<mySysPalette.window.hsvValue) ? "black" : "white"
+    property color defaultColor: "white"
     property color backgroundColor: "white"
     property color labelBackgroundColor: "#4fc3f7"
 

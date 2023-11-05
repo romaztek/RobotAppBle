@@ -1,9 +1,12 @@
-import QtQuick 2.7
+import QtQuick 2.9
 import QtQuick.Window 2.2
 import QtQuick.Controls 2.2
+import QtQuick.Controls.Material 2.2
 import QtQuick.Layouts 1.3
 
 Rectangle {
+    color: !(mySysPalette.windowText.hsvValue<mySysPalette.window.hsvValue) ? "black" : "white"
+
     Component.onCompleted: {
         btController.init()
     }
@@ -18,7 +21,7 @@ Rectangle {
             deviceModel.append({
                                    "address": _addr,
                                    "name": _name,
-                                   "checked": false
+                                   "is_checked": false
                                })
         }
     }
@@ -32,6 +35,7 @@ Rectangle {
         height: filterNameCheckBox.height
         verticalAlignment: Qt.AlignVCenter
         font.bold: true
+        Material.theme : (mySysPalette.windowText.hsvValue<mySysPalette.window.hsvValue) ? Material.Light : Material.Dark
     }
 
     Button {
@@ -46,6 +50,7 @@ Rectangle {
             destroyConnectWindow()
             createControlWindow()
         }
+        Material.theme : (mySysPalette.windowText.hsvValue<mySysPalette.window.hsvValue) ? Material.Light : Material.Dark
     }
 
     CheckBox {
@@ -55,6 +60,7 @@ Rectangle {
         anchors.top: parent.top
         anchors.right: parent.right
         anchors.margins: 5
+        Material.theme : (mySysPalette.windowText.hsvValue<mySysPalette.window.hsvValue) ? Material.Light : Material.Dark
     }
 
     ListModel {
@@ -76,96 +82,57 @@ Rectangle {
 
     Component {
         id: deviceDelegate
+
         Item {
             width: parent.width
             height: filterNameCheckBox.checked && !name.startsWith(
                         "Puppet") ? 0 : 55
 
-            Rectangle {
+            CheckBox {
+                id: chkbox
                 width: parent.width
                 height: filterNameCheckBox.checked && !name.startsWith(
                             "Puppet") ? 0 : 50
-                color: checked ? "lime" : defaultColor
-                border.color: "black"
-                border.width: 2
-                radius: 5
-            }
-
-            ColumnLayout {
-                x: 5
                 visible: filterNameCheckBox.checked && !name.startsWith(
                              "Puppet") ? false : true
-
-                Text {
-                    id: nameField
-                    text: name
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                }
-                Text {
-                    id: addressField
-                    text: address
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                }
-            }
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    checked = !checked
+                enabled: visible
+                Material.theme : (mySysPalette.windowText.hsvValue<mySysPalette.window.hsvValue) ? Material.Light : Material.Dark
+                text: name + " : " + address
+                onCheckStateChanged: {
+                    is_checked = checked
                 }
             }
         }
     }
 
-    Rectangle {
+    Button {
         id: connectButton
         height: 50
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: parent.bottom
         anchors.margins: 5
-        border.width: 2
-        border.color: connectButtonMouseArea.pressed ? "white" : "black"
-        color: connectButtonMouseArea.pressed ? "black" : "white"
+        text: qsTr("Connect")
+        Material.theme : (mySysPalette.windowText.hsvValue<mySysPalette.window.hsvValue) ? Material.Light : Material.Dark
 
-        ColorAnimation {
-            from: "white"
-            to: "black"
-            duration: 200
-        }
-        Text {
-            anchors.centerIn: parent
-            text: qsTr("Connect")
-            color: connectButtonMouseArea.pressed ? "white" : "black"
-            font.bold: true
-        }
-        MouseArea {
-            id: connectButtonMouseArea
-            anchors.fill: parent
-            hoverEnabled: true
-            onPressed: {
+        onClicked: {
+            createLoadingWindow()
+            var checked_count = 0
+            var indexes = []
+            var device_indexes = []
 
-            }
-            onReleased: {
-
-            }
-            onClicked: {
-                createLoadingWindow()
-                var checked_count = 0
-                var indexes = []
-                var device_indexes = []
-
-                for (var i = 0; i < deviceModel.count; i++) {
-                    if (deviceModel.get(i).checked) {
-                        indexes.push(i)
-                        device_indexes.push(checked_count)
-                        checked_count++
-                    }
+            for (var i = 0; i < deviceModel.count; i++) {
+                console.log(deviceModel.get(i).is_checked)
+                if (deviceModel.get(i).is_checked) {
+                    console.log(i)
+                    indexes.push(i)
+                    device_indexes.push(checked_count)
+                    checked_count++
                 }
-
-                btController.connectToDevices(indexes, device_indexes)
             }
+
+            btController.connectToDevices(indexes, device_indexes)
         }
+
     }
 }

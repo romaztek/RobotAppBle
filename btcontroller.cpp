@@ -23,7 +23,7 @@ BtController::~BtController()
 void BtController::init()
 {
     m_deviceDiscoveryAgent = new QBluetoothDeviceDiscoveryAgent(this);
-    m_deviceDiscoveryAgent->setLowEnergyDiscoveryTimeout(20000);
+    m_deviceDiscoveryAgent->setLowEnergyDiscoveryTimeout(15000);
 
     connect(m_deviceDiscoveryAgent,SIGNAL(deviceDiscovered(QBluetoothDeviceInfo)), this,
             SLOT(addDevice(QBluetoothDeviceInfo)));
@@ -54,7 +54,11 @@ QVariant BtController::getDevices()
 }
 
 void BtController::connectToDevices(QList<int> indexes, QList<int> device_indexes)
-{    
+{
+    qDebug().noquote() << "starting connect to devices:";
+    foreach (auto index, indexes) {
+        qDebug().noquote() << index;
+    }
     m_deviceDiscoveryAgent->stop();
 
     connected_count_desired = indexes.count();
@@ -82,6 +86,8 @@ void BtController::connectToDevices(QList<int> indexes, QList<int> device_indexe
 void BtController::createCtl(QBluetoothDeviceInfo info, int index)
 {
     QLowEnergyController *m_control = QLowEnergyController::createCentral(info, this);
+
+    sppServicesFoundList.insert(index, false);
 
     servicesAndController[index].m_control = m_control;
 
@@ -142,9 +148,8 @@ void BtController::setDalnomerState(bool state)
 
 void BtController::sendMessage(QString text, const QList<int> &array)
 {
-    if(servicesAndController.count() == 0) {
+    if(servicesAndController.count() == 0)
         return;
-    }
 
     for(int i = 0; i < array.size(); i++) {
         int index = array.at(i);
@@ -171,16 +176,14 @@ void BtController::sendMessage(QString text, const QList<int> &array)
 
 void BtController::sendMessageToKukla(QString text, const QString btName)
 {
-    if(servicesAndController.count() == 0) {
+    if(servicesAndController.count() == 0)
         return;
-    }
 
     int index = -1;
 
     for(int i = 0; i < servicesAndController.size(); i++) {
-        if(servicesAndController.at(i).name == btName) {
+        if(servicesAndController.at(i).name == btName)
             index = i;
-        }
     }
 
     if(index == -1) return;
@@ -229,7 +232,7 @@ void BtController::addDevice(const QBluetoothDeviceInfo &info)
 {
     if (info.coreConfigurations() & QBluetoothDeviceInfo::LowEnergyCoreConfiguration)
     {
-#ifdef Q_OS_IOS
+#if defined Q_OS_IOS || defined Q_OS_MAC
         const QString addr = info.deviceUuid().toString();
         qDebug().noquote() << "Added:" << addr;
 #else
@@ -247,11 +250,13 @@ void BtController::addDevice(const QBluetoothDeviceInfo &info)
 
 void BtController::scanFinished()
 {
-
+    qDebug().noquote() << "scanFinished";
 }
 
 void BtController::serviceDiscovered(const QBluetoothUuid &gatt, int index)
 {
+    qDebug().noquote() << "found service, gatt:" << gatt << "index:" << index;
+
     if (gatt == QBluetoothUuid(bt_gatt)) {
         qDebug().noquote() << "found serial port:" << gatt.toString();
         servicesAndController[index].foundSpp = true;
@@ -263,6 +268,8 @@ void BtController::serviceDiscovered(const QBluetoothUuid &gatt, int index)
                 serviceStateChanged(s, index);
             });
             servicesAndController[index].m_service->discoverDetails();
+
+            sppServicesFoundList[index] = true;
         } else {
             qDebug().noquote() << "SPP Service not found.";
         }
@@ -273,9 +280,7 @@ void BtController::serviceDiscovered(const QBluetoothUuid &gatt, int index)
 
 void BtController::serviceScanDone(int index)
 {
-    if(servicesAndController[index].foundSpp) {
-
-    }
+    qDebug().noquote() << "serviceScanDone:" << "index:" << index;
 
 }
 
@@ -319,7 +324,7 @@ void BtController::serviceStateChanged(QLowEnergyService::ServiceState s, int in
         break;
     }
     default:
-        //nothing for now
+        qDebug().noquote() << s << index;
         break;
     }
 }
