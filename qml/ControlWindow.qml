@@ -314,7 +314,29 @@ Rectangle {
                     horizontalAlignment: Text.AlignHCenter
                 }
             }
+        }
 
+        Item {
+            anchors.fill: parent
+            visible: stagesCommandsButton.selected
+            enabled: stagesCommandsButton.selected
+            ColumnLayout {
+                CheckBox {
+                    text: qsTr("Stage:") + " 1"
+                    Layout.fillWidth: true
+                    height: 50
+                }
+                CheckBox {
+                    text: qsTr("Stage:") + " 2"
+                    Layout.fillWidth: true
+                    height: 50
+                }
+                CheckBox {
+                    text: qsTr("Stage:") + " 3"
+                    Layout.fillWidth: true
+                    height: 50
+                }
+            }
         }
     }
 
@@ -346,6 +368,7 @@ Rectangle {
                     chokerCommandsButton.selected = false
                     faceImageCommandsButton.selected = false
                     dalnomerCommandsButton.selected = false
+                    stagesCommandsButton.selected = false
                     syncCommandsButton.selected = true
                 }
             }
@@ -363,6 +386,7 @@ Rectangle {
                     chokerCommandsButton.selected = false
                     faceImageCommandsButton.selected = false
                     dalnomerCommandsButton.selected = false
+                    stagesCommandsButton.selected = false
                     advancedCommandsButton.selected = true
                 }
             }
@@ -380,6 +404,7 @@ Rectangle {
                     chokerCommandsButton.selected = false
                     faceImageCommandsButton.selected = false
                     dalnomerCommandsButton.selected = false
+                    stagesCommandsButton.selected = false
                     manualDriveCommandsButton.selected = true
                 }
             }
@@ -397,6 +422,7 @@ Rectangle {
                     manualAudioCommandsButton.selected = false
                     chokerCommandsButton.selected = false
                     dalnomerCommandsButton.selected = false
+                    stagesCommandsButton.selected = false
                     faceImageCommandsButton.selected = true
                 }
             }
@@ -414,6 +440,7 @@ Rectangle {
                     chokerCommandsButton.selected = false
                     faceImageCommandsButton.selected = false
                     dalnomerCommandsButton.selected = false
+                    stagesCommandsButton.selected = false
                     manualAudioCommandsButton.selected = true
                 }
             }
@@ -431,6 +458,7 @@ Rectangle {
                     manualAudioCommandsButton.selected = false
                     faceImageCommandsButton.selected = false
                     dalnomerCommandsButton.selected = false
+                    stagesCommandsButton.selected = false
                     chokerCommandsButton.selected = true
                 }
             }
@@ -448,7 +476,26 @@ Rectangle {
                     manualAudioCommandsButton.selected = false
                     faceImageCommandsButton.selected = false
                     chokerCommandsButton.selected = false
+                    stagesCommandsButton.selected = false
                     dalnomerCommandsButton.selected = true
+                }
+            }
+            ToolButton {
+                id: stagesCommandsButton
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                text: qsTr("Stages")
+                Material.theme : !(mySysPalette.windowText.hsvValue<mySysPalette.window.hsvValue) ? Material.Light : Material.Dark
+                property bool selected: false
+                onClicked: {
+                    syncCommandsButton.selected = false
+                    advancedCommandsButton.selected = false
+                    manualDriveCommandsButton.selected = false
+                    manualAudioCommandsButton.selected = false
+                    faceImageCommandsButton.selected = false
+                    chokerCommandsButton.selected = false
+                    dalnomerCommandsButton.selected = false
+                    stagesCommandsButton.selected = true
                 }
             }
 
