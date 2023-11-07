@@ -31,11 +31,9 @@ Item {
     property string driveLeftCommandStrong: btCommands.driveLeftCommandStrong()
 
     property string driveRightCommandLow: btCommands.driveRightCommandLow()
-    property string driveRightCommandNormal: btCommands.driveRightCommandNormal(
-                                                 )
+    property string driveRightCommandNormal: btCommands.driveRightCommandNormal()
     property string driveRightCommandHigh: btCommands.driveRightCommandHigh()
-    property string driveRightCommandStrong: btCommands.driveRightCommandStrong(
-                                                 )
+    property string driveRightCommandStrong: btCommands.driveRightCommandStrong()
 
     property string centerCommand: btCommands.centerCommand()
     property string forwardCommand: btCommands.forwardCommand()

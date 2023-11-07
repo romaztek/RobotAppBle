@@ -16,7 +16,7 @@ Item {
             Layout.preferredHeight: 50
             border.width: 2
             radius: 5
-            color: selected ? "lime" : defaultColor
+            color: selected ? "lime" : defaultBackgroundColor
             property bool selected: true
             Label {
                 text: qsTr("1")
@@ -42,7 +42,7 @@ Item {
             Layout.preferredHeight: 50
             border.width: 2
             radius: 5
-            color: selected ? "lime" : defaultColor
+            color: selected ? "lime" : defaultBackgroundColor
             property bool selected: false
             Label {
                 text: qsTr("2")
@@ -68,7 +68,7 @@ Item {
             Layout.preferredHeight: 50
             border.width: 2
             radius: 5
-            color: selected ? "lime" : defaultColor
+            color: selected ? "lime" : defaultBackgroundColor
             property bool selected: false
             Label {
                 text: qsTr("3")

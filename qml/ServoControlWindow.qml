@@ -46,6 +46,7 @@ Item {
             Label {
                 text: "Общие команды:"
                 x: 5
+                color: defaultTextColor
             }
 
             CommandButton {
@@ -107,6 +108,7 @@ Item {
             Label {
                 text: "Команды прошлой куклы:"
                 x: 5
+                color: defaultTextColor
             }
 
             CommandButton {

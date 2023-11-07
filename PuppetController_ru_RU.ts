@@ -45,22 +45,22 @@
 <context>
     <name>ConnectWindow</name>
     <message>
-        <location filename="qml/ConnectWindow.qml" line="28"/>
+        <location filename="qml/ConnectWindow.qml" line="35"/>
         <source>Select puppets (one or more):</source>
         <translation>Выберите кукол:</translation>
     </message>
     <message>
-        <location filename="qml/ConnectWindow.qml" line="39"/>
+        <location filename="qml/ConnectWindow.qml" line="47"/>
         <source>Skip</source>
         <translation>Пропустить</translation>
     </message>
     <message>
-        <location filename="qml/ConnectWindow.qml" line="53"/>
+        <location filename="qml/ConnectWindow.qml" line="62"/>
         <source>Filter &apos;Puppet*&apos;</source>
         <translation>Только &apos;Puppet*&apos;</translation>
     </message>
     <message>
-        <location filename="qml/ConnectWindow.qml" line="139"/>
+        <location filename="qml/ConnectWindow.qml" line="119"/>
         <source>Connect</source>
         <translation>Подключить</translation>
     </message>
@@ -68,52 +68,52 @@
 <context>
     <name>ControlWindow</name>
     <message>
-        <location filename="qml/ControlWindow.qml" line="273"/>
+        <location filename="qml/ControlWindow.qml" line="276"/>
         <source>Dalnomer: </source>
         <translation>Дальномер:</translation>
     </message>
     <message>
-        <location filename="qml/ControlWindow.qml" line="273"/>
+        <location filename="qml/ControlWindow.qml" line="276"/>
         <source>ON</source>
         <translation>ВКЛ</translation>
     </message>
     <message>
-        <location filename="qml/ControlWindow.qml" line="273"/>
+        <location filename="qml/ControlWindow.qml" line="276"/>
         <source>OFF</source>
         <translation>ВЫКЛ</translation>
     </message>
     <message>
-        <location filename="qml/ControlWindow.qml" line="342"/>
+        <location filename="qml/ControlWindow.qml" line="340"/>
         <source>Servo movement</source>
         <translation>Движение</translation>
     </message>
     <message>
-        <location filename="qml/ControlWindow.qml" line="373"/>
+        <location filename="qml/ControlWindow.qml" line="357"/>
         <source>Advanced</source>
         <translation>Распознавание</translation>
     </message>
     <message>
-        <location filename="qml/ControlWindow.qml" line="404"/>
+        <location filename="qml/ControlWindow.qml" line="374"/>
         <source>Manual drive</source>
         <translation>Передвижение</translation>
     </message>
     <message>
-        <location filename="qml/ControlWindow.qml" line="435"/>
+        <location filename="qml/ControlWindow.qml" line="391"/>
         <source>Face image</source>
         <translation>Лицо</translation>
     </message>
     <message>
-        <location filename="qml/ControlWindow.qml" line="466"/>
+        <location filename="qml/ControlWindow.qml" line="408"/>
         <source>Manual audio</source>
         <translation>Аудио</translation>
     </message>
     <message>
-        <location filename="qml/ControlWindow.qml" line="497"/>
+        <location filename="qml/ControlWindow.qml" line="425"/>
         <source>Choker</source>
         <translation>Ошейник</translation>
     </message>
     <message>
-        <location filename="qml/ControlWindow.qml" line="528"/>
+        <location filename="qml/ControlWindow.qml" line="442"/>
         <source>Ranger</source>
         <translation>Дальномер</translation>
     </message>
@@ -279,6 +279,12 @@
         <location filename="qml/main.qml" line="14"/>
         <source>Puppet Controller - Debug</source>
         <translation>Puppet Controller - Отладка</translation>
+    </message>
+    <message>
+        <location filename="qml/main.qml" line="164"/>
+        <source>Cannot connect to:</source>
+        <oldsource>Cannot connect t:</oldsource>
+        <translation>Невозможно подключиться к:</translation>
     </message>
 </context>
 </TS>

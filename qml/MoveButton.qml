@@ -8,7 +8,7 @@ Rectangle {
     id: btn
 
     border.width: 2
-    border.color: "black"
+    border.color: defaultTextColor
 
     radius: 0
 
@@ -26,9 +26,9 @@ Rectangle {
 
     onIsPressedChanged: {
         if(isPressed) {
-            btn.color = "lime"
+            btn.color = Qt.lighter(highlightColor, 1.5)
         } else {
-            btn.color = defaultColor
+            btn.color = highlightColor
         }
     }
 
@@ -40,7 +40,7 @@ Rectangle {
         isPressed = false
     }
 
-    color: defaultColor
+    color: highlightColor
 
     Behavior on color {
         ColorAnimation {
@@ -62,8 +62,6 @@ Rectangle {
             property real prefHeight: btn.width > btn.height ? btn.height/sizeScale : btn.width/sizeScale
         }
 
-
-
         Text {
             id: btnText
             Layout.fillWidth: true
@@ -72,6 +70,7 @@ Rectangle {
             elide: Text.ElideRight
             wrapMode: Text.WordWrap
             horizontalAlignment: Text.AlignHCenter
+            color: defaultTextColor
         }
     }
 

@@ -10,8 +10,9 @@ Rectangle {
     height: 50
     x: 5
     border.width: 2
+    border.color: defaultTextColor
     radius: 0
-    color: selected ? highlightColor : defaultColor
+    color: selected ? highlightColor : defaultBackgroundColor
     property alias text: cmdButtonText.text
     property bool selected: false
 
@@ -23,7 +24,8 @@ Rectangle {
         x: 5
         verticalAlignment: Qt.AlignVCenter
         height: parent.height
-        color: parent.selected ? defaultColor : highlightColor
+//        color: parent.selected ? defaultBackgroundColor : highlightColor
+        color: defaultTextColor
     }
 
     BusyIndicator {

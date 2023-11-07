@@ -24,6 +24,12 @@ Rectangle {
                                    "is_checked": false
                                })
         }
+        onBleConnectError: {
+            console.log("why: " + deviceName)
+            destroyLoadingWindow()
+            destroyErrorWindow()
+            createErrorWindow(deviceName)
+        }
     }
 
     Label {
@@ -116,22 +122,23 @@ Rectangle {
         Material.theme : (mySysPalette.windowText.hsvValue<mySysPalette.window.hsvValue) ? Material.Light : Material.Dark
 
         onClicked: {
-            createLoadingWindow()
             var checked_count = 0
-            var indexes = []
-            var device_indexes = []
+            var addresses = []
+            var names = []
 
             for (var i = 0; i < deviceModel.count; i++) {
-                console.log(deviceModel.get(i).is_checked)
+//                console.log(deviceModel.get(i).is_checked)
                 if (deviceModel.get(i).is_checked) {
-                    console.log(i)
-                    indexes.push(i)
-                    device_indexes.push(checked_count)
+                    addresses.push(deviceModel.get(i).address)
+                    names.push(deviceModel.get(i).name)
                     checked_count++
                 }
             }
 
-            btController.connectToDevices(indexes, device_indexes)
+            if(checked_count > 0) {
+                createLoadingWindow()
+                btController.connectToDevices(addresses, names)
+            }
         }
 
     }

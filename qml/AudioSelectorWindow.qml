@@ -21,8 +21,9 @@ Item {
             Layout.fillWidth: true
             Layout.preferredHeight: 50
             border.width: 2
+            border.color: defaultTextColor
             radius: 5
-            color: selected ? "lime" : defaultColor
+            color: selected ? highlightColor : defaultBackgroundColor
             property bool selected: true
             Label {
                 text: qsTr("1")
@@ -31,6 +32,7 @@ Item {
                 x: 5
                 verticalAlignment: Qt.AlignVCenter
                 height: parent.height
+                color: defaultTextColor
             }
             MouseArea {
                 anchors.fill: parent
@@ -40,6 +42,7 @@ Item {
                     audioButton1.selected = true
                     btController.sendMessage(btCommands.audio1Command(),
                                              current_head)
+                    color: defaultTextColor
                 }
             }
         }
@@ -48,8 +51,9 @@ Item {
             Layout.fillWidth: true
             Layout.preferredHeight: 50
             border.width: 2
+            border.color: defaultTextColor
             radius: 5
-            color: selected ? "lime" : defaultColor
+            color: selected ? highlightColor : defaultBackgroundColor
             property bool selected: false
             Label {
                 text: qsTr("2")
@@ -58,6 +62,7 @@ Item {
                 x: 5
                 verticalAlignment: Qt.AlignVCenter
                 height: parent.height
+                color: defaultTextColor
             }
             MouseArea {
                 anchors.fill: parent
@@ -75,8 +80,9 @@ Item {
             Layout.fillWidth: true
             Layout.preferredHeight: 50
             border.width: 2
+            border.color: defaultTextColor
             radius: 5
-            color: selected ? "lime" : defaultColor
+            color: selected ? highlightColor : defaultBackgroundColor
             property bool selected: false
             Label {
                 text: qsTr("3")
@@ -85,6 +91,7 @@ Item {
                 x: 5
                 verticalAlignment: Qt.AlignVCenter
                 height: parent.height
+                color: defaultTextColor
             }
             MouseArea {
                 anchors.fill: parent
@@ -102,8 +109,9 @@ Item {
             Layout.fillWidth: true
             Layout.preferredHeight: 50
             border.width: 2
+            border.color: defaultTextColor
             radius: 5
-            color: selected ? "lime" : defaultColor
+            color: selected ? highlightColor : defaultBackgroundColor
             property bool selected: false
             Label {
                 text: qsTr("Stop")
@@ -112,6 +120,7 @@ Item {
                 x: 5
                 verticalAlignment: Qt.AlignVCenter
                 height: parent.height
+                color: defaultTextColor
             }
             MouseArea {
                 anchors.fill: parent
@@ -172,5 +181,6 @@ Item {
         anchors.topMargin: 5
         text: volumeSlider.value
         anchors.horizontalCenter: parent.horizontalCenter
+        color: defaultTextColor
     }
 }

@@ -2,6 +2,7 @@ import QtQuick 2.9
 import QtQuick.Window 2.2
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
+import QtQuick.Controls.Material 2.2
 
 import ru.romankartashev.logic 1.0
 import ru.romankartashev.bt_commands 1.0
@@ -15,17 +16,20 @@ Window {
 
     SystemPalette{id:mySysPalette}
 
+    Material.theme: (mySysPalette.windowText.hsvValue<mySysPalette.window.hsvValue) ? Material.Light : Material.Dark
+
     property bool hasTouchScreen: logic.hasTouchScreen()
 
-    property color highlightColor: "black"
-//    property color defaultColor: !(mySysPalette.windowText.hsvValue<mySysPalette.window.hsvValue) ? "black" : "white"
-    property color defaultColor: "white"
-    property color backgroundColor: "white"
+    property color highlightColor: (mySysPalette.windowText.hsvValue<mySysPalette.window.hsvValue) ? "lime" : "green"
+//    property color defaultBackgroundColor: !(mySysPalette.windowText.hsvValue<mySysPalette.window.hsvValue) ? "black" : "white"
+    property color defaultBackgroundColor: (mySysPalette.windowText.hsvValue<mySysPalette.window.hsvValue) ? "white" : "black"
+    property color defaultTextColor: (mySysPalette.windowText.hsvValue<mySysPalette.window.hsvValue) ? "black" : "white"
     property color labelBackgroundColor: "#4fc3f7"
 
     property var connectWindow
     property var controlWindow
     property var loadingWindow
+    property var errorWindow
 
     function createConnectWindow() {
         connectWindow = myConnectWindow.createObject(appwindow, {
@@ -57,6 +61,18 @@ Window {
     function destroyLoadingWindow() {
         if (loadingWindow)
             loadingWindow.destroy()
+    }
+
+    function createErrorWindow(deviceName) {
+        errorWindow = myErrorWindow.createObject(appwindow, {
+                                                         "id": "errorWindow",
+                                                         "deviceName": deviceName
+                                                     })
+    }
+
+    function destroyErrorWindow() {
+        if (errorWindow)
+            errorWindow.destroy()
     }
 
     Component.onCompleted: {
@@ -138,4 +154,25 @@ Window {
             }
         }
     }
+
+    Component {
+        id: myErrorWindow
+        Dialog {
+            id: dialog
+            width: 400
+            height: 150
+            anchors.centerIn: parent
+            visible: true
+            modal: true
+            title: qsTr("Cannot connect to:") + "\n" + deviceName
+            standardButtons: Dialog.Ok
+            property string deviceName: ""
+
+            onAccepted: {
+                destroyErrorWindow()
+            }
+
+        }
+    }
+
 }

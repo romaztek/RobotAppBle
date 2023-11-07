@@ -46,8 +46,8 @@ public:
     ~BtController();
     Q_INVOKABLE void init();
     Q_INVOKABLE QVariant getDevices();
-    Q_INVOKABLE void connectToDevices(QList<int> indexes, QList<int> device_indexes);
-    Q_INVOKABLE void sendMessage(QString text, const QList<int> &array);
+    Q_INVOKABLE void connectToDevices(QList<QString> addresses, QList<QString> names);
+    Q_INVOKABLE void sendMessage(QString text, const QList<QString> &addressesArray);
     Q_INVOKABLE void sendMessageToKukla(QString text, const QString btName);
     Q_INVOKABLE void sendMessageAll(QString text);
     Q_INVOKABLE void setDalnomerState(bool state);
@@ -60,9 +60,9 @@ private:
 
     QList<ServiceAndController> servicesAndController;
 
-    QMap<int, bool> sppServicesFoundList;
+    QMap<QString, bool> sppServicesFoundList;   // address, found
 
-    void searchCharacteristic(int index);
+    void searchCharacteristic(ServiceAndController *sc);
 
     int connected_count = 0;
     int connected_count_desired = 0;
@@ -77,19 +77,20 @@ signals:
     void newDeviceFound(QVariant device);
     void foundSpp();
     void fullyConnected();
-    void signalToCreateCtl(QBluetoothDeviceInfo info, int index);
-    void deviceConnected(int index, QString name);
+    void signalToCreateCtl(QBluetoothDeviceInfo info, QString address, QString name);
+    void deviceConnected(QString address, QString name);
+    void bleConnectError(QString deviceName);
 
     void recognitionMsgGot(QString msg);
     void dalnomerValuesGot(QString side, QString value);
 
 public slots:
     void addDevice(const QBluetoothDeviceInfo &info);
-    void createCtl(QBluetoothDeviceInfo info, int index);
+    void createCtl(QBluetoothDeviceInfo info, QString address, QString name);
     void scanFinished();
-    void serviceDiscovered(const QBluetoothUuid &gatt, int index);
-    void serviceScanDone(int index);
-    void serviceStateChanged(QLowEnergyService::ServiceState s, int index);
+    void serviceDiscovered(const QBluetoothUuid &gatt, QString address, QString name);
+    void serviceScanDone(QString address, QString name);
+    void serviceStateChanged(QLowEnergyService::ServiceState s, QString address, QString name);
 
     void readValueFromService(const QLowEnergyCharacteristic &info, const QByteArray &value);
 };

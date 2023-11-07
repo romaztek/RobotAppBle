@@ -5,7 +5,7 @@ import QtQuick.Layouts 1.3
 Rectangle {
     id: iconButton
     height: 50
-    color: _ma.pressed ? highlightColor : defaultColor
+    color: _ma.pressed ? highlightColor : defaultBackgroundColor
     border.color: "#26282a"
     border.width: 2
     //radius: height/4
@@ -45,7 +45,7 @@ Rectangle {
             Layout.fillHeight: true
             verticalAlignment: Text.AlignVCenter
             elide: Qt.ElideRight
-            color: _ma.pressed ? defaultColor : highlightColor
+            color: _ma.pressed ? defaultBackgroundColor : highlightColor
         }
     }
 

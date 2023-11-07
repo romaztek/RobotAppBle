@@ -16,7 +16,7 @@ Rectangle {
         anchors.fill: parent
     }
 
-    function create_robot_head(index, name) {
+    function create_robot_head(address, name) {
         var newHead
 
         if (headsLayout.children.length > 0) {
@@ -25,16 +25,16 @@ Rectangle {
                                                               ),
                                                     "anchors.left": headsLayout.children[headsLayout.children.length - 1].right,
                                                     "anchors.leftMargin": 5,
-                                                    "text": name,
-                                                    "idx": index
+                                                    "deviceName": name,
+                                                    "deviceAddress": address
                                                 })
         } else {
             newHead = headDelegate.createObject(headsLayout, {
                                                     "id": "head_" + head_count.toString(
                                                               ),
                                                     "x": 5,
-                                                    "text": name,
-                                                    "idx": index
+                                                    "deviceName": name,
+                                                    "deviceAddress": address
                                                 })
         }
 
@@ -52,27 +52,25 @@ Rectangle {
     }
 
     Component.onCompleted: {
-        //        create_robot_head(0, 'Кукла')
+        create_robot_head('1:1:1:1', 'Кукла')
         //        create_robot_head(1, 'Собака')
     }
 
     Connections {
         target: btController
         onDeviceConnected: {
-            create_robot_head(index, name)
+            create_robot_head(address, name)
         }
     }
 
-    Rectangle {
+    ToolBar {
         id: topBar
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: parent.top
         anchors.margins: 5
         height: 50
-        color: defaultColor
-        border.width: 2
-        radius: 0
+
         Item {
             id: headsLayout
             anchors.fill: parent
@@ -86,13 +84,14 @@ Rectangle {
             color: checked ? "lime" : "white"
             border.color: "black"
             border.width: 2
-            radius: 0
+            radius: 4
             width: headText.width + headImage.width + 15
             height: 40
             y: 5
-            property alias text: headText.text
             property bool checked: false
             property int idx: -1
+            property string deviceName: ""
+            property string deviceAddress: ""
 
             function setChecked(val) {
                 checked = val
@@ -101,17 +100,17 @@ Rectangle {
             onCheckedChanged: {
                 if(checked) {
                     if(current_head.length === 0) {
-                        current_head.push(idx)
+                        current_head.push(deviceAddress)
                     } else {
-                        if(!(current_head.indexOf(idx) >= 0)) {
-                            current_head.push(idx)
+                        if(!(current_head.indexOf(deviceAddress) >= 0)) {
+                            current_head.push(deviceAddress)
                         }
                     }
                 } else {
-                    var idx_index = current_head.indexOf(idx);
-                    if(idx_index >= 0) {
-                        if (idx_index !== -1) {
-                            current_head.splice(idx_index, 1);
+                    var addr_index = current_head.indexOf(deviceAddress);
+                    if(addr_index >= 0) {
+                        if (addr_index !== -1) {
+                            current_head.splice(addr_index, 1);
                         }
                     }
                 }
@@ -130,7 +129,7 @@ Rectangle {
             Text {
                 id: headText
                 x: 5
-                text: ""
+                text: headDelegateRect.deviceName + "\n" + headDelegateRect.deviceAddress
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: headImage.right
                 anchors.leftMargin: 5
@@ -162,7 +161,7 @@ Rectangle {
         anchors.bottom: bottomMenu.top
         anchors.margins: 5
         height: 50
-        color: defaultColor
+        color: defaultBackgroundColor
         border.width: 2
         radius: 0
 
@@ -356,7 +355,7 @@ Rectangle {
                 Layout.fillHeight: true
                 text: qsTr("Advanced")
                 Material.theme : !(mySysPalette.windowText.hsvValue<mySysPalette.window.hsvValue) ? Material.Light : Material.Dark
-                property bool selected: true
+                property bool selected: false
                 onClicked: {
                     syncCommandsButton.selected = false
                     manualDriveCommandsButton.selected = false
@@ -373,7 +372,7 @@ Rectangle {
                 Layout.fillHeight: true
                 text: qsTr("Manual drive")
                 Material.theme : !(mySysPalette.windowText.hsvValue<mySysPalette.window.hsvValue) ? Material.Light : Material.Dark
-                property bool selected: true
+                property bool selected: false
                 onClicked: {
                     syncCommandsButton.selected = false
                     advancedCommandsButton.selected = false
@@ -390,7 +389,7 @@ Rectangle {
                 Layout.fillHeight: true
                 text: qsTr("Face image")
                 Material.theme : !(mySysPalette.windowText.hsvValue<mySysPalette.window.hsvValue) ? Material.Light : Material.Dark
-                property bool selected: true
+                property bool selected: false
                 onClicked: {
                     syncCommandsButton.selected = false
                     advancedCommandsButton.selected = false
@@ -407,7 +406,7 @@ Rectangle {
                 Layout.fillHeight: true
                 text: qsTr("Manual audio")
                 Material.theme : !(mySysPalette.windowText.hsvValue<mySysPalette.window.hsvValue) ? Material.Light : Material.Dark
-                property bool selected: true
+                property bool selected: false
                 onClicked: {
                     syncCommandsButton.selected = false
                     advancedCommandsButton.selected = false
@@ -424,7 +423,7 @@ Rectangle {
                 Layout.fillHeight: true
                 text: qsTr("Choker")
                 Material.theme : !(mySysPalette.windowText.hsvValue<mySysPalette.window.hsvValue) ? Material.Light : Material.Dark
-                property bool selected: true
+                property bool selected: false
                 onClicked: {
                     syncCommandsButton.selected = false
                     advancedCommandsButton.selected = false
@@ -441,7 +440,7 @@ Rectangle {
                 Layout.fillHeight: true
                 text: qsTr("Ranger")
                 Material.theme : !(mySysPalette.windowText.hsvValue<mySysPalette.window.hsvValue) ? Material.Light : Material.Dark
-                property bool selected: true
+                property bool selected: false
                 onClicked: {
                     syncCommandsButton.selected = false
                     advancedCommandsButton.selected = false
