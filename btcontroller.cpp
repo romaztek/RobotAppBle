@@ -12,10 +12,10 @@ BtController::~BtController()
     if(m_deviceDiscoveryAgent)
         m_deviceDiscoveryAgent->stop();
 
-    foreach(ServiceAndController sc, servicesAndController) {
-        if (sc.m_control->state() != QLowEnergyController::UnconnectedState) {
-            sc.m_control->disconnectFromDevice();
-            sc.m_control->deleteLater();
+    foreach(ServiceAndController *sc, servicesAndController) {
+        if (sc->m_control->state() != QLowEnergyController::UnconnectedState) {
+            sc->m_control->disconnectFromDevice();
+            sc->m_control->deleteLater();
         }
     }
 }
@@ -23,7 +23,7 @@ BtController::~BtController()
 void BtController::init()
 {
     m_deviceDiscoveryAgent = new QBluetoothDeviceDiscoveryAgent(this);
-    m_deviceDiscoveryAgent->setLowEnergyDiscoveryTimeout(15000);
+    m_deviceDiscoveryAgent->setLowEnergyDiscoveryTimeout(20000);
 
     connect(m_deviceDiscoveryAgent,SIGNAL(deviceDiscovered(QBluetoothDeviceInfo)), this,
             SLOT(addDevice(QBluetoothDeviceInfo)));
@@ -37,8 +37,8 @@ void BtController::init()
             sendMessageToKukla(QString("^") + prevDalnomerValue, QString("Puppet1"));
 
         for(int index = 0; index < servicesAndController.count(); index++) {
-            if(servicesAndController[index].m_service != nullptr) {
-                servicesAndController[index].m_service->readCharacteristic(servicesAndController[index].m_readCharacteristic);
+            if(servicesAndController[index]->m_service != nullptr) {
+                servicesAndController[index]->m_service->readCharacteristic(servicesAndController[index]->m_readCharacteristic);
             }
         }
     });
@@ -70,16 +70,16 @@ void BtController::connectToDevices(QList<QString> addresses, QList<QString> nam
     connect(this, &BtController::deviceConnected, [this](QString address, QString name) {
         qDebug().noquote() << "connected device address:" << address << "name: " << name;
         this->connected_count++;
-        if(connected_count == connected_count_desired) {
+        if(this->connected_count == connected_count_desired) {
             emit fullyConnected();
         }
     });
 
     for(int i = 0; i < addresses.count(); i++) {
         qDebug().noquote() << "trying to connect to:" << names[i];
-        ServiceAndController newsc;
-        newsc.name = names[i];
-        newsc.address = addresses[i];
+        ServiceAndController *newsc = new ServiceAndController();
+        newsc->name = names[i];
+        newsc->address = addresses[i];
 
         servicesAndController.append(newsc);
 
@@ -98,8 +98,8 @@ void BtController::createCtl(QBluetoothDeviceInfo info, QString address, QString
     sppServicesFoundList.insert(address, false);
 
     foreach(auto sc, servicesAndController) {
-        if(sc.address == address)
-            sc.m_control = m_control;
+        if(sc->address == address)
+            sc->m_control = m_control;
     }
 
     connect(m_control, &QLowEnergyController::serviceDiscovered,
@@ -142,10 +142,10 @@ void BtController::sendMessageAll(QString text)
     QByteArray array = (text).toLocal8Bit();
 
     for(int index = 0; index < servicesAndController.count(); index++) {
-        if(servicesAndController[index].m_service != nullptr) {
-            servicesAndController[index].m_service->writeCharacteristic(servicesAndController[index].m_writeCharacteristic[0],
+        if(servicesAndController[index]->m_service != nullptr) {
+            servicesAndController[index]->m_service->writeCharacteristic(servicesAndController[index]->m_writeCharacteristic[0],
                     array,
-                    servicesAndController[index].m_writeMode);
+                    servicesAndController[index]->m_writeMode);
         }
     }
 
@@ -176,14 +176,14 @@ void BtController::sendMessage(QString text, const QList<QString> &addressesArra
 
     foreach(auto address, addressesArray) {
         foreach(auto sc, servicesAndController) {
-            if(sc.address == address) {
-                qDebug().noquote() << "send to:" << address << ": (" << sc.name << ") :" << text;
+            if(sc->address == address) {
+                qDebug().noquote() << "send to:" << address << ": (" << sc->name << ") :" << text;
                 QByteArray text_array = text.toLocal8Bit();
 
-                if(sc.m_service != nullptr) {
-                    sc.m_service->writeCharacteristic(sc.m_writeCharacteristic[0],
+                if(sc->m_service != nullptr) {
+                    sc->m_service->writeCharacteristic(sc->m_writeCharacteristic[0],
                             text_array,
-                            sc.m_writeMode);
+                            sc->m_writeMode);
                 }
             }
         }
@@ -198,7 +198,7 @@ void BtController::sendMessageToKukla(QString text, const QString btName)
     int index = -1;
 
     for(int i = 0; i < servicesAndController.size(); i++) {
-        if(servicesAndController.at(i).name == btName)
+        if(servicesAndController.at(i)->name == btName)
             index = i;
     }
 
@@ -206,10 +206,10 @@ void BtController::sendMessageToKukla(QString text, const QString btName)
 
     QByteArray text_array = text.toLocal8Bit();
 
-    if(servicesAndController[index].m_service != nullptr) {
-        servicesAndController[index].m_service->writeCharacteristic(servicesAndController[index].m_writeCharacteristic[0],
+    if(servicesAndController[index]->m_service != nullptr) {
+        servicesAndController[index]->m_service->writeCharacteristic(servicesAndController[index]->m_writeCharacteristic[0],
                 text_array,
-                servicesAndController[index].m_writeMode);
+                servicesAndController[index]->m_writeMode);
     }
 
     qDebug().noquote() << text;
@@ -276,15 +276,16 @@ void BtController::serviceDiscovered(const QBluetoothUuid &gatt, QString address
     if (gatt == QBluetoothUuid(bt_gatt)) {
         qDebug().noquote() << "found serial port:" << gatt.toString();
 
-        foreach(auto sc, servicesAndController) {
-            if(sc.address == address) {
-                sc.m_service = sc.m_control->createServiceObject(QBluetoothUuid(bt_gatt), this);
+        foreach(ServiceAndController *sc, servicesAndController) {
+            if(sc->address == address) {
+                sc->m_service = sc->m_control->createServiceObject(QBluetoothUuid(bt_gatt), nullptr);
 
-                if(sc.m_service != nullptr) {
-                    connect(sc.m_service , &QLowEnergyService::stateChanged, [this, address, name](QLowEnergyService::ServiceState s){
+                if(sc->m_service != nullptr) {
+                    qDebug().noquote() << "FOUND YES";
+                    connect(sc->m_service , &QLowEnergyService::stateChanged, [this, address, name](QLowEnergyService::ServiceState s){
                         serviceStateChanged(s, address, name);
                     });
-                    sc.m_service->discoverDetails();
+                    sc->m_service->discoverDetails();
 
                     sppServicesFoundList[address] = true;
                 } else {
@@ -307,6 +308,7 @@ void BtController::serviceScanDone(QString address, QString name)
 
 void BtController::serviceStateChanged(QLowEnergyService::ServiceState s, QString address, QString name)
 {
+    return;
     switch (s) {
     case QLowEnergyService::DiscoveringServices:
         qDebug().noquote() << (tr("Discovering services..."));
@@ -318,8 +320,8 @@ void BtController::serviceStateChanged(QLowEnergyService::ServiceState s, QStrin
         ServiceAndController *thisSc;
 
         foreach(auto sc, servicesAndController) {
-            if(sc.address == address) {
-                thisSc = &sc;
+            if(sc->address == address) {
+                thisSc = sc;
             }
         }
 
@@ -342,11 +344,11 @@ void BtController::serviceStateChanged(QLowEnergyService::ServiceState s, QStrin
             connect(thisSc->m_service, &QLowEnergyService::characteristicRead,
                     this, &BtController::readValueFromService);
 
-            readMessagesTimer.start();
+//            readMessagesTimer.start();
 
-            QList<QString> new_addr = {address};
+//            QList<QString> new_addr = {address};
 
-            sendMessage(bt_commands.connectedCommand(), new_addr);
+//            sendMessage(bt_commands.connectedCommand(), new_addr);
 
             emit deviceConnected(address, name);
         }

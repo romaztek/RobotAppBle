@@ -58,7 +58,7 @@ private:
     QBluetoothDeviceDiscoveryAgent *m_deviceDiscoveryAgent;
     QList<QBluetoothDeviceInfo> deviceInfos;
 
-    QList<ServiceAndController> servicesAndController;
+    QList<ServiceAndController*> servicesAndController;
 
     QMap<QString, bool> sppServicesFoundList;   // address, found
 
