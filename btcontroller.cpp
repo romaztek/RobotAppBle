@@ -31,17 +31,17 @@ void BtController::init()
 
     m_deviceDiscoveryAgent->start(QBluetoothDeviceDiscoveryAgent::LowEnergyMethod);
 
-    readMessagesTimer.setInterval(250);
-    connect(&readMessagesTimer, &QTimer::timeout, this, [=]() {
-        if(dalnomerState)
-            sendMessageToKukla(QString("^") + prevDalnomerValue, QString("Puppet1"));
+//    readMessagesTimer.setInterval(250);
+//    connect(&readMessagesTimer, &QTimer::timeout, this, [=]() {
+//        if(dalnomerState)
+//            sendMessageToKukla(QString("^") + prevDalnomerValue, QString("Puppet1"));
 
-        for(int index = 0; index < servicesAndController.count(); index++) {
-            if(servicesAndController[index].m_service != nullptr) {
-                servicesAndController[index].m_service->readCharacteristic(servicesAndController[index].m_readCharacteristic);
-            }
-        }
-    });
+//        for(int index = 0; index < servicesAndController.count(); index++) {
+//            if(servicesAndController[index].m_service != nullptr) {
+//                servicesAndController[index].m_service->readCharacteristic(servicesAndController[index].m_readCharacteristic);
+//            }
+//        }
+//    });
 }
 
 QVariant BtController::getDevices()
@@ -142,6 +142,7 @@ void BtController::setDalnomerState(bool state)
 
 void BtController::sendMessage(QString text, const QList<int> &array)
 {
+    qDebug().noquote() << "trying to send:" << text;
     if(servicesAndController.count() == 0) {
         return;
     }
@@ -308,7 +309,7 @@ void BtController::serviceStateChanged(QLowEnergyService::ServiceState s, int in
             connect(servicesAndController[index].m_service, &QLowEnergyService::characteristicRead,
                     this, &BtController::readValueFromService);
 
-            readMessagesTimer.start();
+//            readMessagesTimer.start();
 
             QList<int> new_index = {index};
 

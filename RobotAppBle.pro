@@ -42,6 +42,7 @@ DISTFILES += qml/main.qml \
              qml/ConnectWindow.qml \
              qml/ControlWindow.qml \
              qml/CommandButton.qml \
+             qml/DalnomerWindow.qml \
              qml/FaceImageSelectorWindow \
              qml/MoveButton.qml \
              qml/MyIconButton.qml \
@@ -62,7 +63,9 @@ SOURCES = qml/main.qml \
           qml/MyIconLabel.qml \
           qml/MyIconRadioButtonLabel.qml \
           qml/ServoControlWindow.qml \
-          qml/ManualDriveWindow.qml
+          qml/ManualDriveWindow.qml \
+          qml/DalnomerWindow.qml\
+          qml/StagesWindow.qml
 }
 
 win32:RC_ICONS += $$PWD/icon.ico

@@ -9,6 +9,9 @@
 #include <SharpIR.h>
 #include <L298N.h>
 
+#include "bt_commands.cpp"
+#include "rus_font.h"
+
 //==== MILLISTIMER MACRO ====
 #define EVERY_MS(x)                  \
   static uint32_t tmr;               \
@@ -59,10 +62,17 @@ uint8_t power2 = 105;
 uint8_t led = 1;
 uint8_t mode2_flag = 1;
 
-bool gav_gav_flag = true;
-bool no_no_flag = true;
-bool yes_yes_flag = true;
-unsigned long gav_gav_timeout = 0;
+// bool gav_gav_flag = true;
+// bool no_no_flag = true;
+// bool yes_yes_flag = true;
+// unsigned long gav_gav_timeout = 0;
+
+bool stage_1 = false;
+bool stage_2 = false;
+bool stage_3 = false;
+bool stage_4 = false;
+bool stage_5 = false;
+bool stage_6 = false;
 
 namespace ChockerEnums
 {
@@ -206,7 +216,7 @@ void bt_reader()
       rpi_msg_flag = 1;
   }
 
-  distanceF = runMiddleArifmOptim(sensorF.getDistance());
+  // distanceF = runMiddleArifmOptim(sensorF.getDistance());
   // distanceL = runMiddleArifmOptim(sensorL.getDistance());
   // distanceR = runMiddleArifmOptim(sensorR.getDistance());
 
@@ -214,16 +224,16 @@ void bt_reader()
   // distanceL = sensorL.getDistance();
   // distanceR = sensorR.getDistance();
 
-  Serial.println("front" + String(distanceF));
+  // Serial.println("front" + String(distanceF));
   // Serial.println("left" + String(distanceL));
   // Serial.println("right" + String(distanceR));
 
-  if(distanceF > 99) {
-    Serial3.print("F"+String(distanceF));
-  } else {
-    Serial3.print("F0"+String(distanceF));
-    gav_gav_flag = true;
-  }
+  // if(distanceF > 99) {
+  //   Serial3.print("F"+String(distanceF));
+  // } else {
+  //   Serial3.print("F0"+String(distanceF));
+  //   gav_gav_flag = true;
+  // }
   // if(distanceL < 10) {
   //   Serial3.print("L0"+String(distanceL));
   // } else {
@@ -268,15 +278,54 @@ void draw_lcd(unsigned char *bits)
     u8g.drawBox(0, 0, 128, 64);
     u8g.setColorIndex(0);
     u8g.drawXBMP(0, 0, lcd_width, lcd_height, bits);
-    
-    u8g.setColorIndex(0);
-    u8g.drawBox(0, 0, 25, 10);
+  } while (u8g.nextPage());
+  delay(100);
+}
 
-    u8g.setFont(u8g_font_unifont);
-    u8g.setPrintPos(0, 10);
+void draw_stages()
+{
+  u8g.firstPage();
+  do
+  {
+    // u8g.setColorIndex(1);
+    // u8g.drawBox(0, 0, 128, 64);
+
     u8g.setColorIndex(1);
+    u8g.setFont(rus6x12);
 
-    u8g.print(distanceF);
+    int p_y = 7;
+
+    u8g.setPrintPos(2, p_y);
+    u8g.print("1 Перехват радио");
+    u8g.print((stage_1 ? "    V" : "    X"));
+    p_y += 11;
+
+    u8g.setPrintPos(2, p_y);
+    u8g.print(" 2 Танк подбит");
+    u8g.print((stage_2 ? "      V" : "      X"));
+    p_y += 11;
+
+    u8g.setPrintPos(2, p_y);
+    u8g.print("  3 Лабиринт 1");
+    u8g.print((stage_3 ? "      V" : "      X"));
+    p_y += 11;
+
+    u8g.setPrintPos(2, p_y);
+    u8g.print("   4 Лабиринт 2");
+    u8g.print((stage_4 ? "     V" : "     X"));
+    p_y += 11;
+
+    u8g.setPrintPos(2, p_y);
+    u8g.print("    5 Шлагбаум");
+    u8g.print((stage_5 ? "      V" : "      X"));
+    p_y += 11;
+
+    u8g.setPrintPos(2, p_y);
+    u8g.print("      6 Финиш");
+    u8g.print((stage_6 ? "       V" : "       X"));
+
+    // u8g.setColorIndex(0);
+    // u8g.drawXBMP(0, 0, lcd_width, lcd_height, bits);
   } while (u8g.nextPage());
   delay(100);
 }
@@ -358,7 +407,9 @@ void setup()
 
   init_servo();
 
-  draw_lcd(face_1_bits);
+  draw_stages();
+
+  // draw_lcd(face_1_bits);
 
   init_rpi();
 
@@ -378,19 +429,21 @@ void loop()
   
   // draw_lcd(face_2_bits);
 
-  if (millis() - gav_gav_timeout > 1000){ // Вместо 10000 подставьте нужное вам значение паузы 
-    gav_gav_timeout = millis(); 
-    // gav_gav_flag = true;
-    no_no_flag = true;
-    yes_yes_flag = true;
- }
+//   if (millis() - gav_gav_timeout > 1000){ // Вместо 10000 подставьте нужное вам значение паузы 
+//     gav_gav_timeout = millis(); 
+//     // gav_gav_flag = true;
+//     no_no_flag = true;
+//     yes_yes_flag = true;
+//  }
 
- if(gav_gav_flag) {
-    myDFPlayer.volume(20);
-    myDFPlayer.play(4);
-    gav_gav_flag = false;
-    // myDFPlayer.volume(10);
-  }
+//  if(gav_gav_flag) {
+//     myDFPlayer.volume(20);
+//     myDFPlayer.play(4);
+//     gav_gav_flag = false;
+//     // myDFPlayer.volume(10);
+//   }
+
+  bool stages_updated = false;
 
   if (bt_msg_flag)
   {
@@ -435,32 +488,32 @@ void loop()
       break;
 
     // Choker
-    case 'z':
-      change_chocker_anim(ChockerEnums::Mode1);
-      break;
-    case 'x':
-      change_chocker_anim(ChockerEnums::Mode2);
-      break;
-    case 'c':
-      change_chocker_anim(ChockerEnums::Mode3);
-      break;
+    // case 'z':
+    //   change_chocker_anim(ChockerEnums::Mode1);
+    //   break;
+    // case 'x':
+    //   change_chocker_anim(ChockerEnums::Mode2);
+    //   break;
+    // case 'c':
+    //   change_chocker_anim(ChockerEnums::Mode3);
+    //   break;
 
     // Player
-    case 'v':
-      myDFPlayer.volume(0);
-      break;
-    case 'b':
-      myDFPlayer.volume(5);
-      break;
-    case 'n':
-      myDFPlayer.volume(10);
-      break;
-    case 'm':
-      myDFPlayer.volume(15);
-      break;
-    case '<':
-      myDFPlayer.volume(20);
-      break;
+    // case 'v':
+    //   myDFPlayer.volume(0);
+    //   break;
+    // case 'b':
+    //   myDFPlayer.volume(5);
+    //   break;
+    // case 'n':
+    //   myDFPlayer.volume(10);
+    //   break;
+    // case 'm':
+    //   myDFPlayer.volume(15);
+    //   break;
+    // case '<':
+    //   myDFPlayer.volume(20);
+    //   break;
     case '!':
       myDFPlayer.play(1);
       break;
@@ -476,13 +529,13 @@ void loop()
 
     // LCD
     case 'o':
-      draw_lcd(face_1_bits);
+      // draw_lcd(face_1_bits);
       break;
     case 'p':
-      draw_lcd(face_2_bits);
+      // draw_lcd(face_2_bits);
       break;
     case 'a':
-      draw_lcd(face_3_bits);
+      // draw_lcd(face_3_bits);
       break;
 
     // Racing
@@ -510,12 +563,33 @@ void loop()
       motor_left.forward();
       motor_right.stop();
       break;
+    
+    case stage1CommandOn:
+      stage_1 = true;
+      stages_updated = true;
+      break;
+    case stage1CommandOff:
+      stage_1 = false;
+      stages_updated = true;
+      break;
+    case stage2CommandOn:
+      stage_2 = true;
+      stages_updated = true;
+      break;
+    case stage2CommandOff:
+      stage_2 = false;
+      stages_updated = true;
+      break;
 
     default:
       break;
     }
 
     bt_msg_flag = 0;
+  }
+
+  if(stages_updated) {
+    draw_stages();
   }
 
   if (rpi_msg_flag)
@@ -527,45 +601,46 @@ void loop()
     {
     case 'o':
       Serial3.print("O");
-      if(gav_gav_flag) {
-        myDFPlayer.volume(20);
-        myDFPlayer.play(4);
-        gav_gav_flag = false;
-        // myDFPlayer.volume(10);
-      }
+      // if(gav_gav_flag) {
+      //   myDFPlayer.volume(20);
+      //   myDFPlayer.play(4);
+      //   gav_gav_flag = false;
+      //   // myDFPlayer.volume(10);
+      // }
       break;
     case 'g':
       Serial3.print("G");
-      if(no_no_flag){
-        servo2.attach(SERVO2);
-        servo2.write(SERVO_DEFAULT-20);
-        delay(250);
-        // servo2.write(90);
-        // delay(250);
-        servo2.write(SERVO_DEFAULT+20);
-        delay(250);
-        servo2.write(SERVO_DEFAULT);
-        delay(250);
-        servo2.detach();
-        no_no_flag = false;
-      }
+      // if(no_no_flag){
+      //   servo2.attach(SERVO2);
+      //   servo2.write(SERVO_DEFAULT-20);
+      //   delay(250);
+      //   // servo2.write(90);
+      //   // delay(250);
+      //   servo2.write(SERVO_DEFAULT+20);
+      //   delay(250);
+      //   servo2.write(SERVO_DEFAULT);
+      //   delay(250);
+      //   servo2.detach();
+      //   no_no_flag = false;
+      // }
       break;
     case 'b':
       Serial3.print("B");
-      if(yes_yes_flag){
-        servo1.attach(SERVO1);
-        servo1.write(SERVO_DEFAULT-20);
-        delay(250);
-        // servo2.write(90);
-        // delay(250);
-        servo1.write(SERVO_DEFAULT+20);
-        delay(250);
-        servo1.write(SERVO_DEFAULT);
-        delay(250);
-        servo1.detach();
-        yes_yes_flag = false;
-      }
+      // if(yes_yes_flag){
+      //   servo1.attach(SERVO1);
+      //   servo1.write(SERVO_DEFAULT-20);
+      //   delay(250);
+      //   // servo2.write(90);
+      //   // delay(250);
+      //   servo1.write(SERVO_DEFAULT+20);
+      //   delay(250);
+      //   servo1.write(SERVO_DEFAULT);
+      //   delay(250);
+      //   servo1.detach();
+      //   yes_yes_flag = false;
+      // }
       break;
+
     default:
       break;
     }

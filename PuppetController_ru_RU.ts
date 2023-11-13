@@ -68,58 +68,78 @@
 <context>
     <name>ControlWindow</name>
     <message>
-        <location filename="qml/ControlWindow.qml" line="273"/>
         <source>Dalnomer: </source>
-        <translation>Дальномер:</translation>
+        <translation type="vanished">Дальномер:</translation>
     </message>
     <message>
-        <location filename="qml/ControlWindow.qml" line="273"/>
         <source>ON</source>
-        <translation>ВКЛ</translation>
+        <translation type="vanished">ВКЛ</translation>
     </message>
     <message>
-        <location filename="qml/ControlWindow.qml" line="273"/>
         <source>OFF</source>
-        <translation>ВЫКЛ</translation>
+        <translation type="vanished">ВЫКЛ</translation>
     </message>
     <message>
-        <location filename="qml/ControlWindow.qml" line="342"/>
+        <location filename="qml/ControlWindow.qml" line="272"/>
         <source>Servo movement</source>
         <translation>Движение</translation>
     </message>
     <message>
-        <location filename="qml/ControlWindow.qml" line="373"/>
+        <location filename="qml/ControlWindow.qml" line="305"/>
         <source>Advanced</source>
         <translation>Распознавание</translation>
     </message>
     <message>
-        <location filename="qml/ControlWindow.qml" line="404"/>
+        <location filename="qml/ControlWindow.qml" line="338"/>
         <source>Manual drive</source>
         <translation>Передвижение</translation>
     </message>
     <message>
-        <location filename="qml/ControlWindow.qml" line="435"/>
+        <location filename="qml/ControlWindow.qml" line="371"/>
         <source>Face image</source>
         <translation>Лицо</translation>
     </message>
     <message>
-        <location filename="qml/ControlWindow.qml" line="466"/>
+        <location filename="qml/ControlWindow.qml" line="404"/>
         <source>Manual audio</source>
         <translation>Аудио</translation>
     </message>
     <message>
-        <location filename="qml/ControlWindow.qml" line="497"/>
+        <location filename="qml/ControlWindow.qml" line="437"/>
         <source>Choker</source>
         <translation>Ошейник</translation>
     </message>
     <message>
-        <location filename="qml/ControlWindow.qml" line="528"/>
+        <location filename="qml/ControlWindow.qml" line="470"/>
         <source>Ranger</source>
         <translation>Дальномер</translation>
     </message>
     <message>
+        <location filename="qml/ControlWindow.qml" line="503"/>
+        <source>Stages</source>
+        <translation>Этапы</translation>
+    </message>
+    <message>
         <source>Camera view</source>
         <translation type="vanished">Камера</translation>
+    </message>
+</context>
+<context>
+    <name>DalnomerWindow</name>
+    <message>
+        <location filename="qml/DalnomerWindow.qml" line="40"/>
+        <source>Dalnomer: </source>
+        <translation>Дальномер:</translation>
+    </message>
+    <message>
+        <location filename="qml/DalnomerWindow.qml" line="40"/>
+        <source>ON</source>
+        <translation>ВКЛ</translation>
+    </message>
+    <message>
+        <location filename="qml/DalnomerWindow.qml" line="40"/>
+        <source>OFF</source>
+        <translation>ВЫКЛ</translation>
     </message>
 </context>
 <context>
@@ -271,6 +291,22 @@
         <location filename="qml/ServoControlWindow.qml" line="187"/>
         <source>Bye</source>
         <translation>Прощание</translation>
+    </message>
+</context>
+<context>
+    <name>StagesWindow</name>
+    <message>
+        <location filename="qml/StagesWindow.qml" line="13"/>
+        <source>Stages</source>
+        <translation>Этапы</translation>
+    </message>
+    <message>
+        <location filename="qml/StagesWindow.qml" line="19"/>
+        <location filename="qml/StagesWindow.qml" line="30"/>
+        <location filename="qml/StagesWindow.qml" line="41"/>
+        <location filename="qml/StagesWindow.qml" line="52"/>
+        <source>Stage</source>
+        <translation>Этап</translation>
     </message>
 </context>
 <context>

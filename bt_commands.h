@@ -50,6 +50,20 @@ public:
     Q_INVOKABLE QString audio2Command() { return  QStringLiteral(u"@"); }
     Q_INVOKABLE QString audio3Command() { return  QStringLiteral(u"#"); }
 
+    Q_INVOKABLE QString stage1CommandOn() { return  QStringLiteral(u"d"); }
+    Q_INVOKABLE QString stage2CommandOn() { return  QStringLiteral(u"f"); }
+    Q_INVOKABLE QString stage3CommandOn() { return  QStringLiteral(u"g"); }
+    Q_INVOKABLE QString stage4CommandOn() { return  QStringLiteral(u"h"); }
+    Q_INVOKABLE QString stage5CommandOn() { return  QStringLiteral(u"j"); }
+    Q_INVOKABLE QString stage6CommandOn() { return  QStringLiteral(u"k"); }
+
+    Q_INVOKABLE QString stage1CommandOff() { return  QStringLiteral(u"l"); }
+    Q_INVOKABLE QString stage2CommandOff() { return  QStringLiteral(u"z"); }
+    Q_INVOKABLE QString stage3CommandOff() { return  QStringLiteral(u"x"); }
+    Q_INVOKABLE QString stage4CommandOff() { return  QStringLiteral(u"c"); }
+    Q_INVOKABLE QString stage5CommandOff() { return  QStringLiteral(u"v"); }
+    Q_INVOKABLE QString stage6CommandOff() { return  QStringLiteral(u"b"); }
+
 
     static void init();
 

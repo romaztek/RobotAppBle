@@ -6,14 +6,14 @@ Item {
     id: scrollView1
     anchors.fill: parent
     clip: true
-    Rectangle {
-        anchors.top: parent.top
-        x: 5
-        width: parent.width - 10
-        height: 2
-        color: "black"
-        z: 10
-    }
+//    Rectangle {
+//        anchors.top: parent.top
+//        x: 5
+//        width: parent.width - 10
+//        height: 2
+//        color: "black"
+//        z: 10
+//    }
     Rectangle {
         anchors.bottom: parent.bottom
         x: 5

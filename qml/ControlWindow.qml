@@ -232,88 +232,18 @@ Rectangle {
             enabled: chokerCommandsButton.selected
         }
 
-        Item {
+        DalnomerWindow {
             anchors.fill: parent
             visible: dalnomerCommandsButton.selected
             enabled: dalnomerCommandsButton.selected
-
-            Connections {
-                target: btController
-                function onDalnomerValuesGot(side, value) {
-
-                    switch (side) {
-                    case "L":
-                        rangeTextLeft.dalnomerValue = value
-                        break
-                    case "F":
-                        rangeTextFront.dalnomerValue = value
-//                        btController.sendMessageAll("L")
-                        break
-                    case "R":
-                        rangeTextRight.dalnomerValue = value
-                        break
-                    default:
-                        break
-                    }
-                }
-            }
-
-            GridLayout {
-                columns: 3
-                rowSpacing: 5
-                columnSpacing: 5
-                anchors.fill: parent
-                anchors.margins: 5
-                Button {
-                    id: dalnomerEnabler
-                    Layout.columnSpan: 3
-                    Layout.preferredHeight: 50
-                    Layout.fillWidth: true
-                    property bool dalnomerEnabled: false
-                    text: qsTr("Dalnomer: ") + (dalnomerEnabled ? qsTr("ON") : qsTr("OFF"))
-                    background:
-                        Rectangle {
-                        implicitWidth: 100
-                        implicitHeight: 40
-                        color: dalnomerEnabler.dalnomerEnabled ? "lime" : "red"
-                        border.width: 1
-                        radius: 4
-                    }
-                    onPressed: {
-                        dalnomerEnabled = !dalnomerEnabled
-                        btController.setDalnomerState(dalnomerEnabled)
-                    }
-                }
-
-                Label {
-                    id: rangeTextLeft
-                    property var dalnomerValue: 0
-                    text: "LEFT\n" + dalnomerValue.toString()
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: 50
-                    horizontalAlignment: Text.AlignHCenter
-                }
-
-                Label {
-                    id: rangeTextFront
-                    property var dalnomerValue: 0
-                    text: "FRONT\n" + dalnomerValue.toString()
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: 50
-                    horizontalAlignment: Text.AlignHCenter
-                }
-
-                Label {
-                    id: rangeTextRight
-                    property var dalnomerValue: 0
-                    text: "RIGHT\n" + dalnomerValue.toString()
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: 50
-                    horizontalAlignment: Text.AlignHCenter
-                }
-            }
-
         }
+
+        StagesWindow {
+            anchors.fill: parent
+            visible: stagesCommandsButton.selected
+            enabled: stagesCommandsButton.selected
+        }
+
     }
 
     Item {
@@ -357,6 +287,7 @@ Rectangle {
                         chokerCommandsButton.selected = false
                         faceImageCommandsButton.selected = false
                         dalnomerCommandsButton.selected = false
+                        stagesCommandsButton.selected = false
                         syncCommandsButton.selected = true
                     }
                 }
@@ -389,6 +320,7 @@ Rectangle {
                         chokerCommandsButton.selected = false
                         faceImageCommandsButton.selected = false
                         dalnomerCommandsButton.selected = false
+                        stagesCommandsButton.selected = false
                         advancedCommandsButton.selected = true
                     }
                 }
@@ -421,6 +353,7 @@ Rectangle {
                         chokerCommandsButton.selected = false
                         faceImageCommandsButton.selected = false
                         dalnomerCommandsButton.selected = false
+                        stagesCommandsButton.selected = false
                         manualDriveCommandsButton.selected = true
                     }
                 }
@@ -453,6 +386,7 @@ Rectangle {
                         manualAudioCommandsButton.selected = false
                         chokerCommandsButton.selected = false
                         dalnomerCommandsButton.selected = false
+                        stagesCommandsButton.selected = false
                         faceImageCommandsButton.selected = true
                     }
                 }
@@ -485,6 +419,7 @@ Rectangle {
                         chokerCommandsButton.selected = false
                         faceImageCommandsButton.selected = false
                         dalnomerCommandsButton.selected = false
+                        stagesCommandsButton.selected = false
                         manualAudioCommandsButton.selected = true
                     }
                 }
@@ -517,6 +452,7 @@ Rectangle {
                         manualAudioCommandsButton.selected = false
                         faceImageCommandsButton.selected = false
                         dalnomerCommandsButton.selected = false
+                        stagesCommandsButton.selected = false
                         chokerCommandsButton.selected = true
                     }
                 }
@@ -549,7 +485,41 @@ Rectangle {
                         manualAudioCommandsButton.selected = false
                         faceImageCommandsButton.selected = false
                         chokerCommandsButton.selected = false
+                        stagesCommandsButton.selected = false
                         dalnomerCommandsButton.selected = true
+                    }
+                }
+            }
+
+            Rectangle {
+                id: stagesCommandsButton
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                border.width: 2
+                radius: 0
+                color: selected ? highlightColor : defaultColor
+                property bool selected: false
+                Label {
+                    text: qsTr("Stages")
+                    elide: Text.ElideLeft
+                    wrapMode: Text.WordWrap
+                    font.pointSize: 12
+                    x: 5
+                    verticalAlignment: Qt.AlignVCenter
+                    height: parent.height
+                    color: parent.selected ? defaultColor : highlightColor
+                }
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        syncCommandsButton.selected = false
+                        advancedCommandsButton.selected = false
+                        manualDriveCommandsButton.selected = false
+                        manualAudioCommandsButton.selected = false
+                        faceImageCommandsButton.selected = false
+                        chokerCommandsButton.selected = false
+                        dalnomerCommandsButton.selected = false
+                        stagesCommandsButton.selected = true
                     }
                 }
             }
