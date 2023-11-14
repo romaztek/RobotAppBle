@@ -81,7 +81,8 @@ namespace ChockerEnums
     Mode1 = 0,
     Mode2 = 1,
     Mode3 = 2,
-    Mode4 = 3
+    Mode4 = 3,
+    Stop = 4
   };
 }
 
@@ -127,13 +128,20 @@ void blink_choker()
 
     break;
   case ChockerEnums::Mode4:
-    digitalWrite(LATCH, 0);
-    shiftOut(SER, CLK, MSBFIRST, led);
-    digitalWrite(LATCH, 1);
-    if (led == 170)
-      led = (led << 1) + 1;
-    else
-      led = 170;
+    for (int i = 0; i < 5; i++)
+    {
+      digitalWrite(LATCH, 0);
+      shiftOut(SER, CLK, MSBFIRST, 1);
+      digitalWrite(LATCH, 1);
+    }
+    break;
+  case ChockerEnums::Stop:
+    for (int i = 0; i < 5; i++)
+    {
+      digitalWrite(LATCH, 0);
+      shiftOut(SER, CLK, MSBFIRST, 0);
+      digitalWrite(LATCH, 1);
+    }
     break;
 
   default:
@@ -161,7 +169,11 @@ void change_chocker_anim(int mode)
     break;
   case ChockerEnums::Mode4:
     Timer3.setPeriod(200000);
-    led = 170;
+    led = 0;
+    break;
+  case ChockerEnums::Stop:
+    Timer3.setPeriod(200000);
+    led = 0;
     break;
   default:
     break;
@@ -425,24 +437,6 @@ void setup()
 
 void loop()
 {
-  //test_motors();
-  
-  // draw_lcd(face_2_bits);
-
-//   if (millis() - gav_gav_timeout > 1000){ // Вместо 10000 подставьте нужное вам значение паузы 
-//     gav_gav_timeout = millis(); 
-//     // gav_gav_flag = true;
-//     no_no_flag = true;
-//     yes_yes_flag = true;
-//  }
-
-//  if(gav_gav_flag) {
-//     myDFPlayer.volume(20);
-//     myDFPlayer.play(4);
-//     gav_gav_flag = false;
-//     // myDFPlayer.volume(10);
-//   }
-
   bool stages_updated = false;
 
   if (bt_msg_flag)
@@ -453,31 +447,31 @@ void loop()
     // Servo
     switch (bt_msg)
     {
-    case '(':
+    case headUpCommand:
       servo1.attach(SERVO1);
       servo1.write(66);
       delay(500);
       servo1.detach();
       break;
-    case ')':
+    case headDownCommand:
       servo1.attach(SERVO1);
       servo1.write(106);
       delay(500);
       servo1.detach();
       break;
-    case '+':
+    case headRightCommand:
       servo2.attach(SERVO2);
       servo2.write(66);
       delay(500);
       servo2.detach();
       break;
-    case '-':
+    case headLeftCommand:
       servo2.attach(SERVO2);
       servo2.write(106);
       delay(500);
       servo2.detach();
       break;
-    case '_':
+    case headDefaultCommand:
       servo1.attach(SERVO1);
       servo2.attach(SERVO2);
       servo1.write(SERVO_DEFAULT);
@@ -488,42 +482,48 @@ void loop()
       break;
 
     // Choker
-    // case 'z':
-    //   change_chocker_anim(ChockerEnums::Mode1);
-    //   break;
-    // case 'x':
-    //   change_chocker_anim(ChockerEnums::Mode2);
-    //   break;
-    // case 'c':
-    //   change_chocker_anim(ChockerEnums::Mode3);
-    //   break;
+    case chocker1Command:
+      change_chocker_anim(ChockerEnums::Mode1);
+      break;
+    case chocker2Command:
+      change_chocker_anim(ChockerEnums::Mode2);
+      break;
+    case chocker3Command:
+      change_chocker_anim(ChockerEnums::Mode3);
+      break;
+    case chocker4Command:
+      change_chocker_anim(ChockerEnums::Mode4);
+      break;
+    case chockerOffCommand:
+      change_chocker_anim(ChockerEnums::Stop);
+      break;
 
     // Player
-    // case 'v':
-    //   myDFPlayer.volume(0);
-    //   break;
-    // case 'b':
-    //   myDFPlayer.volume(5);
-    //   break;
-    // case 'n':
-    //   myDFPlayer.volume(10);
-    //   break;
-    // case 'm':
-    //   myDFPlayer.volume(15);
-    //   break;
-    // case '<':
-    //   myDFPlayer.volume(20);
-    //   break;
-    case '!':
+    case audioVolume1Command:
+      myDFPlayer.volume(0);
+      break;
+    case audioVolume2Command:
+      myDFPlayer.volume(5);
+      break;
+    case audioVolume3Command:
+      myDFPlayer.volume(10);
+      break;
+    case audioVolume4Command:
+      myDFPlayer.volume(15);
+      break;
+    case audioVolume5Command:
+      myDFPlayer.volume(20);
+      break;
+    case audio1Command:
       myDFPlayer.play(1);
       break;
-    case '@':
+    case audio2Command:
       myDFPlayer.play(2);
       break;
-    case '#':
+    case audio3Command:
       myDFPlayer.play(3);
       break;
-    case '%':
+    case audioStopCommand:
       myDFPlayer.stop();
       break;
 
@@ -539,27 +539,27 @@ void loop()
       break;
 
     // Racing
-    case 'q': // ВПЕРЕД
+    case forwardCommand: // ВПЕРЕД
       motor_left.forward();
       motor_right.forward();
       break;
-    case 'e': // СТОП
-    case '9': // СТОП
+    case driveStopCommand: // СТОП
+    case centerCommand: // СТОП
       motor_left.stop();
       motor_right.stop();
       break;
-    case 'w': // НАЗАД
+    case backwardCommand: // НАЗАД
       motor_left.backward();
       motor_right.backward();
       break;
-    case '3': // ВЛЕВО
-    case '4': // ВЛЕВО СИЛЬНО
+    case driveLeftCommandHigh: // ВЛЕВО
+    case driveLeftCommandStrong: // ВЛЕВО СИЛЬНО
       //motor_left.setSpeed(128);
       motor_left.stop();
       motor_right.forward();
       break;
-    case '7': // ВПРАВО
-    case '8': // ВПРАВО СИЛЬНО
+    case driveRightCommandHigh: // ВПРАВО
+    case driveRightCommandStrong: // ВПРАВО СИЛЬНО
       motor_left.forward();
       motor_right.stop();
       break;

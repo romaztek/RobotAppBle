@@ -12,9 +12,8 @@ Item {
         anchors.fill: parent
         ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
         ScrollBar.vertical.policy: ScrollBar.AsNeeded
-        Grid {
+        Column {
             id: checkBoxes
-            columns: 2
             spacing: 5
             anchors.fill: parent
             anchors.margins: 5
@@ -23,11 +22,6 @@ Item {
                 id: stagesLabel
                 text: qsTr("Stages") + ":"
                 x: 5
-            }
-
-            Item {
-                width: stagesLabel.width
-                height: stagesLabel.height
             }
 
             CheckBox {
@@ -127,7 +121,7 @@ Item {
         visible: false
         onAccepted: {
             for(var i = 0; i < checkBoxes.children.length; i++) {
-                if(checkBoxes.children[i].toString().includes("QQuickCheckBox")) {
+                if(checkBoxes.children[i].toString().includes("CheckBox")) {
                     checkBoxes.children[i].checked = false
                 }
             }

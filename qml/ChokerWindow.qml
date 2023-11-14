@@ -33,8 +33,9 @@ Item {
                 onClicked: {
                     chokerButton2.selected = false
                     chokerButton3.selected = false
+                    chokerButton4.selected = false
                     chokerButton1.selected = true
-                    btController.sendMessage("z", current_head)
+                    btController.sendMessage(btCommands.chocker1Command(), current_head)
                 }
             }
         }
@@ -59,8 +60,9 @@ Item {
                 onClicked: {
                     chokerButton1.selected = false
                     chokerButton3.selected = false
+                    chokerButton4.selected = false
                     chokerButton2.selected = true
-                    btController.sendMessage("x", current_head)
+                    btController.sendMessage(btCommands.chocker2Command(), current_head)
                 }
             }
         }
@@ -85,10 +87,68 @@ Item {
                 onClicked: {
                     chokerButton1.selected = false
                     chokerButton2.selected = false
+                    chokerButton4.selected = false
                     chokerButton3.selected = true
-                    btController.sendMessage("c", current_head)
+                    btController.sendMessage(btCommands.chocker3Command(), current_head)
                 }
             }
         }
+        Rectangle {
+            id: chokerButton4
+            Layout.fillWidth: true
+            Layout.preferredHeight: 50
+            border.width: 2
+            radius: 5
+            color: selected ? "lime" : defaultColor
+            property bool selected: false
+            Label {
+                text: qsTr("4")
+                elide: Text.ElideMiddle
+                wrapMode: Text.WordWrap
+                x: 5
+                verticalAlignment: Qt.AlignVCenter
+                height: parent.height
+            }
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    chokerButton1.selected = false
+                    chokerButton2.selected = false
+                    chokerButton3.selected = false
+                    chokerButton4.selected = true
+                    btController.sendMessage(btCommands.chocker4Command(), current_head)
+                }
+            }
+        }
+
+        Rectangle {
+            id: chokerButtonOff
+            Layout.fillWidth: true
+            Layout.preferredHeight: 50
+            border.width: 2
+            radius: 5
+            color: selected ? "lime" : defaultColor
+            property bool selected: false
+            Label {
+                text: qsTr("Stop")
+                elide: Text.ElideMiddle
+                wrapMode: Text.WordWrap
+                x: 5
+                verticalAlignment: Qt.AlignVCenter
+                height: parent.height
+            }
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    chokerButton1.selected = false
+                    chokerButton2.selected = false
+                    chokerButton3.selected = false
+                    chokerButton4.selected = false
+                    btController.sendMessage(btCommands.chockerOffCommand(), current_head)
+                }
+            }
+        }
+
+
     }
 }

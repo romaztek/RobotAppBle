@@ -46,9 +46,22 @@ public:
     Q_INVOKABLE QString faceImage2Command() { return  QStringLiteral(u"p"); }
     Q_INVOKABLE QString faceImage3Command() { return  QStringLiteral(u"a"); }
 
+    Q_INVOKABLE QString chocker1Command() { return  QStringLiteral(u"s"); }
+    Q_INVOKABLE QString chocker2Command() { return  QStringLiteral(u"m"); }
+    Q_INVOKABLE QString chocker3Command() { return  QStringLiteral(u"<"); }
+    Q_INVOKABLE QString chocker4Command() { return  QStringLiteral(u">"); }
+    Q_INVOKABLE QString chockerOffCommand() { return  QStringLiteral(u"."); }
+
     Q_INVOKABLE QString audio1Command() { return  QStringLiteral(u"!"); }
     Q_INVOKABLE QString audio2Command() { return  QStringLiteral(u"@"); }
     Q_INVOKABLE QString audio3Command() { return  QStringLiteral(u"#"); }
+    Q_INVOKABLE QString audioStopCommand() { return  QStringLiteral(u"%"); }
+
+    Q_INVOKABLE QString audioVolume1Command() { return  QStringLiteral(u"="); }
+    Q_INVOKABLE QString audioVolume2Command() { return  QStringLiteral(u"|"); }
+    Q_INVOKABLE QString audioVolume3Command() { return  QStringLiteral(u"/"); }
+    Q_INVOKABLE QString audioVolume4Command() { return  QStringLiteral(u"*"); }
+    Q_INVOKABLE QString audioVolume5Command() { return  QStringLiteral(u","); }
 
     Q_INVOKABLE QString stage1CommandOn() { return  QStringLiteral(u"d"); }
     Q_INVOKABLE QString stage2CommandOn() { return  QStringLiteral(u"f"); }

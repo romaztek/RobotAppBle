@@ -267,14 +267,15 @@ Rectangle {
                 border.width: 2
                 radius: 0
                 color: selected ? highlightColor : defaultColor
-                property bool selected: true
+                property bool selected: false
                 Label {
                     text: qsTr("Servo movement")
-                    elide: Text.ElideLeft
+                    elide: Text.ElideRight
                     wrapMode: Text.WordWrap
                     font.pointSize: 12
                     x: 5
                     verticalAlignment: Qt.AlignVCenter
+                    width: parent.width
                     height: parent.height
                     color: parent.selected ? defaultColor : highlightColor
                 }
@@ -303,11 +304,12 @@ Rectangle {
                 property bool selected: false
                 Label {
                     text: qsTr("Advanced")
-                    elide: Text.ElideLeft
+                    elide: Text.ElideRight
                     wrapMode: Text.WordWrap
                     font.pointSize: 12
                     x: 5
                     verticalAlignment: Qt.AlignVCenter
+                    width: parent.width
                     height: parent.height
                     color: parent.selected ? defaultColor : highlightColor
                 }
@@ -336,11 +338,12 @@ Rectangle {
                 property bool selected: false
                 Label {
                     text: qsTr("Manual drive")
-                    elide: Text.ElideLeft
+                    elide: Text.ElideRight
                     wrapMode: Text.WordWrap
                     font.pointSize: 12
                     x: 5
                     verticalAlignment: Qt.AlignVCenter
+                    width: parent.width
                     height: parent.height
                     color: parent.selected ? defaultColor : highlightColor
                 }
@@ -369,11 +372,12 @@ Rectangle {
                 property bool selected: false
                 Label {
                     text: qsTr("Face image")
-                    elide: Text.ElideLeft
+                    elide: Text.ElideRight
                     wrapMode: Text.WordWrap
                     font.pointSize: 12
                     x: 5
                     verticalAlignment: Qt.AlignVCenter
+                    width: parent.width
                     height: parent.height
                     color: parent.selected ? defaultColor : highlightColor
                 }
@@ -402,11 +406,12 @@ Rectangle {
                 property bool selected: false
                 Label {
                     text: qsTr("Manual audio")
-                    elide: Text.ElideLeft
+                    elide: Text.ElideRight
                     wrapMode: Text.WordWrap
                     font.pointSize: 12
                     x: 5
                     verticalAlignment: Qt.AlignVCenter
+                    width: parent.width
                     height: parent.height
                     color: parent.selected ? defaultColor : highlightColor
                 }
@@ -435,11 +440,12 @@ Rectangle {
                 property bool selected: false
                 Label {
                     text: qsTr("Choker")
-                    elide: Text.ElideLeft
+                    elide: Text.ElideRight
                     wrapMode: Text.WordWrap
                     font.pointSize: 12
                     x: 5
                     verticalAlignment: Qt.AlignVCenter
+                    width: parent.width
                     height: parent.height
                     color: parent.selected ? defaultColor : highlightColor
                 }
@@ -468,11 +474,12 @@ Rectangle {
                 property bool selected: false
                 Label {
                     text: qsTr("Ranger")
-                    elide: Text.ElideLeft
+                    elide: Text.ElideRight
                     wrapMode: Text.WordWrap
                     font.pointSize: 12
                     x: 5
                     verticalAlignment: Qt.AlignVCenter
+                    width: parent.width
                     height: parent.height
                     color: parent.selected ? defaultColor : highlightColor
                 }
@@ -498,14 +505,15 @@ Rectangle {
                 border.width: 2
                 radius: 0
                 color: selected ? highlightColor : defaultColor
-                property bool selected: false
+                property bool selected: true
                 Label {
                     text: qsTr("Stages")
-                    elide: Text.ElideLeft
+                    elide: Text.ElideRight
                     wrapMode: Text.WordWrap
                     font.pointSize: 12
                     x: 5
                     verticalAlignment: Qt.AlignVCenter
+                    width: parent.width
                     height: parent.height
                     color: parent.selected ? defaultColor : highlightColor
                 }

@@ -119,7 +119,7 @@ Item {
                     audioButton1.selected = false
                     audioButton2.selected = false
                     audioButton3.selected = false
-                    btController.sendMessage("%",
+                    btController.sendMessage(btCommands.audioStopCommand(),
                                              current_head)
                 }
             }
@@ -139,19 +139,19 @@ Item {
         onValueChanged: {
             switch (value) {
             case 1:
-                btController.sendMessage("v", current_head)
+                btController.sendMessage(btCommands.audioVolume1Command(), current_head)
                 break
             case 2:
-                btController.sendMessage("b", current_head)
+                btController.sendMessage(btCommands.audioVolume2Command(), current_head)
                 break
             case 3:
-                btController.sendMessage("n", current_head)
+                btController.sendMessage(btCommands.audioVolume3Command(), current_head)
                 break
             case 4:
-                btController.sendMessage("m", current_head)
+                btController.sendMessage(btCommands.audioVolume4Command(), current_head)
                 break
             case 5:
-                btController.sendMessage("<", current_head)
+                btController.sendMessage(btCommands.audioVolume5Command(), current_head)
                 break
             default:
                 break

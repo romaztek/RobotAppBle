@@ -51,6 +51,8 @@ DISTFILES += qml/main.qml \
              qml/ServoControlWindow.qml \
              qml/ManualDriveWindow.qml \
              qml/AudioSelectorWindow.qml \
+             qml/DalnomerWindow.qml \
+             qml/StagesWindow.qml
     qtquickcontrols2.conf
 
 lupdate_only{
@@ -65,7 +67,7 @@ SOURCES = qml/main.qml \
           qml/MyIconRadioButtonLabel.qml \
           qml/ServoControlWindow.qml \
           qml/ManualDriveWindow.qml \
-          qml/DalnomerWindow.qml\
+          qml/DalnomerWindow.qml \
           qml/StagesWindow.qml
 }
 
