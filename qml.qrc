@@ -16,6 +16,7 @@
         <file>qml/ChokerWindow.qml</file>
         <file>qml/DalnomerWindow.qml</file>
         <file>qml/StagesWindow.qml</file>
+        <file>qtquickcontrols2.conf</file>
     </qresource>
     <qresource prefix="/images">
         <file alias="robot_head.png">images/robot_head.png</file>

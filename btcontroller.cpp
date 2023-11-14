@@ -166,8 +166,6 @@ void BtController::sendMessage(QString text, const QList<int> &array)
                     servicesAndController[index].m_writeMode);
         }
     }
-
-    qDebug().noquote() << "ANUS PSA" << text;
 }
 
 void BtController::sendMessageToKukla(QString text, const QString btName)

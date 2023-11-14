@@ -296,17 +296,29 @@
 <context>
     <name>StagesWindow</name>
     <message>
-        <location filename="qml/StagesWindow.qml" line="13"/>
+        <location filename="qml/StagesWindow.qml" line="15"/>
         <source>Stages</source>
         <translation>Этапы</translation>
     </message>
     <message>
-        <location filename="qml/StagesWindow.qml" line="19"/>
-        <location filename="qml/StagesWindow.qml" line="30"/>
-        <location filename="qml/StagesWindow.qml" line="41"/>
-        <location filename="qml/StagesWindow.qml" line="52"/>
+        <location filename="qml/StagesWindow.qml" line="23"/>
+        <location filename="qml/StagesWindow.qml" line="36"/>
+        <location filename="qml/StagesWindow.qml" line="49"/>
+        <location filename="qml/StagesWindow.qml" line="62"/>
+        <location filename="qml/StagesWindow.qml" line="75"/>
+        <location filename="qml/StagesWindow.qml" line="88"/>
         <source>Stage</source>
         <translation>Этап</translation>
+    </message>
+    <message>
+        <location filename="qml/StagesWindow.qml" line="109"/>
+        <source>Reset</source>
+        <translation>Сброс</translation>
+    </message>
+    <message>
+        <location filename="qml/StagesWindow.qml" line="124"/>
+        <source>Stages Reset</source>
+        <translation>Сброс Этапов</translation>
     </message>
 </context>
 <context>

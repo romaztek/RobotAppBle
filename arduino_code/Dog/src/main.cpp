@@ -297,37 +297,37 @@ void draw_stages()
 
     u8g.setPrintPos(2, p_y);
     u8g.print("1 Перехват радио");
-    u8g.print((stage_1 ? "    V" : "    X"));
+    u8g.print((stage_1 ? "    V" : ""));
     p_y += 11;
 
     u8g.setPrintPos(2, p_y);
     u8g.print(" 2 Танк подбит");
-    u8g.print((stage_2 ? "      V" : "      X"));
+    u8g.print((stage_2 ? "      V" : ""));
     p_y += 11;
 
     u8g.setPrintPos(2, p_y);
     u8g.print("  3 Лабиринт 1");
-    u8g.print((stage_3 ? "      V" : "      X"));
+    u8g.print((stage_3 ? "      V" : ""));
     p_y += 11;
 
     u8g.setPrintPos(2, p_y);
     u8g.print("   4 Лабиринт 2");
-    u8g.print((stage_4 ? "     V" : "     X"));
+    u8g.print((stage_4 ? "     V" : ""));
     p_y += 11;
 
     u8g.setPrintPos(2, p_y);
     u8g.print("    5 Шлагбаум");
-    u8g.print((stage_5 ? "      V" : "      X"));
+    u8g.print((stage_5 ? "      V" : ""));
     p_y += 11;
 
     u8g.setPrintPos(2, p_y);
     u8g.print("      6 Финиш");
-    u8g.print((stage_6 ? "       V" : "       X"));
+    u8g.print((stage_6 ? "       V" : ""));
 
     // u8g.setColorIndex(0);
     // u8g.drawXBMP(0, 0, lcd_width, lcd_height, bits);
   } while (u8g.nextPage());
-  delay(100);
+  delay(150);
 }
 
 void init_motors()
@@ -572,12 +572,59 @@ void loop()
       stage_1 = false;
       stages_updated = true;
       break;
+    
     case stage2CommandOn:
       stage_2 = true;
       stages_updated = true;
       break;
     case stage2CommandOff:
       stage_2 = false;
+      stages_updated = true;
+      break;
+
+    case stage3CommandOn:
+      stage_3 = true;
+      stages_updated = true;
+      break;
+    case stage3CommandOff:
+      stage_3 = false;
+      stages_updated = true;
+      break;
+    
+    case stage4CommandOn:
+      stage_4 = true;
+      stages_updated = true;
+      break;
+    case stage4CommandOff:
+      stage_4 = false;
+      stages_updated = true;
+      break;
+    
+    case stage5CommandOn:
+      stage_5 = true;
+      stages_updated = true;
+      break;
+    case stage5CommandOff:
+      stage_5 = false;
+      stages_updated = true;
+      break;
+    
+    case stage6CommandOn:
+      stage_6 = true;
+      stages_updated = true;
+      break;
+    case stage6CommandOff:
+      stage_6 = false;
+      stages_updated = true;
+      break;
+
+    case stageAllCommandOff:
+      stage_1 = false;
+      stage_2 = false;
+      stage_3 = false;
+      stage_4 = false;
+      stage_5 = false;
+      stage_6 = false;
       stages_updated = true;
       break;
 

@@ -64,6 +64,8 @@ public:
     Q_INVOKABLE QString stage5CommandOff() { return  QStringLiteral(u"v"); }
     Q_INVOKABLE QString stage6CommandOff() { return  QStringLiteral(u"b"); }
 
+    Q_INVOKABLE QString stageAllCommandOff() { return  QStringLiteral(u"n"); }
+
 
     static void init();
 

@@ -50,7 +50,8 @@ DISTFILES += qml/main.qml \
              qml/MyIconRadioButtonLabel.qml \
              qml/ServoControlWindow.qml \
              qml/ManualDriveWindow.qml \
-             qml/AudioSelectorWindow.qml
+             qml/AudioSelectorWindow.qml \
+    qtquickcontrols2.conf
 
 lupdate_only{
 SOURCES = qml/main.qml \

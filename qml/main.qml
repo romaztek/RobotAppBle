@@ -2,6 +2,7 @@ import QtQuick 2.7
 import QtQuick.Window 2.2
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
+import QtQuick.Controls.Material 2.2
 
 import ru.romankartashev.logic 1.0
 import ru.romankartashev.bt_commands 1.0
@@ -12,6 +13,8 @@ Window {
     width: 640
     height: 480
     title: qsTr("Puppet Controller - Debug")
+
+    Material.theme: Material.Dark
 
     property bool hasTouchScreen: logic.hasTouchScreen()
 
