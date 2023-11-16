@@ -376,6 +376,50 @@ void greeting() {
     
 }
 
+void shlagbaum_up2() {
+    for(i = RIGHT_SHOULDER_2_DEFAULT; i >= RIGHT_SHOULDER_2_MAX1; i-=4) {
+        MSS.servoWrite(PIN_RIGHT_SHOULDER_2, i+30);
+        delay(15);
+        DELAY_AND_CHECK
+    } 
+    
+}
+
+void shlagbaum_down2() {
+    for(; i <= RIGHT_SHOULDER_2_DEFAULT; i+=4) {
+        MSS.servoWrite(PIN_RIGHT_SHOULDER_2, i+30);
+        delay(15);
+        DELAY_AND_CHECK
+    }
+}
+
+void shlagbaum_up() 
+{
+    for(i = LEFT_SHOULDER_1_DEFAULT, j = RIGHT_SHOULDER_1_DEFAULT; i >= 80; i-=2, j+=2) {
+      MSS.servoWrite(PIN_RIGHT_SHOULDER_1, j);
+      DELAY_AND_CHECK
+    }
+    // поднять кисть
+    // for(i = RIGHT_HAND_2_DEFAULT, j = LEFT_HAND_2_DEFAULT; i <= 110; i+=2, j-=2) {
+    //   MSS.servoWrite(PIN_RIGHT_HAND_2, i);
+    //   DELAY_AND_CHECK
+    // }
+    
+}
+
+void shlagbaum_down() {
+    // опустить кисть
+    // for(i = 110; i >= RIGHT_HAND_2_DEFAULT; i-=2) {
+    //   MSS.servoWrite(PIN_RIGHT_HAND_2, i);
+    //   DELAY_AND_CHECK
+    // }
+
+    for(i = 80, j = RIGHT_SHOULDER_1_DEFAULT; i <= LEFT_SHOULDER_1_DEFAULT; i+=2, j-=2) {
+      MSS.servoWrite(PIN_RIGHT_SHOULDER_1, j);
+      DELAY_AND_CHECK
+    }
+}
+
 void goodb() {    
     for(i = LEFT_SHOULDER_1_DEFAULT, j = RIGHT_SHOULDER_1_DEFAULT; i >= 80; i-=2, j+=2) {
       MSS.servoWrite(PIN_RIGHT_SHOULDER_1, j);

@@ -20,6 +20,8 @@
 #define servoHelloCommand 'y'
 #define servoDanceCommand 'u'
 #define servoByeCommand 'i'
+#define shlagbaumUp 'U'
+#define shlagbaumDown 'D'
 
 #define headUpCommand '('
 #define headDownCommand ')'

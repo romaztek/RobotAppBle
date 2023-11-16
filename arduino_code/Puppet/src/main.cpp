@@ -110,7 +110,7 @@ void setup()
   Timer1.attachInterrupt(blue_interrupt);
 
   // Bt module
-  Serial1.begin(9600);
+  Serial1.begin(38400);
 }
 
 int draw_idx = 0;
@@ -181,7 +181,18 @@ void loop()
 
       goodb();
       break;
+    case shlagbaumUp:
+      Serial.println("shlagbaumUp");
+      servo_flag = true;
 
+      shlagbaum_up2();
+      break;
+    case shlagbaumDown:
+      Serial.println("shlagbaumDown");
+      servo_flag = true;
+
+      shlagbaum_down2();
+      break;
     case faceImage1Command:
       Serial.println("face1");
       draw(0);

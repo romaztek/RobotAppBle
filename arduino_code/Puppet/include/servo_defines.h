@@ -38,6 +38,7 @@ extern volatile bool servo_flag;
 #define RIGHT_SHOULDER_2_MIN 180
 #define RIGHT_SHOULDER_2_DEFAULT 180
 #define RIGHT_SHOULDER_2_MID_MAX 120
+#define RIGHT_SHOULDER_2_MAX1 70
 #define RIGHT_SHOULDER_2_MAX 60
 
 
