@@ -17,7 +17,7 @@ Item {
             Layout.fillWidth: true
             Layout.preferredHeight: 50
             border.width: 2
-            radius: 5
+            radius: itemRadius
             color: selected ? "lime" : defaultColor
             property bool selected: true
             Label {
@@ -44,7 +44,7 @@ Item {
             Layout.fillWidth: true
             Layout.preferredHeight: 50
             border.width: 2
-            radius: 5
+            radius: itemRadius
             color: selected ? "lime" : defaultColor
             property bool selected: false
             Label {
@@ -71,7 +71,7 @@ Item {
             Layout.fillWidth: true
             Layout.preferredHeight: 50
             border.width: 2
-            radius: 5
+            radius: itemRadius
             color: selected ? "lime" : defaultColor
             property bool selected: false
             Label {
@@ -98,7 +98,7 @@ Item {
             Layout.fillWidth: true
             Layout.preferredHeight: 50
             border.width: 2
-            radius: 5
+            radius: itemRadius
             color: selected ? "lime" : defaultColor
             property bool selected: false
             Label {
@@ -126,7 +126,7 @@ Item {
             Layout.fillWidth: true
             Layout.preferredHeight: 50
             border.width: 2
-            radius: 5
+            radius: itemRadius
             color: selected ? "lime" : defaultColor
             property bool selected: false
             Label {

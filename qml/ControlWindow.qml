@@ -69,7 +69,7 @@ Rectangle {
         height: 50
         color: defaultColor
         border.width: 2
-        radius: 0
+        radius: itemRadius
         Item {
             id: headsLayout
             anchors.fill: parent
@@ -83,7 +83,7 @@ Rectangle {
             color: checked ? "lime" : "white"
             border.color: "black"
             border.width: 2
-            radius: 0
+            radius: itemRadius
             width: headText.width + headImage.width + 15
             height: 40
             y: 5
@@ -137,15 +137,6 @@ Rectangle {
 
                 onClicked: {
                     parent.checked = !parent.checked
-                    //                    var this_i
-                    //                    for (var i = 0; i < headsLayout.children.length; i++) {
-                    //                        headsLayout.children[i].checked = false
-                    //                        if (headsLayout.children[i] === parent) {
-                    //                            this_i = i
-                    //                        }
-                    //                    }
-                    //                    current_head = this_i
-                    //                    console.log(current_head)
                 }
             }
         }
@@ -161,7 +152,7 @@ Rectangle {
         height: 50
         color: defaultColor
         border.width: 2
-        radius: 0
+        radius: itemRadius
 
         ServoControlWindow {
             id: servoControlWindow
@@ -265,7 +256,7 @@ Rectangle {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 border.width: 2
-                radius: 0
+                radius: itemRadius
                 color: selected ? highlightColor : defaultColor
                 property bool selected: false
                 Label {
@@ -299,7 +290,7 @@ Rectangle {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 border.width: 2
-                radius: 0
+                radius: itemRadius
                 color: selected ? highlightColor : defaultColor
                 property bool selected: false
                 Label {
@@ -333,7 +324,7 @@ Rectangle {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 border.width: 2
-                radius: 0
+                radius: itemRadius
                 color: selected ? highlightColor : defaultColor
                 property bool selected: false
                 Label {
@@ -367,7 +358,7 @@ Rectangle {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 border.width: 2
-                radius: 0
+                radius: itemRadius
                 color: selected ? highlightColor : defaultColor
                 property bool selected: false
                 Label {
@@ -401,7 +392,7 @@ Rectangle {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 border.width: 2
-                radius: 0
+                radius: itemRadius
                 color: selected ? highlightColor : defaultColor
                 property bool selected: false
                 Label {
@@ -435,7 +426,7 @@ Rectangle {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 border.width: 2
-                radius: 0
+                radius: itemRadius
                 color: selected ? highlightColor : defaultColor
                 property bool selected: false
                 Label {
@@ -469,7 +460,7 @@ Rectangle {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 border.width: 2
-                radius: 0
+                radius: itemRadius
                 color: selected ? highlightColor : defaultColor
                 property bool selected: false
                 Label {
@@ -503,7 +494,7 @@ Rectangle {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 border.width: 2
-                radius: 0
+                radius: itemRadius
                 color: selected ? highlightColor : defaultColor
                 property bool selected: true
                 Label {

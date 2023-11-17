@@ -14,14 +14,14 @@ Item {
 //        color: "black"
 //        z: 10
 //    }
-    Rectangle {
-        anchors.bottom: parent.bottom
-        x: 5
-        width: parent.width - 10
-        height: 2
-        color: "black"
-        z: 10
-    }
+//    Rectangle {
+//        anchors.bottom: parent.bottom
+//        x: 5
+//        width: parent.width - 10
+//        height: 2
+//        color: "black"
+//        z: 10
+//    }
 
     anchors.topMargin: 5
     anchors.bottomMargin: 5

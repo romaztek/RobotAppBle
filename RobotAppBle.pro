@@ -48,6 +48,7 @@ DISTFILES += qml/main.qml \
              qml/MyIconButton.qml \
              qml/MyIconLabel.qml \
              qml/MyIconRadioButtonLabel.qml \
+             qml/MyToolButton.qml \
              qml/ServoControlWindow.qml \
              qml/ManualDriveWindow.qml \
              qml/AudioSelectorWindow.qml \
@@ -68,7 +69,8 @@ SOURCES = qml/main.qml \
           qml/ServoControlWindow.qml \
           qml/ManualDriveWindow.qml \
           qml/DalnomerWindow.qml \
-          qml/StagesWindow.qml
+          qml/StagesWindow.qml \
+          qml/MyToolButton.qml
 }
 
 win32:RC_ICONS += $$PWD/icon.ico

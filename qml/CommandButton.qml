@@ -10,7 +10,7 @@ Rectangle {
     height: 50
     x: 5
     border.width: 2
-    radius: 0
+    radius: itemRadius
     color: selected ? highlightColor : defaultColor
     property alias text: cmdButtonText.text
     property bool selected: false

@@ -8,8 +8,8 @@ Rectangle {
     color: _ma.pressed ? highlightColor : defaultColor
     border.color: "#26282a"
     border.width: 2
-    //radius: height/4
-    radius: 0
+    radius: itemRadius
+//    radius: 0
 
     property alias text: _txt.text
     property alias imageSource: _img.source

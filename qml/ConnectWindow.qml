@@ -89,7 +89,7 @@ Rectangle {
                 color: checked ? "lime" : defaultColor
                 border.color: "black"
                 border.width: 2
-                radius: 5
+                radius: itemRadius
             }
 
             ColumnLayout {

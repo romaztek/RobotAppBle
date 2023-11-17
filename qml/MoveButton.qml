@@ -10,7 +10,8 @@ Rectangle {
     border.width: 2
     border.color: "black"
 
-    radius: 0
+//    radius: 0
+    radius: itemRadius
 
     property alias text: btnText.text
     property alias image: btnImage.source

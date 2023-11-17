@@ -6,7 +6,7 @@ Rectangle {
     id: btn
     border.width: 2
     border.color: "black"
-    radius: height/4
+    radius: itemRadius
     color: labelBackgroundColor
 
     property alias image: btnImage.source

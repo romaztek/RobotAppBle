@@ -6,12 +6,13 @@ import QtQuick.Controls.Material 2.2
 
 Item {
     anchors.fill: parent
-    clip: true
 
     ScrollView {
         anchors.fill: parent
+        anchors.margins: 2
         ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
         ScrollBar.vertical.policy: ScrollBar.AsNeeded
+        clip: true
         Column {
             id: checkBoxes
             spacing: 5
