@@ -27,7 +27,7 @@ Item {
 
             CheckBox {
                 height: 50
-                text: qsTr("Stage") + " 1: " + "Перехват радио"
+                text: qsTr("Stage") + " 1: " + "Танковое наступление"
                 checked: false
                 onCheckedChanged: {
                     if(checked) {
@@ -39,7 +39,7 @@ Item {
             }
             CheckBox {
                 height: 50
-                text: qsTr("Stage") + " 2: " + "Танк подбит"
+                text: qsTr("Stage") + " 2: " + "Вражеский танк обезврежен"
                 checked: false
                 onCheckedChanged: {
                     if(checked) {
@@ -51,7 +51,7 @@ Item {
             }
             CheckBox {
                 height: 50
-                text: qsTr("Stage") + " 3: " + "Лабиринт 1"
+                text: qsTr("Stage") + " 3: " + "Связь установлена"
                 checked: false
                 onCheckedChanged: {
                     if(checked) {
@@ -63,7 +63,7 @@ Item {
             }
             CheckBox {
                 height: 50
-                text: qsTr("Stage") + " 4: " + "Лабиринт 2"
+                text: qsTr("Stage") + " 4: " + "Линия обороны прорвана"
                 checked: false
                 onCheckedChanged: {
                     if(checked) {
@@ -75,7 +75,7 @@ Item {
             }
             CheckBox {
                 height: 50
-                text: qsTr("Stage") + " 5: " + "Шлагбаум"
+                text: qsTr("Stage") + " 5: " + "Город Освобожден"
                 checked: false
                 onCheckedChanged: {
                     if(checked) {
@@ -87,7 +87,7 @@ Item {
             }
             CheckBox {
                 height: 50
-                text: qsTr("Stage") + " 6: " + "Финиш"
+                text: qsTr("Stage") + " 6: " + "Салют"
                 checked: false
                 onCheckedChanged: {
                     if(checked) {

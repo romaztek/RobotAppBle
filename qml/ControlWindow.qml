@@ -149,6 +149,7 @@ Rectangle {
         anchors.top: topBar.bottom
         anchors.bottom: bottomMenu.top
         anchors.margins: 5
+        anchors.bottomMargin: 0
         height: 50
         color: defaultColor
         border.width: 2
