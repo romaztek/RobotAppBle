@@ -52,9 +52,13 @@ public:
     Q_INVOKABLE QString chocker4Command() { return  QStringLiteral(u">"); }
     Q_INVOKABLE QString chockerOffCommand() { return  QStringLiteral(u"."); }
 
-    Q_INVOKABLE QString audio1Command() { return  QStringLiteral(u"!"); }
-    Q_INVOKABLE QString audio2Command() { return  QStringLiteral(u"@"); }
-    Q_INVOKABLE QString audio3Command() { return  QStringLiteral(u"#"); }
+    Q_INVOKABLE QString audio1Command() { return  QStringLiteral(u"Q"); }
+    Q_INVOKABLE QString audio2Command() { return  QStringLiteral(u"W"); }
+    Q_INVOKABLE QString audio3Command() { return  QStringLiteral(u"E"); }
+    Q_INVOKABLE QString audio4Command() { return  QStringLiteral(u"R"); }
+    Q_INVOKABLE QString audio5Command() { return  QStringLiteral(u"T"); }
+    Q_INVOKABLE QString audio6Command() { return  QStringLiteral(u"Y"); }
+
     Q_INVOKABLE QString audioStopCommand() { return  QStringLiteral(u"%"); }
 
     Q_INVOKABLE QString audioVolume1Command() { return  QStringLiteral(u"="); }

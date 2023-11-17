@@ -56,6 +56,42 @@ Item {
                 btController.sendMessage(btCommands.audio3Command(), current_head)
             }
         }
+        MyRadioButton {
+            id: audioButton4
+            Layout.fillWidth: true
+            Layout.preferredHeight: 50
+            buttonGroup: audioButtonsGroup
+
+            text: qsTr("4")
+
+            onClicked: {
+                btController.sendMessage(btCommands.audio4Command(), current_head)
+            }
+        }
+        MyRadioButton {
+            id: audioButton5
+            Layout.fillWidth: true
+            Layout.preferredHeight: 50
+            buttonGroup: audioButtonsGroup
+
+            text: qsTr("5")
+
+            onClicked: {
+                btController.sendMessage(btCommands.audio5Command(), current_head)
+            }
+        }
+        MyRadioButton {
+            id: audioButton6
+            Layout.fillWidth: true
+            Layout.preferredHeight: 50
+            buttonGroup: audioButtonsGroup
+
+            text: qsTr("6")
+
+            onClicked: {
+                btController.sendMessage(btCommands.audio6Command(), current_head)
+            }
+        }
         Rectangle {
             id: audioButtonStop
             Layout.fillWidth: true
@@ -92,7 +128,7 @@ Item {
         width: audioButtonsGrid.width
         anchors.top: audioButtonsGrid.bottom
         anchors.topMargin: 5
-        value: 3
+        value: 5
         from: 1
         to: 5
         stepSize: 1

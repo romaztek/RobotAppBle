@@ -27,7 +27,7 @@ Item {
 
             CheckBox {
                 height: 50
-                text: qsTr("Stage") + " 1: " + "Танковое наступление"
+                text: qsTr("Stage") + " 1: " + "Наступление"
                 checked: false
                 onCheckedChanged: {
                     if(checked) {
@@ -39,7 +39,7 @@ Item {
             }
             CheckBox {
                 height: 50
-                text: qsTr("Stage") + " 2: " + "Вражеский танк обезврежен"
+                text: qsTr("Stage") + " 2: " + "Танк обезврежен"
                 checked: false
                 onCheckedChanged: {
                     if(checked) {
@@ -63,7 +63,7 @@ Item {
             }
             CheckBox {
                 height: 50
-                text: qsTr("Stage") + " 4: " + "Линия обороны прорвана"
+                text: qsTr("Stage") + " 4: " + "Прорыв обороны"
                 checked: false
                 onCheckedChanged: {
                     if(checked) {
@@ -75,7 +75,7 @@ Item {
             }
             CheckBox {
                 height: 50
-                text: qsTr("Stage") + " 5: " + "Город Освобожден"
+                text: qsTr("Stage") + " 5: " + "Город освобожден"
                 checked: false
                 onCheckedChanged: {
                     if(checked) {

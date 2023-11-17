@@ -296,45 +296,49 @@ void draw_lcd(unsigned char *bits)
 
 void draw_stages()
 {
+  const char stage_1_text[] = "1 Наступление";
+  const char stage_2_text[] = "2 Танк обезврежен";
+  const char stage_3_text[] = "3 Связь установлена";
+  const char stage_4_text[] = "4 Прорыв обороны";
+  const char stage_5_text[] = "5 Город освобожден";
+  const char stage_6_text[] = "6 Салют";
+
   u8g.firstPage();
   do
   {
-    // u8g.setColorIndex(1);
-    // u8g.drawBox(0, 0, 128, 64);
-
     u8g.setColorIndex(1);
-    u8g.setFont(rus6x12);
+    u8g.setFont(font);
 
     int p_y = 7;
 
     u8g.setPrintPos(2, p_y);
-    u8g.print("1 Перехват радио");
-    u8g.print((stage_1 ? "    V" : ""));
+    u8g.print(stage_1_text);
+    u8g.print((stage_1 ? "       V" : ""));
     p_y += 11;
 
     u8g.setPrintPos(2, p_y);
-    u8g.print(" 2 Танк подбит");
-    u8g.print((stage_2 ? "      V" : ""));
+    u8g.print(stage_2_text);
+    u8g.print((stage_2 ? "   V" : ""));
     p_y += 11;
 
     u8g.setPrintPos(2, p_y);
-    u8g.print("  3 Лабиринт 1");
-    u8g.print((stage_3 ? "      V" : ""));
+    u8g.print(stage_3_text);
+    u8g.print((stage_3 ? " V" : ""));
     p_y += 11;
 
     u8g.setPrintPos(2, p_y);
-    u8g.print("   4 Лабиринт 2");
-    u8g.print((stage_4 ? "     V" : ""));
+    u8g.print(stage_4_text);
+    u8g.print((stage_4 ? "    V" : ""));
     p_y += 11;
 
     u8g.setPrintPos(2, p_y);
-    u8g.print("    5 Шлагбаум");
-    u8g.print((stage_5 ? "      V" : ""));
+    u8g.print(stage_5_text);
+    u8g.print((stage_5 ? "  V" : ""));
     p_y += 11;
 
     u8g.setPrintPos(2, p_y);
-    u8g.print("      6 Финиш");
-    u8g.print((stage_6 ? "       V" : ""));
+    u8g.print(stage_6_text);
+    u8g.print((stage_6 ? "             V" : ""));
 
     // u8g.setColorIndex(0);
     // u8g.drawXBMP(0, 0, lcd_width, lcd_height, bits);
@@ -410,10 +414,10 @@ void setup()
 
   myDFPlayer.EQ(DFPLAYER_EQ_BASS);
   // myDFPlayer.enableLoopAll();
-  myDFPlayer.volume(15);
+  myDFPlayer.volume(25);
 
   init_chocker();
-  change_chocker_anim(ChockerEnums::Mode2);
+  change_chocker_anim(ChockerEnums::Stop);
 
   init_bt();
 
@@ -423,7 +427,7 @@ void setup()
 
   // draw_lcd(face_1_bits);
 
-  init_rpi();
+  // init_rpi();
 
   init_motors();
   stop_motors();
@@ -506,14 +510,15 @@ void loop()
       myDFPlayer.volume(5);
       break;
     case audioVolume3Command:
-      myDFPlayer.volume(10);
-      break;
-    case audioVolume4Command:
       myDFPlayer.volume(15);
       break;
-    case audioVolume5Command:
-      myDFPlayer.volume(20);
+    case audioVolume4Command:
+      myDFPlayer.volume(25);
       break;
+    case audioVolume5Command:
+      myDFPlayer.volume(30);
+      break;
+    
     case audio1Command:
       myDFPlayer.play(1);
       break;
@@ -521,7 +526,16 @@ void loop()
       myDFPlayer.play(2);
       break;
     case audio3Command:
+      myDFPlayer.play(6);
+      break;
+    case audio4Command:
       myDFPlayer.play(3);
+      break;
+    case audio5Command:
+      myDFPlayer.play(4);
+      break;
+    case audio6Command:
+      myDFPlayer.play(5);
       break;
     case audioStopCommand:
       myDFPlayer.stop();

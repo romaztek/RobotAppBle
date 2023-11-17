@@ -29,9 +29,12 @@ const char forwardCommand = 'q';
 const char backwardCommand = 'w';
 const char driveStopCommand = 'e';
 
-const char audio1Command = '!';
-const char audio2Command = '@';
-const char audio3Command = '#';
+const char audio1Command = 'Q';
+const char audio2Command = 'W';
+const char audio3Command = 'E';
+const char audio4Command = 'R';
+const char audio5Command = 'T';
+const char audio6Command = 'Y';
 
 const char audioStopCommand = '%';
 

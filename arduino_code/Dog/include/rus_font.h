@@ -12,7 +12,7 @@
 
 #include <U8glib.h>
 
-const u8g_fntpgm_uint8_t rus6x12[2041] U8G_FONT_SECTION(".progmem.rus6x12") = {
+const u8g_fntpgm_uint8_t font[2041] U8G_FONT_SECTION(".progmem.rus6x12") = {
   0,6,12,0,254,7,1,152,3,46,32,255,254,10,254,8,
   254,0,0,0,6,5,255,1,7,7,6,2,0,128,128,128,
   128,128,0,128,3,3,3,6,1,5,160,160,160,5,6,6,
