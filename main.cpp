@@ -49,6 +49,19 @@ int main(int argc, char *argv[])
     }
 
     QAndroidJniObject::callStaticMethod<void>("ru/romankartashev/PuppetController/MyActivity", "enableBluetooth");
+
+//    QAndroidJniObject activity = QAndroidJniObject::callStaticObjectMethod("org/qtproject/qt5/android/QtNative", "activity", "()Landroid/app/Activity;");
+//    if ( activity.isValid() )
+//    {
+//        qDebug() << "activity.isValid()";
+//        QAndroidJniObject param = QAndroidJniObject::fromString("android.settings.LOCATION_SOURCE_SETTINGS");
+
+//        if (param.isValid() )
+//        {
+//            QAndroidJniObject intent("android/content/Intent","(Ljava/lang/String;)V", param.object<jstring>());
+//            activity.callObjectMethod("startActivity","(Landroid/content/Intent;)V",intent.object<jobject>());
+//        }
+//    }
 #endif
 
     BtController btController;
