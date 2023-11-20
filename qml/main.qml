@@ -14,6 +14,7 @@ Window {
     height: 480
     title: qsTr("Puppet Controller - Debug")
 
+
     property bool hasTouchScreen: logic.hasTouchScreen()
 
     property color highlightColor: "black"

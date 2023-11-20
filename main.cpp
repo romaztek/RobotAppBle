@@ -3,6 +3,7 @@
 #include <QQmlContext>
 #include <QTranslator>
 #include <QDebug>
+#include <QIcon>
 #include <QLoggingCategory>
 
 #ifdef Q_OS_ANDROID
@@ -22,6 +23,8 @@ int main(int argc, char *argv[])
     QLoggingCategory::setFilterRules(QStringLiteral("qt.bluetooth* = false"));
 
     QGuiApplication app(argc, argv);
+
+    app.setWindowIcon(QIcon(":/icons/app_icon.png"));
 
     // ru.romankartashev.PuppetController
     QCoreApplication::setOrganizationName("romankartashev");
