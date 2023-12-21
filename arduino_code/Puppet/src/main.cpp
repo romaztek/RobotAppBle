@@ -5,6 +5,7 @@
 #include "DFPlayer_Mini_Mp3.h"    // Библиотека для управления mp3-плеером
 #include <U8glib.h>               // Библиотека для управления ЖК-экраном
 #include "rus.h"                  // Русский шрифт для ЖВ-экрана
+#include "rus10x20.h"
 #include "lcd.cpp"
 #include "servo_defines.h"   // Директивы для сервоприводов
 #include "servo_functions.h" // Функции для сервоприводов
@@ -31,8 +32,13 @@ int half_speed = 100;
 
 void blue_interrupt()
 {
-  bt_cmd = Serial1.read();
-
+  if(Serial1.available()){
+    bt_cmd = Serial1.read();
+  }
+  if(Serial3.available()){
+    bt_cmd = Serial3.read();
+  }
+  
   if (bt_cmd == servoStopCommand)
   {
     servo_flag = false;
@@ -84,6 +90,7 @@ void setup()
 
   Serial.begin(9600);
   Serial2.begin(9600);
+
   mp3_set_serial(Serial2);
   delay(1);
   mp3_single_loop(false);
@@ -95,10 +102,8 @@ void setup()
 
   MSS.begin();
   moveToHome();
-
+  
   // flag = true;
-
-  //
 
   // caucas();
 
@@ -111,6 +116,7 @@ void setup()
 
   // Bt module
   Serial1.begin(38400);
+  Serial3.begin(38400);
 }
 
 int draw_idx = 0;
@@ -144,6 +150,20 @@ void draw(int index)
   delay(1000);
 }
 
+void draw_bt_cmd(char symbol)
+{
+  u8g->firstPage();
+  do
+  {
+    u8g->setColorIndex(1);
+    u8g->setFont(rus10x20);
+    u8g->setPrintPos(58, 32);
+    u8g->print(symbol);
+
+  } while (u8g->nextPage());
+  delay(150);
+}
+
 void loop()
 {
 
@@ -152,6 +172,7 @@ void loop()
 
   if (bt_flag)
   {
+    //draw_bt_cmd(bt_cmd);
     Serial.println("get command");
     switch (bt_cmd)
     {
@@ -185,13 +206,13 @@ void loop()
       Serial.println("shlagbaumUp");
       servo_flag = true;
 
-      shlagbaum_up2();
+      shlagbaum_up();
       break;
     case shlagbaumDown:
       Serial.println("shlagbaumDown");
       servo_flag = true;
-
-      shlagbaum_down2();
+      
+      shlagbaum_down();
       break;
     case faceImage1Command:
       Serial.println("face1");
@@ -470,6 +491,7 @@ void loop()
     //     break;
 
     // }
+    bt_cmd = -1;
     bt_flag = false;
   }
 }
